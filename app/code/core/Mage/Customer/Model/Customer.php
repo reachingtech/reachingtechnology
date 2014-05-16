@@ -55,6 +55,8 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     const EXCEPTION_INVALID_EMAIL_OR_PASSWORD = 2;
     const EXCEPTION_EMAIL_EXISTS              = 3;
     const EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN = 4;
+    const EXCEPTION_USERNAME_EXISTS              = 5;
+    const EXCEPTION_MOBILE_EXISTS              = 6;
     /**#@-*/
 
     /**#@+
@@ -818,7 +820,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     public function validate()
     {
         $errors = array();
-        if (!Zend_Validate::is( trim($this->getFirstname()) , 'NotEmpty')) {
+        /*if (!Zend_Validate::is( trim($this->getFirstname()) , 'NotEmpty')) {
             $errors[] = Mage::helper('customer')->__('The first name cannot be empty.');
         }
 
@@ -828,6 +830,14 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
 
         if (!Zend_Validate::is($this->getEmail(), 'EmailAddress')) {
             $errors[] = Mage::helper('customer')->__('Invalid email address "%s".', $this->getEmail());
+        }
+        $entityType = Mage::getSingleton('eav/config')->getEntityType('customer');
+        $attribute = Mage::getModel('customer/attribute')->loadByCode($entityType, 'firstname');
+        if ($attribute->getIsRequired() && '' == trim($this->getFirstname())) {
+            $errors[] = Mage::helper('customer')->__('The first name cannot be empty.');
+        }*/
+        if (!Zend_Validate::is( trim($this->getUsername()) , 'NotEmpty')) {
+            $errors[] = Mage::helper('customer')->__('The user name cannot be empty.');
         }
 
         $password = $this->getPassword();

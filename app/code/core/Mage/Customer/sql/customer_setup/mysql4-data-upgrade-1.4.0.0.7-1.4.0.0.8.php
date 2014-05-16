@@ -270,17 +270,6 @@ $attributes = array(
             'min_text_length'   => 1
         ),
     ),
-    'city'              => array(
-        'is_user_defined'   => 0,
-        'is_system'         => 1,
-        'is_visible'        => 1,
-        'sort_order'        => 80,
-        'is_required'       => 1,
-        'validate_rules'    => array(
-            'max_text_length'   => 255,
-            'min_text_length'   => 1
-        ),
-    ),
     'country_id'        => array(
         'is_user_defined'   => 0,
         'is_system'         => 1,
@@ -302,10 +291,42 @@ $attributes = array(
         'sort_order'        => 100,
         'is_required'       => 0,
     ),
-    'postcode'          => array(
+    'city'              => array(
         'is_user_defined'   => 0,
         'is_system'         => 1,
         'is_visible'        => 1,
+        'sort_order'        => 105,
+        'is_required'       => 0,
+        'validate_rules'    => array(
+            'max_text_length'   => 255,
+            'min_text_length'   => 1
+        ),
+    ),
+    'city_id'         => array(
+        'is_user_defined'   => 0,
+        'is_system'         => 1,
+        'is_visible'        => 1,
+        'sort_order'        => 106,
+        'is_required'       => 0,
+    ),
+    'area'            => array(
+        'is_user_defined'   => 0,
+        'is_system'         => 1,
+        'is_visible'        => 1,
+        'sort_order'        => 107,
+        'is_required'       => 0,
+    ),
+    'area_id'         => array(
+        'is_user_defined'   => 0,
+        'is_system'         => 1,
+        'is_visible'        => 1,
+        'sort_order'        => 108,
+        'is_required'       => 0,
+    ),
+    'postcode'          => array(
+        'is_user_defined'   => 0,
+        'is_system'         => 1,
+        'is_visible'        => 0,
         'sort_order'        => 110,
         'is_required'       => 1,
         'validate_rules'    => array(
@@ -325,7 +346,7 @@ $attributes = array(
     'fax'               => array(
         'is_user_defined'   => 0,
         'is_system'         => 1,
-        'is_visible'        => 1,
+        'is_visible'        => 0,
         'sort_order'        => 130,
         'is_required'       => 0,
         'validate_rules'    => array(

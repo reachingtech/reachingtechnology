@@ -161,6 +161,10 @@
                     <shipping>1</shipping>
                     <street>1</street>
                 </street8>
+                <area>
+                    <billing>1</billing>
+                    <shipping>1</shipping>
+                </area>
                 <city>
                     <billing>1</billing>
                     <shipping>1</shipping>
@@ -204,6 +208,11 @@
                     <update>1</update>
                     <name>1</name>
                 </prefix>
+                <username>
+                    <create>1</create>
+                    <update>1</update>
+                    <name>1</name>
+                </username>
                 <firstname>
                     <create>1</create>
                     <update>1</update>

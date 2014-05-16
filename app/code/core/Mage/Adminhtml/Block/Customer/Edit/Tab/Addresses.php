@@ -134,6 +134,26 @@ class Mage_Adminhtml_Block_Customer_Edit_Tab_Addresses extends Mage_Adminhtml_Bl
         }
         $this->_setFieldset($attributes, $fieldset);
 
+    	$areaElement = $form->getElement('area');
+        if ($areaElement) {
+            $areaElement->setRenderer(Mage::getModel('adminhtml/customer_renderer_area'));
+        }
+
+        $areaElement = $form->getElement('area_id');
+        if ($areaElement) {
+            $areaElement->setNoDisplay(true);
+        }
+        
+    	$cityElement = $form->getElement('city');
+        if ($cityElement) {
+            $cityElement->setRenderer(Mage::getModel('adminhtml/customer_renderer_city'));
+        }
+
+        $cityElement = $form->getElement('city_id');
+        if ($cityElement) {
+            $cityElement->setNoDisplay(true);
+        }
+
         $regionElement = $form->getElement('region');
         if ($regionElement) {
             $isRequired = Mage::helper('directory')->isRegionRequired($addressModel->getCountryId());

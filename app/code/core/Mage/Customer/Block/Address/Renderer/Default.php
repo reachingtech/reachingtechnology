@@ -110,6 +110,10 @@ class Mage_Customer_Block_Address_Renderer_Default
                 $data['country'] = $address->getCountryModel()->getName();
             } else if ($attribute->getAttributeCode() == 'region') {
                 $data['region'] = Mage::helper('directory')->__($address->getRegion());
+            } else if ($attribute->getAttributeCode() == 'city') {
+                $data['city'] = Mage::helper('directory')->__($address->getCity());
+            } else if ($attribute->getAttributeCode() == 'area') {
+                $data['area'] = Mage::helper('directory')->__($address->getArea());
             } else {
                 $dataModel = Mage_Customer_Model_Attribute_Data::factory($attribute, $address);
                 $value     = $dataModel->outputValue($dataFormat);

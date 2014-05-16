@@ -50,10 +50,6 @@
             </address>
             <div class="address-type">
                 <span class="address-type-line">
-                    <input type="radio" <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> value="<?php echo $_address->getId() ?>" id="address_item_billing<?php echo $_address->getId() ?>" name="account[default_billing]" title="<?php echo Mage::helper('customer')->__('Set as Default Billing Address') ?>"<?php if($_address->getId()==$customer->getDefaultBilling()): ?> checked="checked"<?php endif; ?>/>
-                    &nbsp;<label for="address_item_billing<?php echo $_address->getId() ?>"><?php echo Mage::helper('customer')->__('Default Billing Address') ?></label>
-                </span>
-                <span class="address-type-line">
                     <input type="radio"  <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> value="<?php echo $_address->getId() ?>" id="address_item_shipping<?php echo $_address->getId() ?>" name="account[default_shipping]" title="<?php echo Mage::helper('customer')->__('Set as Default Shipping Address') ?>"<?php if($_address->getId()==$customer->getDefaultShipping()): ?> checked="checked"<?php endif; ?>/>
                     &nbsp;<label for="address_item_shipping<?php echo $_address->getId() ?>"><?php echo Mage::helper('customer')->__('Default Shipping Address') ?></label>
                 </span>
@@ -64,6 +60,25 @@
     </ul>
 </td>
 <td>
+<!-- Addresses forms -->
+    <div class="entry-edit" id="address_form_container">
+        <?php if(count($addressCollection)): ?>
+            <?php foreach ($addressCollection as $_address): ?>
+            <div id="form_address_item_<?php echo $_address->getId() ?>" style="display:none">
+            <?php
+                    $this->getFormObject()->setValues($_address->getData())
+                            ->setHtmlIdPrefix("_item{$_address->getId()}")
+                            ->setFieldNameSuffix('address['.$_address->getId().']')
+            ?>
+            <?php echo $this->getFormObject()->getHtml() ?>
+            <input type="hidden" name="address[<?php echo $_address->getId() ?>][_deleted]" id="deleted_address_item_<?php echo $_address->getId() ?>" />
+            </div>
+            <?php endforeach; ?>
+        <?php else: ?>
+            <div id="no_address_message"><?php echo Mage::helper('customer')->__('This customer has no saved addresses.') ?></div>
+        <?php endif; ?>
+    </div>
+
     <!-- Template for adding address item to list -->
     <?php $_templatePrefix = $this->getTemplatePrefix() ?>
     <div id="address_item_template" class="no-display template">
@@ -78,10 +93,6 @@
         <address><?php echo Mage::helper('customer')->__('New Customer Address') ?></address>
         <div class="address-type">
             <span class="address-type-line">
-                <input  <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> type="radio" value="<?php echo $_templatePrefix ?>" id="address_item_billing<?php echo $_templatePrefix ?>" name="account[default_billing]" title="<?php echo Mage::helper('customer')->__('Set as Default Billing Address') ?>"/>
-                &nbsp;<label for="address_item_billing<?php echo $_templatePrefix ?>"><?php echo Mage::helper('customer')->__('Default Billing Address') ?></label>
-            </span>
-            <span class="address-type-line">
                 <input  <?php if ($this->isReadonly()):?> disabled="disabled"<?php endif;?> type="radio" value="<?php echo $_templatePrefix ?>" id="address_item_shipping<?php echo $_templatePrefix ?>" name="account[default_shipping]" title="<?php echo Mage::helper('customer')->__('Set as Default Shipping Address') ?>"/>
                 &nbsp;<label for="address_item_shipping<?php echo $_templatePrefix ?>"><?php echo Mage::helper('customer')->__('Default Shipping Address') ?></label>
             </span>
@@ -93,6 +104,7 @@
     <?php
         // Set form template elements prefix
         $this->getForm()->setHtmlIdPrefix($_templatePrefix)
+                ->setValues(array('country_id' => Mage::helper('core')->getDefaultCountry($customer->getStore())))
                 ->setFieldNameSuffix('address['.$_templatePrefix.']');
     ?>
     <?php echo $this->getForm()->getHtml() ?>
@@ -100,26 +112,6 @@
     </div>
 <!-- -->
 
-<!-- Addresses forms -->
-    <div class="entry-edit" id="address_form_container">
-        <?php if(count($addressCollection)): ?>
-            <?php foreach ($addressCollection as $_address): ?>
-            <div id="form_address_item_<?php echo $_address->getId() ?>" style="display:none">
-            <?php
-                    $this->getForm()->addValues($_address->getData())
-                            ->setHtmlIdPrefix("_item{$_address->getId()}")
-                            ->setFieldNameSuffix('address['.$_address->getId().']');
-                    $this->addValuesToNamePrefixElement($_address->getPrefix())
-                        ->addValuesToNameSuffixElement($_address->getSuffix());
-            ?>
-            <?php echo $this->getForm()->getHtml() ?>
-            <input type="hidden" name="address[<?php echo $_address->getId() ?>][_deleted]" id="deleted_address_item_<?php echo $_address->getId() ?>" />
-            </div>
-            <?php endforeach; ?>
-        <?php else: ?>
-            <div id="no_address_message"><?php echo Mage::helper('customer')->__('This customer has no saved addresses.') ?></div>
-        <?php endif; ?>
-    </div>
 
 <script type="text/javascript">
 //<![CDATA[
@@ -146,8 +138,6 @@ addressesModel.prototype = {
 
         this.loader = new varienLoader(true);
         this.regionsUrl = '<?php echo $this->getRegionsUrl() ?>';
-        this.requiredStateForCountries = <?php echo $this->helper('directory')->getCountriesWithStatesRequired(true) ?>;
-        this.showAllRegions = <?php echo (string)$this->helper('directory')->getShowNonRequiredState() ? 1 : 0; ?>;
 
         this.reloadItemList(1);
 
@@ -164,6 +154,8 @@ addressesModel.prototype = {
         this.setActiveItem(this.itemList[0]);
         this.setAddressAsDefault();
         this.bindCountryRegionRelation();
+        this.bindRegionCityRelation();
+        this.bindCityAreaRelation();
     },
 
     reloadItemList : function(initial){
@@ -335,16 +327,6 @@ addressesModel.prototype = {
             //new Effect.Appear($('form_'+item.id), {duration : 0.3 });
             //$('form_'+item.id).focus();
             this.addFieldChangeObserver($('form_'+item.id));
-            var regionIdElement = $('_item' + item.id.replace(/address_item_/, '') + 'region_id');
-            var regionElement = $('_item' + item.id.replace(/address_item_/, '') + 'region');
-            this.countryEl = $('_item' + item.id.replace(/address_item_/, '') + 'country_id');
-            if (regionIdElement && regionElement) {
-                var actualId = regionElement.id;
-                if (('select' == regionIdElement.tagName.toLowerCase()) && regionIdElement) {
-                    actualId = regionIdElement.id;
-                }
-                this._checkRegionRequired([regionIdElement, regionElement], actualId);
-            }
         }
 
         this.activeItem = item;
@@ -497,7 +479,6 @@ addressesModel.prototype = {
             var regionElement  = $(countryElement.id.replace(/country_id/, 'region'));
             if(regionElement){
                 this.regionElement = regionElement;
-                this.countryEl = countryElement;
                 if (countryElement.value) {
                     var url = this.regionsUrl + 'parent/' + countryElement.value;
                     this.loader.load(url, {}, this.refreshRegionField.bind(this));
@@ -532,6 +513,7 @@ addressesModel.prototype = {
         if (data.length) {
             // Create visible selectbox 'region_id' and hidden 'region'
             var html = '<select name="' + regionIdHtmlName + '" id="' + regionIdHtmlId + '" class="required-entry select" title="' + this.regionElement.title + '">';
+            html+= '<option value=""></option>';
             for (var i in data){
                 if(data[i].label) {
                     html+= '<option value="'+data[i].value+'"';
@@ -570,11 +552,6 @@ addressesModel.prototype = {
         var newInput = $(newInputId);
         Event.observe(newInput, 'change', this.onItemFormFieldChange); // Restore observing to update address info
         this.syncFormData(newInput); // Update address info now
-        var activeElementId = regionHtmlId;
-        if (('select' == $(regionIdHtmlId).tagName.toLowerCase()) && regionIdHtmlId) {
-            activeElementId = regionIdHtmlId;
-        }
-        this._checkRegionRequired([$(regionHtmlId), $(regionIdHtmlId)], activeElementId);
     },
 
     _checkRegionRequired: function(elements, activeElementId)
@@ -625,7 +602,213 @@ addressesModel.prototype = {
                 }
             }
         });
-    }
+    },
+    
+    bindRegionCityRelation : function(parentId){
+        //alert('OK');
+        if(parentId){
+            var regionElements = $(parentId).getElementsByClassName('regions');
+        }
+        else{
+            var regionElements = $$('.regions');
+        }
+
+        for(var i=0;i<=regionElements.length;i++){
+            if(regionElements[i]){
+                if(!regionElements[i].bindCitys || !regionElements[i].parentBindId || regionElements[i].parentBindId!=parentId){
+                //if(!regionElements[i].bindCitys || !regionElements[i].parentBindId){
+                    Event.observe(regionElements[i], 'change', this.reloadCityField.bind(this));
+
+                    regionElements[i].bindCitys = true;
+                    regionElements[i].parentBindId = parentId;
+                }
+            }
+        }
+    },
+
+    reloadCityField : function(event){
+        var regionElement = Event.element(event);
+        if(regionElement.id){
+            var cityElement  = $(regionElement.id.replace(/region_id/, 'city'));
+            if(cityElement){
+                this.cityElement = cityElement;
+                if (regionElement.value) {
+                    var url = this.citiesUrl + 'parent/' + regionElement.value;
+                    this.loader.load(url, {}, this.refreshCityField.bind(this));
+                } else {
+                    // Set empty text field in city
+                    this.refreshCityField('[]');
+                }
+            }
+            // set Zip optional/required
+            varienGlobalEvents.fireEvent("address_region_changed", regionElement);
+        }
+    },
+
+    // serverResponse is either string with server response, or object to force some paricular data setting
+    refreshCityField : function(serverResponse){
+        if (!serverResponse)
+            return;
+        var data = eval('(' + serverResponse + ')');
+
+        var row = Element.previous(this.cityElement.parentNode,0);
+        var reqLabel = Element.select(row, '.required');
+
+        // Set cities and refresh controls
+        // We use a pair of 'city' and 'city_id' to properly submit data:
+        // manually entered text goes in 'city' and selected option id goes in 'city_id'
+        var cityHtmlName = this.cityElement.name;
+        var cityIdHtmlName = cityHtmlName.replace(/city/, 'city_id');
+        var cityHtmlId = this.cityElement.id;
+        var cityIdHtmlId = cityHtmlId.replace(/city/, 'city_id');
+        var newInputId = null; // id of imput that was added to a page - filled below
+
+        if (data.length) {
+            // Create visible selectbox 'city_id' and hidden 'city'
+            var html = '<select name="' + cityIdHtmlName + '" id="' + cityIdHtmlId + '" class="required-entry select" title="' + this.cityElement.title + '">';
+            html+= '<option value=""></option>';
+            for (var i in data){
+                if(data[i].label) {
+                    html+= '<option value="'+data[i].value+'"';
+                    if(this.cityElement.value && (this.cityElement.value == data[i].value || this.cityElement.value == data[i].label)){
+                        html+= ' selected="selected"';
+                    }
+                    html+='>'+data[i].label+'</option>';
+                }
+            }
+            html += '</select>';
+
+            html += '<input type="hidden" name="' + cityHtmlName + '" id="' + cityHtmlId + '"/>';
+
+            if (reqLabel) {
+                reqLabel.each(function(item){Element.show(item)});
+            }
+
+            newInputId = cityIdHtmlId;
+        } else {
+            // Create visible text input 'city' and hidden 'city_id'
+            var html = '<input type="text" name="' + cityHtmlName + '" id="' + cityHtmlId + '" class="input-text" title="' + this.cityElement.title + '" />';
+            html += '<input type="hidden" name="' + cityIdHtmlName + '" id="' + cityIdHtmlId + '"/>';
+
+            if (reqLabel) {
+                reqLabel.each(function(item){Element.hide(item)});
+            }
+
+            newInputId = cityHtmlId;
+        }
+
+        var parentNode = this.cityElement.parentNode;
+        parentNode.innerHTML = html;
+        this.cityElement = $(cityHtmlId);
+
+        // Updating in address info
+        var newInput = $(newInputId);
+        Event.observe(newInput, 'change', this.onItemFormFieldChange); // Restore observing to update address info
+        this.syncFormData(newInput); // Update address info now
+    },
+    
+    bindCityAreaRelation : function(parentId){
+        //alert('OK');
+        if(parentId){
+            var cityElements = $(parentId).getElementsByClassName('cities');
+        }
+        else{
+            var cityElements = $$('.cities');
+        }
+
+        for(var i=0;i<=cityElements.length;i++){
+            if(cityElements[i]){
+                if(!cityElements[i].bindAreas || !cityElements[i].parentBindId || cityElements[i].parentBindId!=parentId){
+                //if(!cityElements[i].bindAreas || !cityElements[i].parentBindId){
+                    Event.observe(cityElements[i], 'change', this.reloadAreaField.bind(this));
+
+                    cityElements[i].bindAreas = true;
+                    cityElements[i].parentBindId = parentId;
+                }
+            }
+        }
+    },
+
+    reloadAreaField : function(event){
+        var cityElement = Event.element(event);
+        if(cityElement.id){
+            var areaElement  = $(cityElement.id.replace(/city_id/, 'area'));
+            if(areaElement){
+                this.areaElement = areaElement;
+                if (cityElement.value) {
+                    var url = this.areasUrl + 'parent/' + cityElement.value;
+                    this.loader.load(url, {}, this.refreshAreaField.bind(this));
+                } else {
+                    // Set empty text field in area
+                    this.refreshAreaField('[]');
+                }
+            }
+            // set Zip optional/required
+            varienGlobalEvents.fireEvent("address_city_changed", cityElement);
+        }
+    },
+
+    // serverResponse is either string with server response, or object to force some paricular data setting
+    refreshAreaField : function(serverResponse){
+        if (!serverResponse)
+            return;
+        var data = eval('(' + serverResponse + ')');
+
+        var row = Element.previous(this.areaElement.parentNode,0);
+        var reqLabel = Element.select(row, '.required');
+
+        // Set areas and refresh controls
+        // We use a pair of 'area' and 'area_id' to properly submit data:
+        // manually entered text goes in 'area' and selected option id goes in 'area_id'
+        var areaHtmlName = this.areaElement.name;
+        var areaIdHtmlName = areaHtmlName.replace(/area/, 'area_id');
+        var areaHtmlId = this.areaElement.id;
+        var areaIdHtmlId = areaHtmlId.replace(/area/, 'area_id');
+        var newInputId = null; // id of imput that was added to a page - filled below
+
+        if (data.length) {
+            // Create visible selectbox 'area_id' and hidden 'area'
+            var html = '<select name="' + areaIdHtmlName + '" id="' + areaIdHtmlId + '" class="required-entry select" title="' + this.areaElement.title + '">';
+            html+= '<option value=""></option>';
+            for (var i in data){
+                if(data[i].label) {
+                    html+= '<option value="'+data[i].value+'"';
+                    if(this.areaElement.value && (this.areaElement.value == data[i].value || this.areaElement.value == data[i].label)){
+                        html+= ' selected="selected"';
+                    }
+                    html+='>'+data[i].label+'</option>';
+                }
+            }
+            html += '</select>';
+
+            html += '<input type="hidden" name="' + areaHtmlName + '" id="' + areaHtmlId + '"/>';
+
+            if (reqLabel) {
+                reqLabel.each(function(item){Element.show(item)});
+            }
+
+            newInputId = areaIdHtmlId;
+        } else {
+            // Create visible text input 'area' and hidden 'area_id'
+            var html = '<input type="text" name="' + areaHtmlName + '" id="' + areaHtmlId + '" class="input-text" title="' + this.areaElement.title + '" />';
+            html += '<input type="hidden" name="' + areaIdHtmlName + '" id="' + areaIdHtmlId + '"/>';
+
+            if (reqLabel) {
+                reqLabel.each(function(item){Element.hide(item)});
+            }
+
+            newInputId = areaHtmlId;
+        }
+
+        var parentNode = this.areaElement.parentNode;
+        parentNode.innerHTML = html;
+        this.areaElement = $(areaHtmlId);
+
+        // Updating in address info
+        var newInput = $(newInputId);
+        Event.observe(newInput, 'change', this.onItemFormFieldChange); // Restore observing to update address info
+        this.syncFormData(newInput); // Update address info now
+    },
 }
 
 customerAddresses = new addressesModel();

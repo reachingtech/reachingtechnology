@@ -75,6 +75,20 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     static protected $_regionModels = array();
 
     /**
+     * Directory city models
+     *
+     * @var array
+     */
+    static protected $_cityModels = array();
+
+    /**
+     * Directory area models
+     *
+     * @var array
+     */
+    static protected $_areaModels = array();
+
+    /**
      * Get full customer name
      *
      * @return string
@@ -187,6 +201,180 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     {
         $this->setStreet($this->getData('street'));
         return $this;
+    }
+
+    /**
+     * Retrieve area name
+     *
+     * @return string
+     */
+    public function getArea()
+    {
+        $areaId = $this->getData('area_id');
+        $area   = $this->getData('area');
+
+        if ($areaId) {
+               if ($this->getAreaModel($areaId)->getCityId() == $this->getCityId()) {
+                   $area = $this->getAreaModel($areaId)->getName();
+                $this->setData('area', $area);
+            }
+        }
+
+        if (!empty($area) && is_string($area)) {
+            $this->setData('area', $area);
+        }
+        elseif (!$areaId && is_numeric($area)) {
+            if ($this->getAreaModel($area)->getCityId() == $this->getCityId()) {
+                $this->setData('area', $this->getAreaModel($area)->getName());
+                $this->setData('area_id', $area);
+            }
+        }
+        elseif ($areaId && !$area) {
+               if ($this->getAreaModel($areaId)->getCityId() == $this->getCityId()) {
+                $this->setData('area', $this->getAreaModel($areaId)->getName());
+            }
+        }
+
+        return $this->getData('area');
+    }
+    
+    public function getAreaCode()
+    {
+        $areaId = $this->getData('area_id');
+        $area   = $this->getData('area');
+
+        if (!$areaId && is_numeric($area)) {
+            if ($this->getAreaModel($area)->getCityId() == $this->getCityId()) {
+                $this->setData('area_code', $this->getAreaModel($area)->getCode());
+            }
+        }
+        elseif ($areaId) {
+            if ($this->getAreaModel($areaId)->getCityId() == $this->getCityId()) {
+                $this->setData('area_code', $this->getAreaModel($areaId)->getCode());
+            }
+        }
+        elseif (is_string($area)) {
+            $this->setData('area_code', $area);
+        }
+        return $this->getData('area_code');
+    }
+
+    public function getAreaId()
+    {
+        $areaId = $this->getData('area_id');
+        $area   = $this->getData('area');
+        if (!$areaId) {
+            if (is_numeric($area)) {
+                $this->setData('area_id', $area);
+                $this->unsArea();
+            }
+        }
+        return $this->getData('area_id');
+    }
+    
+	/**
+     * Retrive area model
+     *
+     * @return Mage_Directory_Model_Area
+     */
+    public function getAreaModel($area=null)
+    {
+        if(is_null($area)) {
+            $area = $this->getAreaId();
+        }
+
+        if(!isset(self::$_areaModels[$area])) {
+            self::$_areaModels[$area] = Mage::getModel('directory/area')->load($area);
+        }
+
+        return self::$_areaModels[$area];
+    }
+
+    /**
+     * Retrieve city name
+     *
+     * @return string
+     */
+    public function getCity()
+    {
+        $cityId = $this->getData('city_id');
+        $city   = $this->getData('city');
+
+        if ($cityId) {
+               if ($this->getCityModel($cityId)->getRegionId() == $this->getRegionId()) {
+                   $city = $this->getCityModel($cityId)->getName();
+                $this->setData('city', $city);
+            }
+        }
+
+        if (!empty($city) && is_string($city)) {
+            $this->setData('city', $city);
+        }
+        elseif (!$cityId && is_numeric($city)) {
+            if ($this->getCityModel($city)->getRegionId() == $this->getRegionId()) {
+                $this->setData('city', $this->getCityModel($city)->getName());
+                $this->setData('city_id', $city);
+            }
+        }
+        elseif ($cityId && !$city) {
+               if ($this->getCityModel($cityId)->getRegionId() == $this->getRegionId()) {
+                $this->setData('city', $this->getCityModel($cityId)->getName());
+            }
+        }
+
+        return $this->getData('city');
+    }
+    
+	public function getCityCode()
+    {
+        $cityId = $this->getData('city_id');
+        $city   = $this->getData('city');
+
+        if (!$cityId && is_numeric($city)) {
+            if ($this->getCityModel($city)->getRegionId() == $this->getRegionId()) {
+                $this->setData('city_code', $this->getCityModel($city)->getCode());
+            }
+        }
+        elseif ($cityId) {
+            if ($this->getCityModel($cityId)->getRegionId() == $this->getRegionId()) {
+                $this->setData('city_code', $this->getCityModel($cityId)->getCode());
+            }
+        }
+        elseif (is_string($city)) {
+            $this->setData('city_code', $city);
+        }
+        return $this->getData('city_code');
+    }
+
+    public function getCityId()
+    {
+        $cityId = $this->getData('city_id');
+        $city   = $this->getData('city');
+        if (!$cityId) {
+            if (is_numeric($city)) {
+                $this->setData('city_id', $city);
+                $this->unsCity();
+            }
+        }
+        return $this->getData('city_id');
+    }
+    
+	/**
+     * Retrive city model
+     *
+     * @return Mage_Directory_Model_City
+     */
+    public function getCityModel($city=null)
+    {
+        if(is_null($city)) {
+            $city = $this->getCityId();
+        }
+
+        if(!isset(self::$_cityModels[$city])) {
+            self::$_cityModels[$city] = Mage::getModel('directory/city')->load($city);
+        }
+
+        return self::$_cityModels[$city];
     }
 
     /**
@@ -351,6 +539,8 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
     {
         parent::_beforeSave();
         $this->getRegion();
+        $this->getCity();
+        $this->getArea();
         return $this;
     }
 

@@ -77,4 +77,22 @@ class Mage_Directory_Model_Region extends Mage_Core_Model_Abstract
         return $this;
     }
 
+ 	public function getCities()
+    {
+        return $this->getLoadedCityCollection();
+    }
+
+    public function getLoadedCityCollection()
+    {
+        $collection = $this->getCityCollection();
+        $collection->load();
+        return $collection;
+    }
+
+    public function getCityCollection()
+    {
+        $collection = Mage::getResourceModel('directory/city_collection');
+        $collection->addRegionFilter($this->getId());
+        return $collection;
+    }
 }

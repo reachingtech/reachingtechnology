@@ -399,7 +399,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         if ($customerErrors !== true) {
             $errors = array_merge($customerErrors, $errors);
         } else {
-            $customerForm->compactData($customerData);
+            $customerForm->compactData($customerData);  // in this function, field values set to model 'customer'
             $customer->setPassword($request->getPost('password'));
             $customer->setConfirmation($request->getPost('confirmation'));
             $customerErrors = $customer->validate();

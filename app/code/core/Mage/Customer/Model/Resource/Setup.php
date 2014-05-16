@@ -186,13 +186,21 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'system'             => false,
                         'position'           => 30,
                     ),
-                    'firstname'          => array(
+                    'username'          => array(
                         'type'               => 'varchar',
-                        'label'              => 'First Name',
+                        'label'              => 'User Name',
                         'input'              => 'text',
                         'sort_order'         => 40,
                         'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
                         'position'           => 40,
+                    ),
+                    'firstname'          => array(
+                        'type'               => 'varchar',
+                        'label'              => 'First Name',
+                        'input'              => 'text',
+                        'sort_order'         => 45,
+                        'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
+                        'position'           => 45,
                     ),
                     'middlename'         => array(
                         'type'               => 'varchar',
@@ -325,6 +333,14 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'admin_checkout'     => 1,
                         'option'             => array('values' => array('Male', 'Female'))
                     ),
+                    'regmobile'          => array(
+                        'type'               => 'varchar',
+                        'label'              => 'Registered Mobile Phone Number',
+                        'input'              => 'text',
+                        'sort_order'         => 120,
+                        'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
+                        'position'           => 120,
+                    ),
                 )
             ),
 
@@ -335,33 +351,21 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                 'additional_attribute_table'     => 'customer/eav_attribute',
                 'entity_attribute_collection'    => 'customer/address_attribute_collection',
                 'attributes'                     => array(
-                    'prefix'             => array(
+                    'username'          => array(
                         'type'               => 'varchar',
-                        'label'              => 'Prefix',
-                        'input'              => 'text',
-                        'required'           => false,
-                        'sort_order'         => 10,
-                        'visible'            => false,
-                        'system'             => false,
-                        'position'           => 10,
-                    ),
-                    'firstname'          => array(
-                        'type'               => 'varchar',
-                        'label'              => 'First Name',
+                        'label'              => 'User Name',
                         'input'              => 'text',
                         'sort_order'         => 20,
                         'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
                         'position'           => 20,
                     ),
-                    'middlename'         => array(
+                    'firstname'          => array(
                         'type'               => 'varchar',
-                        'label'              => 'Middle Name/Initial',
+                        'label'              => 'First Name',
                         'input'              => 'text',
-                        'required'           => false,
-                        'sort_order'         => 30,
-                        'visible'            => false,
-                        'system'             => false,
-                        'position'           => 30,
+                        'sort_order'         => 25,
+                        'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
+                        'position'           => 25,
                     ),
                     'lastname'           => array(
                         'type'               => 'varchar',
@@ -370,16 +374,6 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'         => 40,
                         'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
                         'position'           => 40,
-                    ),
-                    'suffix'             => array(
-                        'type'               => 'varchar',
-                        'label'              => 'Suffix',
-                        'input'              => 'text',
-                        'required'           => false,
-                        'sort_order'         => 50,
-                        'visible'            => false,
-                        'system'             => false,
-                        'position'           => 50,
                     ),
                     'company'            => array(
                         'type'               => 'varchar',
@@ -400,14 +394,14 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
                         'position'           => 70,
                     ),
-                    'city'               => array(
+                    /*'city'               => array(
                         'type'               => 'varchar',
                         'label'              => 'City',
-                        'input'              => 'text',
+                        'input'              => 'select',
                         'sort_order'         => 80,
                         'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
                         'position'           => 80,
-                    ),
+                    ),*/
                     'country_id'         => array(
                         'type'               => 'varchar',
                         'label'              => 'Country',
@@ -434,6 +428,42 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'         => 100,
                         'position'           => 100,
                     ),
+                    'city' => array(
+                        'type'               => 'varchar',
+                        'backend'       => 'customer/entity_address_attribute_backend_city',
+                        'label'         => 'City',
+                        'input'              => 'text',
+                        'class'         => 'cities',
+                        'sort_order'    => 105,
+                        'position'           => 105,
+                    ),
+                    'city_id' => array(
+                        'type'          => 'int',
+                        'input'         => 'hidden',
+                        'source'        => 'customer/entity_address_attribute_source_city',
+                        'required'      => 'false',
+                        'sort_order'    => 105,
+                        'label'         => 'City',
+                        'position'           => 105,
+                    ),
+                    'area' => array(
+                        'type'               => 'varchar',
+                        'backend'       => 'customer/entity_address_attribute_backend_area',
+                        'label'         => 'Area',
+                        'input'              => 'text',
+                        'class'         => 'areas',
+                        'sort_order'    => 108,
+                        'position'           => 108,
+                    ),
+                    'area_id' => array(
+                        'type'          => 'int',
+                        'input'         => 'hidden',
+                        'source'        => 'customer/entity_address_attribute_source_area',
+                        'required'      => 'false',
+                        'sort_order'    => 108,
+                        'label'         => 'Area',
+                        'position'           => 108,
+                    ),
                     'postcode'           => array(
                         'type'               => 'varchar',
                         'label'              => 'Zip/Postal Code',
@@ -450,15 +480,6 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'         => 120,
                         'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
                         'position'           => 120,
-                    ),
-                    'fax'                => array(
-                        'type'               => 'varchar',
-                        'label'              => 'Fax',
-                        'input'              => 'text',
-                        'required'           => false,
-                        'sort_order'         => 130,
-                        'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
-                        'position'           => 130,
                     ),
                 )
             )

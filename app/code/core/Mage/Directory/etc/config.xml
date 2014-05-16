@@ -68,6 +68,18 @@
                     <country_region_name>
                         <table>directory_country_region_name</table>
                     </country_region_name>
+                    <country_city>
+                        <table>directory_country_city</table>
+                    </country_city>
+                    <country_city_name>
+                        <table>directory_country_city_name</table>
+                    </country_city_name>
+                    <country_area>
+                        <table>directory_country_area</table>
+                    </country_area>
+                    <country_area_name>
+                        <table>directory_country_area_name</table>
+                    </country_area_name>
                     <currency_rate>
                         <table>directory_currency_rate</table>
                     </currency_rate>
