@@ -255,6 +255,10 @@
                     <create>1</create>
                     <update>1</update>
                 </gender>
+                <regmobile>
+                    <create>1</create>
+                    <update>1</update>
+                </regmobile>
             </customer_account>
             <customer_address>
                 <vat_id>

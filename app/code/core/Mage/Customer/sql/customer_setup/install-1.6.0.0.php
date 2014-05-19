@@ -54,6 +54,10 @@ $table = $installer->getConnection()
         ), 'Website Id')
     ->addColumn('email', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
         ), 'Email')
+    ->addColumn('username', Varien_Db_Ddl_Table::TYPE_TEXT, 255, array(
+        ), 'Username')
+    ->addColumn('regmobile', Varien_Db_Ddl_Table::TYPE_TEXT, 11, array(
+        ), 'Registered Mobile')
     ->addColumn('group_id', Varien_Db_Ddl_Table::TYPE_SMALLINT, null, array(
         'unsigned'  => true,
         'nullable'  => false,

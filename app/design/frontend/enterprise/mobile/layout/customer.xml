@@ -143,7 +143,7 @@ New customer registration
             <action method="setEntityModelClass"><code>customer/address</code></action>
         </block>
         <reference name="content">
-            <block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml">
+            <block type="customer/form_register" name="customer_form_register" template="customer/form/mobileregistryrequirecode.phtml">
                 <action method="append"><block>customer.form.register.fields.before</block><alias>form_fields_before</alias></action>
                 <action method="append"><block>customer_form_user_attributes</block></action>
                 <action method="append"><block>customer_form_address_user_attributes</block></action>
