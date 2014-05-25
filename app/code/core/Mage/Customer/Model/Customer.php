@@ -199,7 +199,18 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         return $this;
     }
 
-
+    public function loadByRegmobile($customerRegmobile)
+    {
+        $this->_getResource()->loadByRegmobile($this, $customerRegmobile);
+        return $this;
+    }
+    
+    public function loadByUsername($customerUsername)
+    {
+        $this->_getResource()->loadByUsername($this, $customerUsername);
+        return $this;
+    }
+    
     /**
      * Processing object before save data
      *

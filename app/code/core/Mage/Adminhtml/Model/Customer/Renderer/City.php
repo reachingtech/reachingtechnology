@@ -50,7 +50,6 @@ class Mage_Adminhtml_Model_Customer_Renderer_City implements Varien_Data_Form_El
                 $regionId = 1;
 		if ($region = $element->getForm()->getElement('region_id')) {
                     if (!is_null($region->getValue())) {
-                        Mage::log("region is not null");
                         $regionId = $region->getValue();
                     }
                         
@@ -58,14 +57,11 @@ class Mage_Adminhtml_Model_Customer_Renderer_City implements Varien_Data_Form_El
 
 		$cityCollection = false;
 		if ($regionId) {
-                        Mage::log("regionId is ".$regionId);
 			if (!isset(self::$_cityCollections[$regionId])) {
-                                Mage::log("try to get city collection");
 				self::$_cityCollections[$regionId] = Mage::getModel('directory/region')
 					->setId($regionId)
 					->getLoadedCityCollection()
                                         ->toOptionArray();
-                                Mage::log("try to get city collection got");
 			}
 			$cityCollection = self::$_cityCollections[$regionId];
 		}
@@ -102,7 +98,9 @@ class Mage_Adminhtml_Model_Customer_Renderer_City implements Varien_Data_Form_El
             $html.= '</select>' . "\n";
 
             $html .= '<input type="hidden" name="' . $cityHtmlName . '" id="' . $cityHtmlId . '" value=""/>';
-
+            $html.= '<script type="text/javascript">';
+            $html.= $this->_getRegionCityUpdaterScript($element->getForm()->getElement('region')->getHtmlId(), $element->getHtmlId(), Mage::helper('directory')->getCityJson());
+            $html.= '</script>';
             $html.= '</td>';
             $element->setClass($elementClass);
         } else {
@@ -123,7 +121,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_City implements Varien_Data_Form_El
         return $html;
 	}
 
-/*	protected function _getRegionCityUpdaterScript($regionId, $cityId, $cities)
+	protected function _getRegionCityUpdaterScript($regionId, $cityId, $cities)
 	{
 		return <<<EOT
 (function(regionEl, cityEl, cities) {
@@ -154,5 +152,5 @@ class Mage_Adminhtml_Model_Customer_Renderer_City implements Varien_Data_Form_El
 	});
 })('{$regionId}', '{$cityId}', {$cities});
 EOT;
-	}*/
+	}
 }

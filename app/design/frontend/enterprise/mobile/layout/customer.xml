@@ -55,7 +55,7 @@ Default layout, loads most of the pages
             <remove name="top.container"/>
         </reference> -->
         <reference name="account.links">
-            <action method="addLink" translate="label title before_text" module="customer"><label>Register</label><url helper="customer/getRegisterUrl" /><title>Register</title><prepare/><urlParams/><position>100</position></action>
+            <action method="addLink" translate="label title before_text" module="customer"><label>Register</label><url helper="customer/getRequirecodeUrl" /><title>Registers</title><prepare/><urlParams/><position>100</position></action>
         </reference>
     </default>
 
@@ -143,7 +143,7 @@ New customer registration
             <action method="setEntityModelClass"><code>customer/address</code></action>
         </block>
         <reference name="content">
-            <block type="customer/form_register" name="customer_form_register" template="customer/form/mobileregistryrequirecode.phtml">
+            <block type="customer/form_register" name="customer_form_register" template="customer/form/register.phtml">
                 <action method="append"><block>customer.form.register.fields.before</block><alias>form_fields_before</alias></action>
                 <action method="append"><block>customer_form_user_attributes</block></action>
                 <action method="append"><block>customer_form_address_user_attributes</block></action>
@@ -151,6 +151,66 @@ New customer registration
         </reference>
         <update handle="customer_form_template_handle"/>
     </customer_account_create>
+    
+    <customer_account_requirecode translate="label">
+        <label>Customer Account Registration Form</label>
+        <!-- Mage_Customer -->
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <block type="page/html_wrapper" name="customer.form.register.fields.before" translate="label">
+            <label>Form Fields Before</label>
+            <action method="setElementClass"><value>rewards</value></action>
+        </block>
+        <block type="enterprise_customer/form" template="customer/form/userattributes.phtml" name="customer_form_user_attributes">
+            <action method="setFormCode"><code>customer_account_create</code></action>
+            <action method="setEntityModelClass"><code>customer/customer</code></action>
+        </block>
+        <block type="enterprise_customer/form" template="customer/form/userattributes.phtml" name="customer_form_address_user_attributes">
+            <action method="setFormCode"><code>customer_register_address</code></action>
+            <action method="setEntityModelClass"><code>customer/address</code></action>
+        </block>
+        <reference name="content">
+            <block type="customer/form_requirecode" name="customer_form_requirecode" template="customer/form/requirecode.phtml">
+                <action method="append"><block>customer.form.register.fields.before</block><alias>form_fields_before</alias></action>
+                <action method="append"><block>customer_form_user_attributes</block></action>
+                <action method="append"><block>customer_form_address_user_attributes</block></action>
+            </block>
+        </reference>
+        <update handle="customer_form_template_handle"/>
+    </customer_account_requirecode>
+    
+    <customer_account_mobileregister translate="label">
+        <label>Customer Account Registration Form</label>
+        <!-- Mage_Customer -->
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <block type="page/html_wrapper" name="customer.form.register.fields.before" translate="label">
+            <label>Form Fields Before</label>
+            <action method="setElementClass"><value>rewards</value></action>
+        </block>
+        <block type="enterprise_customer/form" template="customer/form/userattributes.phtml" name="customer_form_user_attributes">
+            <action method="setFormCode"><code>customer_account_create</code></action>
+            <action method="setEntityModelClass"><code>customer/customer</code></action>
+        </block>
+        <block type="enterprise_customer/form" template="customer/form/userattributes.phtml" name="customer_form_address_user_attributes">
+            <action method="setFormCode"><code>customer_register_address</code></action>
+            <action method="setEntityModelClass"><code>customer/address</code></action>
+        </block>
+        <reference name="content">
+            <block type="customer/form_mobileregister" name="customer_form_mobileregister" template="customer/form/mobileregister.phtml">
+                <action method="append"><block>customer.form.register.fields.before</block><alias>form_fields_before</alias></action>
+                <action method="append"><block>customer_form_user_attributes</block></action>
+                <action method="append"><block>customer_form_address_user_attributes</block></action>
+            </block>
+        </reference>
+        <update handle="customer_form_template_handle"/>
+    </customer_account_mobileregister>
 
     <customer_account_forgotpassword translate="label">
         <label>Customer Forgot Password Form</label>
@@ -278,8 +338,7 @@ Customer account home dashboard layout
             <block type="customer/account_dashboard" name="customer_account_dashboard" template="customer/account/dashboard.phtml">
                 <block type="customer/account_dashboard_hello" name="customer_account_dashboard_hello" as="hello" template="customer/account/dashboard/hello.phtml"/>
                 <block type="core/template" name="customer_account_dashboard_top" as="top" />
-                <block type="customer/account_dashboard_info" name="customer_account_dashboard_info" as="info" template="customer/account/dashboard/info.phtml"/>
-                <block type="customer/account_dashboard_newsletter" name="customer_account_dashboard_newsletter" as="newsletter" template="customer/account/dashboard/newsletter.phtml"/>
+                <!--<block type="customer/account_dashboard_info" name="customer_account_dashboard_info" as="info" template="customer/account/dashboard/info.phtml"/>-->
                 <block type="customer/account_dashboard_address" name="customer_account_dashboard_address" as="address" template="customer/account/dashboard/address.phtml"/>
             </block>
         </reference>

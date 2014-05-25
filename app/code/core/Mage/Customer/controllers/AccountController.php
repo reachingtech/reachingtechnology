@@ -68,6 +68,8 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $action = $this->getRequest()->getActionName();
         $openActions = array(
             'create',
+            'requirecode',
+            'mobileregister',
             'login',
             'logoutsuccess',
             'forgotpassword',
@@ -307,6 +309,154 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $errUrl = $this->_getUrl('*/*/create', array('_secure' => true));
         $this->_redirectError($errUrl);
     }
+     
+    public function requirecodeAction()
+    {
+        if ($this->_getSession()->isLoggedIn()) {
+            $this->_redirect('*/*');
+            return;
+        }
+
+        $this->loadLayout();
+        $this->_initLayoutMessages('customer/session');
+        $this->renderLayout();
+    }
+    
+    public function requirecodePostAction()
+    {
+        /** @var $session Mage_Customer_Model_Session */
+        $session = $this->_getSession();
+        if ($session->isLoggedIn()) {
+            $this->_redirect('*/*/');
+            return;
+        }
+        $session->setEscapeMessages(true); // prevent XSS injection in user input
+        if (!$this->getRequest()->isPost()) {
+            $errUrl = $this->_getUrl('*/*/requirecode', array('_secure' => true));
+            $this->_redirectError($errUrl);
+            return;
+        }
+        
+        $regmobile = $this->getRequest()->getParam('regmobile','');
+        $pass = false;
+        $message = $this->__('');
+        if(strlen($regmobile) == 0){
+            $message = $this->__('There is already an account with this mobile phone number. If you are sure that it is your mobile phone number, <a href="%s">click here</a> to get your password and access your account.', $url);
+        }else if(strlen($regmobile) != 11){
+            $message = $this->__('This is not a correct mobile phone number');
+        }else{
+            $existedCustomer = Mage::getModel('customer/customer')->setWebsiteId(Mage::app()->getWebsite()->getId())->loadByRegmobile($regmobile);
+            if($existedCustomer->getId()){
+                $urllogin = $this->_getUrl('customer/account/login');
+                $urlforgotpass = $this->_getUrl('customer/account/forgotpassword');
+                $message = $this->__('There is already an account with this mobile phone number. If you are sure that it is your mobile phone number, <a href="%s">click here</a> to login. If you forgot your password,<a href="%s">click here</a> to get your password ', $urllogin, $urlforgotpass);
+            }else{
+                $pass = true;
+            }
+        }
+        if(!$pass){
+            $errUrl = $this->_getUrl('*/*/requirecode', array('_secure' => true));
+            $session->setEscapeMessages(false);
+            $session->addError($message);
+            $this->_redirectError($errUrl);
+            return;
+        }
+        
+        /* send password to mobile phone */
+        $password = '111111';
+        
+        $session->setRegmobile($regmobile);
+        $session->setPassword($password);
+        $session->setTime(date("Y-m-d H:i:s"));
+        $this->_redirect('*/*/mobileregister');
+    }
+    
+    public function mobileregisterAction()
+    {
+        if ($this->_getSession()->isLoggedIn()) {
+            $this->_redirect('*/*');
+            return;
+        }
+
+        $this->loadLayout();
+        $this->_initLayoutMessages('customer/session');
+        $this->renderLayout();
+    }
+    
+    public function mobileregisterPostAction()
+    {
+        /** @var $session Mage_Customer_Model_Session */
+        $session = $this->_getSession();
+        if ($session->isLoggedIn()) {
+            $this->_redirect('*/*/');
+            return;
+        }
+        $session->setEscapeMessages(true); // prevent XSS injection in user input
+        if (!$this->getRequest()->isPost()) {
+            $errUrl = $this->_getUrl('*/*/mobileregister', array('_secure' => true));
+            $this->_redirectError($errUrl);
+            return;
+        }
+        
+        $passVerifyCode = false;
+        $inputPassword = $this->getRequest()->getParam('password','');
+        $regmobile = $session->getRegmobile();
+        $password = $session->getPassword();
+        $beginTime = $session->getTime();
+        
+        if((strtotime($beginTime)+120) < time()){ 
+            //password expired
+            $message = $this->__('The password has been expired');
+            $errUrl = $this->_getUrl('*/*/requirecode', array('_secure' => true));
+        }elseif(strcmp($password,$inputPassword) != 0){ 
+            //password unmatch
+            $message = $this->__('The password is not correct');
+            $errUrl = $this->_getUrl('*/*/mobileregister', array('_secure' => true));
+            
+        }else{
+            $passVerifyCode = true;
+        }
+        
+        if(!$passVerifyCode){
+            $session->setEscapeMessages(false);
+            $session->addError($message);
+            $this->_redirectError($errUrl);
+            return;
+        }
+        
+        $customer = $this->_getModel('customer/customer')->setId(null);
+        $customer->setUsername('-'.$regmobile);
+        $customer->setRegmobile($regmobile);
+        $customer->setPassword($password);
+
+        try {
+            $errors = $this->_getCustomerErrors($customer);
+
+            if (empty($errors)) {
+                $customer->save();
+                $this->_dispatchRegisterSuccess($customer);
+                $this->_successProcessRegistration($customer);
+                return;
+            } else {
+                $this->_addSessionError($errors);
+            }
+        } catch (Mage_Core_Exception $e) {
+            $session->setCustomerFormData($this->getRequest()->getPost());
+            if ($e->getCode() === Mage_Customer_Model_Customer::EXCEPTION_EMAIL_EXISTS) {
+                $url = $this->_getUrl('customer/account/forgotpassword');
+                $message = $this->__('There is already an account with this email address. If you are sure that it is your email address, <a href="%s">click here</a> to get your password and access your account.', $url);
+                $session->setEscapeMessages(false);
+            } else {
+                $message = $e->getMessage();
+            }
+            $session->addError($message);
+        } catch (Exception $e) {
+            $session->setCustomerFormData($this->getRequest()->getPost())
+                ->addException($e, $this->__('Cannot save the customer.'));
+        }
+        $errUrl = $this->_getUrl('*/*/create', array('_secure' => true));
+        $this->_redirectError($errUrl);
+    }
 
     /**
      * Success Registration
@@ -399,13 +549,13 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         if ($customerErrors !== true) {
             $errors = array_merge($customerErrors, $errors);
         } else {
-            $customerForm->compactData($customerData);  // in this function, field values set to model 'customer'
+            /*$customerForm->compactData($customerData);  // in this function, field values set to model 'customer'
             $customer->setPassword($request->getPost('password'));
             $customer->setConfirmation($request->getPost('confirmation'));
             $customerErrors = $customer->validate();
             if (is_array($customerErrors)) {
                 $errors = array_merge($customerErrors, $errors);
-            }
+            }*/
         }
         return $errors;
     }

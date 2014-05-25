@@ -47,7 +47,16 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>varien/form.js</script></action>
                 <action method="addJs"><script>mage/translate.js</script></action>
                 <action method="addJs"><script>mage/cookies.js</script></action>
-
+                
+                <action method="addJs"><script>jquery/jquery-1.7.2.min.js</script></action>
+		<action method="addJs"><script>jquery/plugins/jquery.tools.min.js</script></action>
+                <block type="core/text" name="nonconflict">
+                    <action method="setText">
+                        <text>
+                            <![CDATA[<script type="text/javascript">var $j = jQuery.noConflict(); </script>>]]>
+                        </text>
+                    </action>
+                </block>
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
 
                 <action method="addItem"><type>skin_js</type><name>js/scripts.js</name></action>

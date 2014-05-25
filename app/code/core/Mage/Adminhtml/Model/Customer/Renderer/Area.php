@@ -118,7 +118,7 @@ class Mage_Adminhtml_Model_Customer_Renderer_Area implements Varien_Data_Form_El
         return $html;
 	}
 
-/*	protected function _getCityAreaUpdaterScript($cityId, $areaId, $areas)
+	protected function _getCityAreaUpdaterScript($cityId, $areaId, $areas)
 	{
 		return <<<EOT
 (function(cityEl, areaEl, areas) {
@@ -149,5 +149,5 @@ class Mage_Adminhtml_Model_Customer_Renderer_Area implements Varien_Data_Form_El
 	});
 })('{$cityId}', '{$areaId}', {$areas});
 EOT;
-	}*/
+	}
 }

@@ -266,6 +266,26 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_getUrl('customer/account/createpost');
     }
+    
+    public function getRequirecodeUrl()
+    {
+        return $this->_getUrl('customer/account/requirecode');
+    }
+    
+    public function getRequirecodePostUrl()
+    {
+        return $this->_getUrl('customer/account/requirecodepost');
+    }
+    
+    public function getMobileregisterUrl()
+    {
+        return $this->_getUrl('customer/account/mobileregister');
+    }
+    
+    public function getMobileregisterPostUrl()
+    {
+        return $this->_getUrl('customer/account/mobileregisterpost');
+    }
 
     /**
      * Retrieve customer account edit form url

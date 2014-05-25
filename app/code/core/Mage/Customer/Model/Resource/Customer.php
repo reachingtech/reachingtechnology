@@ -72,7 +72,7 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
     {
         parent::_beforeSave($customer);
 
-        if (!$customer->getEmail()) {
+        if (!$customer->getEmail() && !$customer->getRegmobile()) {
             throw Mage::exception('Mage_Customer', Mage::helper('customer')->__('Customer email is required'));
         }
 
@@ -225,7 +225,63 @@ class Mage_Customer_Model_Resource_Customer extends Mage_Eav_Model_Entity_Abstra
 
         return $this;
     }
+    
+    public function loadByRegmobile(Mage_Customer_Model_Customer $customer, $regmobile, $testOnly = false)
+    {
+        $adapter = $this->_getReadAdapter();
+        $bind    = array('customer_regmobile' => $regmobile);
+        $select  = $adapter->select()
+            ->from($this->getEntityTable(), array($this->getEntityIdField()))
+            ->where('regmobile = :customer_regmobile');
 
+        if ($customer->getSharingConfig()->isWebsiteScope()) {
+            if (!$customer->hasData('website_id')) {
+                Mage::throwException(
+                    Mage::helper('customer')->__('Customer website ID must be specified when using the website scope')
+                );
+            }
+            $bind['website_id'] = (int)$customer->getWebsiteId();
+            $select->where('website_id = :website_id');
+        }
+
+        $customerId = $adapter->fetchOne($select, $bind);
+        if ($customerId) {
+            $this->load($customer, $customerId);
+        } else {
+            $customer->setData(array());
+        }
+
+        return $this;
+    }
+
+    public function loadByUsername(Mage_Customer_Model_Customer $customer, $username, $testOnly = false)
+    {
+        $adapter = $this->_getReadAdapter();
+        $bind    = array('customer_username' => $username);
+        $select  = $adapter->select()
+            ->from($this->getEntityTable(), array($this->getEntityIdField()))
+            ->where('username = :customer_username');
+
+        if ($customer->getSharingConfig()->isWebsiteScope()) {
+            if (!$customer->hasData('website_id')) {
+                Mage::throwException(
+                    Mage::helper('customer')->__('Customer website ID must be specified when using the website scope')
+                );
+            }
+            $bind['website_id'] = (int)$customer->getWebsiteId();
+            $select->where('website_id = :website_id');
+        }
+
+        $customerId = $adapter->fetchOne($select, $bind);
+        if ($customerId) {
+            $this->load($customer, $customerId);
+        } else {
+            $customer->setData(array());
+        }
+
+        return $this;
+    }
+    
     /**
      * Change customer password
      *

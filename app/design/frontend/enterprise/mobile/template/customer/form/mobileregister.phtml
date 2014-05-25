@@ -43,28 +43,21 @@
         <div class="fieldset">
             <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
             <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
-            <h2 class="legend"><?php echo $this->__('Personal Information') ?></h2>
             <ul class="form-list">
                 <li>
-                    <label for="regmobile" class="required"><em>*</em><?php echo $this->__('Mobile Phone') ?></label>
+                    <label for="password" class="required"><em>*</em><?php echo $this->__('Please input the password you received') ?></label>
                     <div class="input-box">
-                        <input type="text" name="regmobile" id="regmobile" value="<?php echo $this->escapeHtml($this->getFormData()->getRegmobile()) ?>" title="<?php echo $this->__('Mobile Phone') ?>" class="input-text required-entry" />
+                        <input type="text" name="password" id="password" value="" title="<?php echo $this->__('password') ?>" class="input-text required-entry" />
                     </div>
                 </li>
             </ul>
         </div>
         <div class="buttons-set">
-            <p class="required"><?php echo $this->__('* Required Fields') ?></p>
             <p class="back-link"><a href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>" class="back-link"><small>&laquo; </small><?php echo $this->__('Back') ?></a></p>
-            <button type="submit" title="<?php echo $this->__('Get Pass Code') ?>" class="button"><span><span><?php echo $this->__('Get Pass Code') ?></span></span></button>
+            <button type="submit" title="<?php echo $this->__('Register') ?>" class="button"><span><span><?php echo $this->__('Register') ?></span></span></button>
         </div>
     </form>
     <script type="text/javascript">
-    //<![CDATA[
-        var dataForm = new VarienForm('form-validate', true);
-        <?php if($this->getShowAddressFields()): ?>
-        new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
-        <?php endif; ?>
-    //]]>
+   
     </script>
 </div>
