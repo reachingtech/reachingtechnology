@@ -40,6 +40,9 @@ $attributes = array(
                             ),
      'regmobile'             => array('is_required' => '0', 
                                 'validate_rules' => 'a:2:{s:15:"max_text_length";i:11;s:15:"min_text_length";i:11;}',
+                                'backend_type' => 'static',
+                            ),
+    'username'             => array('backend_type' => 'static',
                             ),
 );
 
@@ -65,10 +68,21 @@ $attributes = array(
     'lastname'          => array('is_required' => '0', 
                             ),
     'email'             => array('is_required' => '0', 
+                            'frontend_input' => 'text',
                             ),
     'username'             => array('is_required' => '0', 
                             ),
     'telephone'             => array('is_required' => '0', 
+                            ),
+    'street'             => array('frontend_input' => 'text', 
+                            ),
+    'prefix'             => array('frontend_input' => 'text', 
+                            ),
+    'middlename'             => array('frontend_input' => 'text', 
+                            ),
+    'suffix'             => array('frontend_input' => 'text', 
+                            ),
+    'fax'             => array('frontend_input' => 'text', 
                             ),
 );
 

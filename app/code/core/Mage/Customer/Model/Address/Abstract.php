@@ -567,7 +567,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             $this->addError(Mage::helper('customer')->__('Please enter the street.'));
         }
 
-        if (!Zend_Validate::is($this->getCity(), 'NotEmpty')) {
+        /*if (!Zend_Validate::is($this->getCity(), 'NotEmpty')) {
             $this->addError(Mage::helper('customer')->__('Please enter the city.'));
         }
 
@@ -580,7 +580,7 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             && !Zend_Validate::is($this->getPostcode(), 'NotEmpty')
         ) {
             $this->addError(Mage::helper('customer')->__('Please enter the zip/postal code.'));
-        }
+        }*/
 
         if (!Zend_Validate::is($this->getCountryId(), 'NotEmpty')) {
             $this->addError(Mage::helper('customer')->__('Please enter the country.'));
@@ -593,6 +593,14 @@ class Mage_Customer_Model_Address_Abstract extends Mage_Core_Model_Abstract
             $this->addError(Mage::helper('customer')->__('Please enter the state/province.'));
         }
 
+        if(!Zend_Validate::is($this->getCityId(), 'NotEmpty')){
+            $this->addError(Mage::helper('customer')->__('Please enter the city.'));
+        }
+        
+        if(!Zend_Validate::is($this->getAreaId(), 'NotEmpty')){
+            $this->addError(Mage::helper('customer')->__('Please enter the area.'));
+        }
+        
         Mage::dispatchEvent('customer_address_validation_after', array('address' => $this));
 
         $errors = $this->_getErrors();
