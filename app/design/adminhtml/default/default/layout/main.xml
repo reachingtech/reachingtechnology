@@ -78,7 +78,7 @@ Default layout, loads most of the pages
                 <action method="addJs"><script>mage/adminhtml/tools.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/uploader.js</script></action>
                 <action method="addJs"><script>mage/adminhtml/product.js</script></action>
-
+                
                 <action method="addCss"><name>reset.css</name></action>
                 <action method="addCss"><name>boxes.css</name></action>
                 <action method="addCss"><name>custom.css</name></action>
@@ -107,7 +107,11 @@ Default layout, loads most of the pages
                 <action method="addItem"><type>js</type><name>mage/adminhtml/rules.js</name><params/><if/><condition>can_load_rules_js</condition></action>
 
                 <action method="addItem"><type>js</type><name>mage/adminhtml/wysiwyg/tiny_mce/setup.js</name><params/><if/><condition>can_load_tiny_mce</condition></action>
-
+                
+                <action method="addJs"><script>jquery/jquery-1.7.2.min.js</script></action>
+		<action method="addJs"><script>jquery/plugins/jquery.tools.min.js</script></action>
+                <action method="addJs"><script>jquery/jquery-noconflict.js</script></action>
+                
                 <block type="core/html_calendar" name="head.calendar" as="calendar" template="page/js/calendar.phtml"/>
             </block>
 

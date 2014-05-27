@@ -31,7 +31,7 @@ var countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?>;
 var regionCities = <?php echo $this->helper('directory')->getCityJson() ?>;
 var cityAreas = <?php echo $this->helper('directory')->getAreaJson() ?>;
 
-$(function() {
+$j(function() {
 	var selectCountry = $j('select[name="country_id"]');
 	if(!(selectCountry.length)){selectCountry = $j('#country_id');}
 	var selectRegion = $j('select[name="region_id"]');
@@ -45,7 +45,7 @@ $(function() {
 		var countryId = selectCountry.val();
 		selectRegion.empty();
 		if(countryRegions[countryId]){
-			$.each(countryRegions[countryId], function(key, item) {
+			$j.each(countryRegions[countryId], function(key, item) {
 				selectRegion.append('<option value="'+key+'">'+item.name+'</option>');
 			});
 		}
@@ -53,11 +53,11 @@ $(function() {
 	});
 
 	selectRegion.change(function() {
-		inputRegion.val($(this).find('option[value="'+$(this).val()+'"]').text());
+		inputRegion.val($j(this).find('option[value="'+$j(this).val()+'"]').text());
 		var regionId = selectRegion.val();
 		selectCity.empty();
 		if(regionCities[regionId]){
-			$.each(regionCities[regionId], function(key, item) {
+			$j.each(regionCities[regionId], function(key, item) {
 				selectCity.append('<option value="'+key+'">'+item.name+'</option>');
 			});
 		}
@@ -65,11 +65,11 @@ $(function() {
 	});
 
 	selectCity.change(function() {
-		inputCity.val($(this).find('option[value="'+$(this).val()+'"]').text());
+		inputCity.val($j(this).find('option[value="'+$j(this).val()+'"]').text());
 		var cityId = selectCity.val();
 		selectArea.empty();
 		if(cityAreas[cityId]){
-			$.each(cityAreas[cityId], function(key, item) {
+			$j.each(cityAreas[cityId], function(key, item) {
 				selectArea.append('<option value="'+key+'">'+item.name+'</option>');
 			});
 		}
@@ -77,10 +77,11 @@ $(function() {
 	});
 
 	selectArea.change(function() {
-		inputArea.val($(this).find('option[value="'+$(this).val()+'"]').text());
+		inputArea.val($j(this).find('option[value="'+$j(this).val()+'"]').text());
 	});
 
-	selectCountry.val("<?php echo $this->getCountryId();?>").trigger('change');
+	//selectCountry.val("<?php echo $this->getCountryId();?>").trigger('change');
+        selectCountry.val("<?php echo $this->__('CN') ?>").trigger('change');
 	selectRegion.val("<?php echo $this->getAddress()->getRegionId();?>").trigger('change');
 	selectCity.val("<?php echo $this->getAddress()->getCityId();?>").trigger('change');
 	selectArea.val("<?php echo $this->getAddress()->getAreaId();?>").trigger('change');
@@ -120,22 +121,10 @@ $(function() {
 		  <span class="prompt-msg" message="<?php echo $this->__('Please enter your delivery address');?>"></span>
 		  </div>
 	  </li>
-	  <li class="fields"><span class="label-like"><?php echo $this->__('Zip/Postal Code');?><span class="required">*</span></span>
-		<div class="input-box">
-		  <input validata="number:true" id="zip" class="input-text input-short required-entry" name="postcode" title="<?php echo $this->__('Zip/Postal Code') ?>" type="text" value="<?php echo $this->htmlEscape($this->getAddress()->getPostcode()) ?>" />
-		  <span class="prompt-msg" message="<?php echo $this->__('Please enter your zip code receiving area');?>"></span>
-		</div>
-	  </li>
 	  <li class="fields"><span class="label-like"><?php echo $this->__('Mobile') ?>:</span>
 		<div class="input-box">
 		  <input id="mobile" validata="required:true,number:11" class="input-text mobile" name="mobile" title="<?php echo $this->__('Mobile') ?>" type="text" value="<?php echo $this->htmlEscape($this->getAddress()->getMobile() ? $this->getAddress()->getMobile() : $this->getCustomer()->getMobile()) ?>" />
 		  <span class="prompt-msg" message="<?php echo $this->__('Please enter your contact Mobile');?>"></span>
-		</div>
-	  </li>
-	  <li class="fields"><span class="label-like"><?php echo $this->__('Telephone');?></span>
-		<div class="input-box">
-		  <input validata="number:true" id="telephone" class="input-text tel" name="telephone" title="<?php echo $this->__('Telephone') ?>" type="text" value="<?php echo $this->htmlEscape($this->getAddress()->getTelephone() ? $this->getAddress()->getTelephone(): $this->getCustomer()->getTelephone()) ?>" />
-		   <span class="prompt-msg" message="<?php echo $this->__('Please enter your contact Phone');?>"></span>
 		</div>
 	  </li>
         <li class="fields">
@@ -174,8 +163,8 @@ $(function() {
 			 return false;
 		 }
 
-		 if(!($this.find('input:[name="telephone"]').val()) && !($this.find('input:[name="mobile"]').val())) {
-			var msg = "<?php echo $this->__('Telephone and mobile phone number must fill in one');?>.";
+		 if(!($this.find('input:[name="mobile"]').val())) {
+			var msg = "<?php echo $this->__('Please input your mobile phone number');?>.";
 			if($j('.layer_global_tit').size()) {
             	$j('.layer_global_tit').html(msg);
             	$j('#errorblock').dialog('open');

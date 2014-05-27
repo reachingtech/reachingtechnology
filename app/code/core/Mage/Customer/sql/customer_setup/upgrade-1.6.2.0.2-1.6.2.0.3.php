@@ -66,6 +66,10 @@ $attributes = array(
                             ),
     'email'             => array('is_required' => '0', 
                             ),
+    'username'             => array('is_required' => '0', 
+                            ),
+    'telephone'             => array('is_required' => '0', 
+                            ),
 );
 
 $defaultUsedInForms = array(
