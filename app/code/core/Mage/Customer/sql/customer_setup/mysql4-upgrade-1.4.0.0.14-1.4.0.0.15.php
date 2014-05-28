@@ -80,7 +80,7 @@ $entityTypeId = $installer->getEntityTypeId('customer_address');
 * 加上客户地址属性 mobile
 * eav_entity_type: customer/address
 */
-$this->addAttribute('customer_address', 'mobile', array(
+$installer->addAttribute('customer_address', 'mobile', array(
     'type' => 'varchar',
     'label' => 'Mobile',
     'visible' => true,
