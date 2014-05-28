@@ -387,7 +387,7 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                     'street'             => array(
                         'type'               => 'text',
                         'label'              => 'Street Address',
-                        'input'              => 'multiline',
+                        'input'              => 'text',
                         'backend'            => 'customer/entity_address_attribute_backend_street',
                         'sort_order'         => 70,
                         'multiline_count'    => 2,
@@ -480,6 +480,14 @@ class Mage_Customer_Model_Resource_Setup extends Mage_Eav_Model_Entity_Setup
                         'sort_order'         => 120,
                         'validate_rules'     => 'a:2:{s:15:"max_text_length";i:255;s:15:"min_text_length";i:1;}',
                         'position'           => 120,
+                    ),
+                    'mobile'          => array(
+                        'type'               => 'varchar',
+                        'label'              => 'Mobile',
+                        'input'              => 'text',
+                        'sort_order'         => 130,
+                        'validate_rules'     => 'a:2:{s:15:"max_text_length";i:11;s:15:"min_text_length";i:11;}',
+                        'position'           => 130,
                     ),
                 )
             )

@@ -6,7 +6,7 @@ $setup = $installer->getConnection();
 $entityTypeId = $installer->getEntityTypeId('customer');
 
 
-if (!$installer->getAttributeId($entityTypeId, 'telephone')) {
+/*if (!$installer->getAttributeId($entityTypeId, 'telephone')) {
 	# 更改客户 phone 属性为 telephone
 	$attributeId = $setup->fetchOne(
 		$setup->select()
@@ -19,7 +19,7 @@ if (!$installer->getAttributeId($entityTypeId, 'telephone')) {
 
 
 # 加上客户属性 mobile
-/*$this->addAttribute('customer', 'mobile', array(
+$this->addAttribute('customer', 'mobile', array(
     'type' => 'varchar',
     'label' => 'Mobile',
     'visible' => true,
