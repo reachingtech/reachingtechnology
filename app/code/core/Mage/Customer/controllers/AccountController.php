@@ -71,6 +71,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             'requirecode',
             'mobileregister',
             'login',
+            'mobilelogin',
             'logoutsuccess',
             'forgotpassword',
             'forgotpasswordpost',
@@ -183,6 +184,67 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * Customer login form page
+     */
+    public function mobileloginAction()
+    {
+        if ($this->_getSession()->isLoggedIn()) {
+            $this->_redirect('*/*/');
+            return;
+        }
+        $this->getResponse()->setHeader('Login-Required', 'true');
+        $this->loadLayout();
+        $this->_initLayoutMessages('customer/session');
+        $this->_initLayoutMessages('catalog/session');
+        $this->renderLayout();
+    }
+
+    /**
+     * Login post action
+     */
+    public function mobileloginPostAction()
+    {
+        if (!$this->_validateFormKey()) {
+            $this->_redirect('*/*/');
+            return;
+        }
+
+        if ($this->_getSession()->isLoggedIn()) {
+            $this->_redirect('*/*/');
+            return;
+        }
+        $session = $this->_getSession();
+
+        if ($this->getRequest()->isPost()) {
+            $login = $this->getRequest()->getPost('login');
+            if (!empty($login['regmobile']) && !empty($login['password'])) {
+                try {
+                    $session->mobilelogin($login['regmobile'], $login['password']);
+                    if ($session->getCustomer()->getIsJustConfirmed()) {
+                        $this->_welcomeCustomer($session->getCustomer(), true);
+                    }
+                } catch (Mage_Core_Exception $e) {
+                    switch ($e->getCode()) {
+                        case Mage_Customer_Model_Customer::EXCEPTION_INVALID_EMAIL_OR_PASSWORD:
+                            $message = $e->getMessage();
+                            break;
+                        default:
+                            $message = $e->getMessage();
+                    }
+                    $session->addError($message);
+                    $session->setRegmobile($login['regmobile']);
+                } catch (Exception $e) {
+                    // Mage::logException($e); // PA DSS violation: this exception log can disclose customer password
+                }
+            } else {
+                $session->addError($this->__('Login and password are required.'));
+            }
+        }
+
+        $this->_mobileloginPostRedirect();
+    }
+    
+    /**
      * Define target URL and redirect customer after logging in
      */
     protected function _loginPostRedirect()
@@ -225,6 +287,47 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         $this->_redirectUrl($session->getBeforeAuthUrl(true));
     }
 
+    
+    protected function _mobileloginPostRedirect()
+    {
+        $session = $this->_getSession();
+
+        if (!$session->getBeforeAuthUrl() || $session->getBeforeAuthUrl() == Mage::getBaseUrl()) {
+            // Set default URL to redirect customer to
+            $session->setBeforeAuthUrl($this->_getHelper('customer')->getAccountUrl());
+            // Redirect customer to the last page visited after logging in
+            if ($session->isLoggedIn()) {
+                if (!Mage::getStoreConfigFlag(
+                    Mage_Customer_Helper_Data::XML_PATH_CUSTOMER_STARTUP_REDIRECT_TO_DASHBOARD
+                )) {
+                    $referer = $this->getRequest()->getParam(Mage_Customer_Helper_Data::REFERER_QUERY_PARAM_NAME);
+                    if ($referer) {
+                        // Rebuild referer URL to handle the case when SID was changed
+                        $referer = $this->_getModel('core/url')
+                            ->getRebuiltUrl( $this->_getHelper('core')->urlDecode($referer));
+                        if ($this->_isUrlInternal($referer)) {
+                            $session->setBeforeAuthUrl($referer);
+                        }
+                    }
+                } else if ($session->getAfterAuthUrl()) {
+                    $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
+                }
+            } else {
+                $session->setBeforeAuthUrl( $this->_getHelper('customer')->getMobileLoginUrl());
+            }
+        } else if ($session->getBeforeAuthUrl() ==  $this->_getHelper('customer')->getLogoutUrl()) {
+            $session->setBeforeAuthUrl( $this->_getHelper('customer')->getDashboardUrl());
+        } else {
+            if (!$session->getAfterAuthUrl()) {
+                $session->setAfterAuthUrl($session->getBeforeAuthUrl());
+            }
+            if ($session->isLoggedIn()) {
+                $session->setBeforeAuthUrl($session->getAfterAuthUrl(true));
+            }
+        }
+        $this->_redirectUrl($session->getBeforeAuthUrl(true));
+    }
+    
     /**
      * Customer logout action
      */

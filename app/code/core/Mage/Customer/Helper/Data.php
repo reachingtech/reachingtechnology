@@ -43,6 +43,7 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
      * Route for customer account login page
      */
     const ROUTE_ACCOUNT_LOGIN = 'customer/account/login';
+    const ROUTE_ACCOUNT_MOBILELOGIN = 'customer/account/mobilelogin';
 
     /**
      * Config name for Redirect Customer to Account Dashboard after Logging in setting
@@ -175,6 +176,11 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
     {
         return $this->_getUrl(self::ROUTE_ACCOUNT_LOGIN, $this->getLoginUrlParams());
     }
+    
+    public function getMobileLoginUrl()
+    {
+        return $this->_getUrl(self::ROUTE_ACCOUNT_MOBILELOGIN, $this->getLoginUrlParams());
+    }
 
     /**
      * Retrieve parameters of customer login url
@@ -215,6 +221,17 @@ class Mage_Customer_Helper_Data extends Mage_Core_Helper_Abstract
             );
         }
         return $this->_getUrl('customer/account/loginPost', $params);
+    }
+    
+    public function getMobileLoginPostUrl()
+    {
+        $params = array();
+        if ($this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)) {
+            $params = array(
+                self::REFERER_QUERY_PARAM_NAME => $this->_getRequest()->getParam(self::REFERER_QUERY_PARAM_NAME)
+            );
+        }
+        return $this->_getUrl('customer/account/mobileloginPost', $params);
     }
 
     /**

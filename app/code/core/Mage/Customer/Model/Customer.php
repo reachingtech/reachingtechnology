@@ -57,6 +57,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
     const EXCEPTION_INVALID_RESET_PASSWORD_LINK_TOKEN = 4;
     const EXCEPTION_USERNAME_EXISTS              = 5;
     const EXCEPTION_MOBILE_EXISTS              = 6;
+    const EXCEPTION_INVALID_REGMOBILE_OR_PASSWORD = 7;
     /**#@-*/
 
     /**#@+
@@ -168,7 +169,7 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
      */
     public function authenticate($login, $password)
     {
-        $this->loadByEmail($login);
+        $this->loadByUsername($login);
         if ($this->getConfirmation() && $this->isConfirmationRequired()) {
             throw Mage::exception('Mage_Core', Mage::helper('customer')->__('This account is not confirmed.'),
                 self::EXCEPTION_EMAIL_NOT_CONFIRMED
@@ -177,6 +178,27 @@ class Mage_Customer_Model_Customer extends Mage_Core_Model_Abstract
         if (!$this->validatePassword($password)) {
             throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Invalid login or password.'),
                 self::EXCEPTION_INVALID_EMAIL_OR_PASSWORD
+            );
+        }
+        Mage::dispatchEvent('customer_customer_authenticated', array(
+           'model'    => $this,
+           'password' => $password,
+        ));
+
+        return true;
+    }
+    
+    public function authenticateByMobile($login, $password)
+    {
+        $this->loadByRegmobile($login);
+        if ($this->getConfirmation() && $this->isConfirmationRequired()) {
+            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('This account is not confirmed.'),
+                self::EXCEPTION_EMAIL_NOT_CONFIRMED
+            );
+        }
+        if (!$this->validatePassword($password)) {
+            throw Mage::exception('Mage_Core', Mage::helper('customer')->__('Invalid regmobile or password.'),
+                self::EXCEPTION_INVALID_REGMOBILE_OR_PASSWORD
             );
         }
         Mage::dispatchEvent('customer_customer_authenticated', array(

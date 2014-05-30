@@ -218,6 +218,20 @@ class Mage_Customer_Model_Session extends Mage_Core_Model_Session_Abstract
         }
         return false;
     }
+    
+    public function mobilelogin($regmobile, $password)
+    {
+        /** @var $customer Mage_Customer_Model_Customer */
+        $customer = Mage::getModel('customer/customer')
+            ->setWebsiteId(Mage::app()->getStore()->getWebsiteId());
+
+        if ($customer->authenticateByMobile($regmobile, $password)) {
+            $this->setCustomerAsLoggedIn($customer);
+            $this->renewSession();
+            return true;
+        }
+        return false;
+    }
 
     public function setCustomerAsLoggedIn($customer)
     {

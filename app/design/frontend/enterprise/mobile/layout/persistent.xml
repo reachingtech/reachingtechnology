@@ -34,6 +34,14 @@
             <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
         </reference>
     </customer_account_login>
+    
+    <customer_account_mobilelogin>
+        <reference name="customer_form_mobilelogin">
+            <action method="setTemplate"><template>customer/form/mobilelogin.phtml</template></action>
+            <block type="persistent/form_remember" name="persistent.remember.me" template="persistent/remember_me.phtml" />
+            <block type="core/template" name="persistent.remember.me.tooltip" template="persistent/remember_me_tooltip.phtml" />
+        </reference>
+    </customer_account_mobilelogin>
 
     <customer_account_create>
         <reference name="customer_form_register">
