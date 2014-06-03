@@ -66,6 +66,9 @@
                 <street>
                     <to_order>*</to_order>
                 </street>
+                <area>
+                    <to_order>*</to_order>
+                </area>
                 <city>
                     <to_order>*</to_order>
                 </city>
@@ -87,6 +90,15 @@
                 <region_id>
                     <to_order>*</to_order>
                 </region_id>
+                <city_id>
+                    <to_order>*</to_order>
+                </city_id>
+                <area_id>
+                    <to_order>*</to_order>
+                </area_id>
+                <mobile>
+                    <to_order>*</to_order>
+                </mobile>
             </sales_copy_order_billing_address>
             <sales_copy_order_shipping_address>
                 <prefix>
@@ -113,6 +125,9 @@
                 <street>
                     <to_order>*</to_order>
                 </street>
+                <area>
+                    <to_order>*</to_order>
+                </area>
                 <city>
                     <to_order>*</to_order>
                 </city>
@@ -134,6 +149,15 @@
                 <region_id>
                     <to_order>*</to_order>
                 </region_id>
+                <city_id>
+                    <to_order>*</to_order>
+                </city_id>
+                <area_id>
+                    <to_order>*</to_order>
+                </area_id>
+                <mobile>
+                    <to_order>*</to_order>
+                </mobile>
             </sales_copy_order_shipping_address>
             <sales_convert_quote>
                 <remote_ip>
@@ -336,6 +360,10 @@
                 <street>
                     <to_customer_address>*</to_customer_address>
                 </street>
+                <area>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </area>
                 <city>
                     <to_order_address>*</to_order_address>
                     <to_customer_address>*</to_customer_address>
@@ -348,6 +376,18 @@
                     <to_order_address>*</to_order_address>
                     <to_customer_address>*</to_customer_address>
                 </region_id>
+                <city_id>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </city_id>
+                <area_id>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </area_id>
+                <mobile>
+                    <to_order_address>*</to_order_address>
+                    <to_customer_address>*</to_customer_address>
+                </mobile>
                 <postcode>
                     <to_order_address>*</to_order_address>
                     <to_customer_address>*</to_customer_address>
@@ -684,6 +724,9 @@
                 <street_full>
                     <to_quote_address>street</to_quote_address>
                 </street_full>
+                <area>
+                    <to_quote_address>*</to_quote_address>
+                </area>
                 <city>
                     <to_quote_address>*</to_quote_address>
                 </city>
@@ -693,6 +736,15 @@
                 <region_id>
                     <to_quote_address>*</to_quote_address>
                 </region_id>
+                <city_id>
+                    <to_quote_address>*</to_quote_address>
+                </city_id>
+                <area_id>
+                    <to_quote_address>*</to_quote_address>
+                </area_id>
+                <mobile>
+                    <to_quote_address>*</to_quote_address>
+                </mobile>
                 <postcode>
                     <to_quote_address>*</to_quote_address>
                 </postcode>
@@ -857,6 +909,12 @@
                 <gender>
                     <to_quote>customer_gender</to_quote>
                 </gender>
+                <regmobile>
+                    <to_quote>customer_regmobile</to_quote>
+                </regmobile>
+                <username>
+                    <to_quote>customer_username</to_quote>
+                </username>
             </customer_account>
             <customer_address>
                 <id>
@@ -886,6 +944,9 @@
                 <street_full>
                     <to_quote_address>street</to_quote_address>
                 </street_full>
+                <area>
+                    <to_quote_address>*</to_quote_address>
+                </area>
                 <city>
                     <to_quote_address>*</to_quote_address>
                 </city>
@@ -895,6 +956,15 @@
                 <region_id>
                     <to_quote_address>*</to_quote_address>
                 </region_id>
+                <city_id>
+                    <to_quote_address>*</to_quote_address>
+                </city_id>
+                <area_id>
+                    <to_quote_address>*</to_quote_address>
+                </area_id>
+                <mobile>
+                    <to_quote_address>*</to_quote_address>
+                </mobile>
                 <postcode>
                     <to_quote_address>*</to_quote_address>
                 </postcode>
