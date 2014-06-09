@@ -87,11 +87,19 @@ shipping.onSave = function(evt){
     }.bind(this), evalScripts:true});
 }.bindAsEventListener(shipping);
 
-billing.onSave = function(evt){
+/*if(window.shippingMethod){
+    shippingMethod.onSave = function(evt){
+        new Ajax.Updater('onepage-checkout-shipping-method-additional-load', '<?php echo $this->getAdditionalUrl(); ?>', {onSuccess: function() {
+              this.nextStep(evt);
+        }.bind(this), evalScripts:true});
+    }.bindAsEventListener(shippingMethod);
+}*/
+
+/*billing.onSave = function(evt){
     new Ajax.Updater('onepage-checkout-shipping-method-additional-load', '<?php echo $this->getAdditionalUrl(); ?>', {onSuccess: function() {
           this.nextStep(evt);
     }.bind(this), evalScripts:true});
-}.bindAsEventListener(billing);
+}.bindAsEventListener(billing);*/
 
 }
 //]]>

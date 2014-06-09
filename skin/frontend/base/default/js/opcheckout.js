@@ -36,7 +36,7 @@ Checkout.prototype = {
         this.method = '';
         this.payment = '';
         this.loadWaiting = false;
-        this.steps = ['login', 'billing', 'shipping', 'shipping_method', 'payment', 'review'];
+        this.steps = ['login', 'shipping', 'shipping_method', 'payment', 'review'];
         //We use billing as beginning step since progress bar tracks from billing
         this.currentStep = 'billing';
 
@@ -495,12 +495,12 @@ Shipping.prototype = {
     },
 
     setSameAsBilling: function(flag) {
-        $('shipping:same_as_billing').checked = flag;
+        /*$('shipping:same_as_billing').checked = flag;
 // #5599. Also it hangs up, if the flag is not false
 //        $('billing:use_for_shipping_yes').checked = flag;
         if (flag) {
             this.syncWithBilling();
-        }
+        }*/
     },
 
     syncWithBilling: function () {
@@ -658,9 +658,9 @@ ShippingMethod.prototype = {
             return false;
         }
 
-        if (response.update_section) {
+        /*if (response.update_section) {
             $('checkout-'+response.update_section.name+'-load').update(response.update_section.html);
-        }
+        }*/
 
         payment.initWhatIsCvvListeners();
 

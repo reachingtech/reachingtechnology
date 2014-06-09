@@ -61,6 +61,6 @@ class Mage_Checkout_Block_Onepage extends Mage_Checkout_Block_Onepage_Abstract
      */
     public function getActiveStep()
     {
-        return $this->isCustomerLoggedIn() ? 'billing' : 'login';
+        return $this->isCustomerLoggedIn() ? 'shipping' : 'login';
     }
 }

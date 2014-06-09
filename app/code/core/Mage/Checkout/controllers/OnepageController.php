@@ -436,14 +436,14 @@ class Mage_Checkout_OnepageController extends Mage_Checkout_Controller_Action
             $result = $this->getOnepage()->saveShippingMethod($data);
             // $result will contain error data if shipping method is empty
             if (!$result) {
-                Mage::dispatchEvent(
+                /*Mage::dispatchEvent(
                     'checkout_controller_onepage_save_shipping_method',
                      array(
                           'request' => $this->getRequest(),
                           'quote'   => $this->getOnepage()->getQuote()));
                 $this->getOnepage()->getQuote()->collectTotals();
                 $this->getResponse()->setBody(Mage::helper('core')->jsonEncode($result));
-
+                */
                 $result['goto_section'] = 'payment';
                 $result['update_section'] = array(
                     'name' => 'payment-method',
