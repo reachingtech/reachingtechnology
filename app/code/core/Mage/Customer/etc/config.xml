@@ -556,7 +556,10 @@
 T: {{var telephone}}
 {{depend fax}}F: {{var fax}}{{/depend}}
 {{depend vat_id}}VAT: {{var vat_id}}{{/depend}}</text>
-                <oneline>{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}, {{var street}}, {{var city}}, {{var region}} {{var postcode}}, {{var country}}</oneline>
+                <oneline>Name: {{depend prefix}}{{var prefix}} {{/depend}}{{var lastname}}{{depend middlename}}{{var middlename}}{{/depend}}{{var firstname}} {{depend suffix}} {{var suffix}}{{/depend}},
+                    Address: {{var region}}, {{var city}} {{var area}} {{var street}}, 
+                    Mobile: {{var mobile}}
+                </oneline>
                 <html><![CDATA[{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}<br/>
 {{depend company}}{{var company}}<br />{{/depend}}
 {{if region}}{{var region}}, {{/if}}{{if city}}{{var city}}  {{/if}}<br/>
