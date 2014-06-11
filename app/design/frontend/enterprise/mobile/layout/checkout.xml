@@ -344,7 +344,7 @@ One page checkout main layout
                     <action method="setBlockId"><block_id>checkout_callout</block_id></action>
                 </block>
                 <remove name="checkout.progress"/>
-                <block type="checkout/onepage_login" name="checkout.onepage.login" as="login" template="checkout/onepage/login.phtml">
+                <block type="checkout/onepage_mobilelogin" name="checkout.onepage.mobilelogin" as="login" template="checkout/onepage/mobilelogin.phtml">
                     <block type="page/html_wrapper" name="checkout.onepage.login.before" as="login_before" translate="label">
                         <label>Login/Registration Before</label>
                         <action method="setMayBeInvisible"><value>1</value></action>

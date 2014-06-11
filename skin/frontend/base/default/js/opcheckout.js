@@ -38,7 +38,7 @@ Checkout.prototype = {
         this.loadWaiting = false;
         this.steps = ['login', 'shipping', 'shipping_method', 'payment', 'review'];
         //We use billing as beginning step since progress bar tracks from billing
-        this.currentStep = 'billing';
+        this.currentStep = 'shipping';
 
         this.accordion.sections.each(function(section) {
             Event.observe($(section).down('.step-title'), 'click', this._onSectionClick.bindAsEventListener(this));
@@ -170,8 +170,9 @@ Checkout.prototype = {
                 this.saveMethodUrl,
                 {method: 'post', onFailure: this.ajaxFailure.bind(this), parameters: {method:'guest'}}
             );
-            Element.hide('register-customer-password');
-            this.gotoSection('billing', true);
+            //Element.hide('register-customer-password');
+            $j(".col-2").hide();
+            this.gotoSection('shipping', true);
         }
         else if($('login:register') && ($('login:register').checked || $('login:register').type == 'hidden')) {
             this.method = 'register';
@@ -179,8 +180,9 @@ Checkout.prototype = {
                 this.saveMethodUrl,
                 {method: 'post', onFailure: this.ajaxFailure.bind(this), parameters: {method:'register'}}
             );
-            Element.show('register-customer-password');
-            this.gotoSection('billing', true);
+            //Element.show('register-customer-password');
+            $j(".col-2").show();
+            this.gotoSection('shipping', true);
         }
         else{
             alert(Translator.translate('Please choose to register or to checkout as a guest').stripTags());

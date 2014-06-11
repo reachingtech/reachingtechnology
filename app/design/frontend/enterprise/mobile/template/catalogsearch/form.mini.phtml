@@ -28,7 +28,7 @@
 $catalogSearchHelper =  $this->helper('catalogsearch');
 ?>
 <form id="search_mini_form" action="<?php echo $catalogSearchHelper->getResultUrl() ?>" method="get">
-    <textarea name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" id="search" onblur="stripSearchQuery()" onfocus="stripSearchQuery()" onkeypress="testFind(event);" placeholder="Search"></textarea>
+    <textarea name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" id="search" onblur="startSearchQuery()" onfocus="stripSearchQuery()" onkeypress="testFind(event);" placeholder="Search"></textarea>
     <div id="search_autocomplete" class="search-autocomplete"></div>
 </form>
 <script type="text/javascript">
@@ -41,7 +41,15 @@ $catalogSearchHelper =  $this->helper('catalogsearch');
 
             el.value = el.value.replace(/\r|\n|\t?/gi, "");
             el.innerHTML = el.value.replace(/\r|\n|\t?/gi, "");
+            
+        return true;
+    }
+    function startSearchQuery() {
+        var el = document.getElementById("search");
 
+            el.value = el.value.replace(/\r|\n|\t?/gi, "");
+            el.innerHTML = el.value.replace(/\r|\n|\t?/gi, "");
+            document.getElementById("search_mini_form").submit();
         return true;
     }
     function testFind(event) {
