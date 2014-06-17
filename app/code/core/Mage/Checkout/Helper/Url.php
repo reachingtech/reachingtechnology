@@ -102,4 +102,9 @@ class Mage_Checkout_Helper_Url extends Mage_Core_Helper_Url
     {
         return $this->_getUrl('customer/account/create');
     }
+    
+    public function getMobileRegistrationUrl()
+    {
+        return $this->_getUrl('customer/account/mobileregister');
+    }
 }

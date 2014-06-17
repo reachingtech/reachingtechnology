@@ -294,7 +294,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isAllowedGuestCheckout(Mage_Sales_Model_Quote $quote, $store = null)
     {
-        if ($store === null) {
+        /*if ($store === null) {
             $store = $quote->getStoreId();
         }
         $guestCheckout = Mage::getStoreConfigFlag(self::XML_PATH_GUEST_CHECKOUT, $store);
@@ -311,7 +311,8 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
             $guestCheckout = $result->getIsAllowed();
         }
 
-        return $guestCheckout;
+        return $guestCheckout;*/
+        return false;
     }
 
     /**
@@ -331,6 +332,7 @@ class Mage_Checkout_Helper_Data extends Mage_Core_Helper_Abstract
      */
     public function isCustomerMustBeLogged()
     {
-        return Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_MUST_BE_LOGGED);
+        //return Mage::getStoreConfigFlag(self::XML_PATH_CUSTOMER_MUST_BE_LOGGED);
+        return true;
     }
 }
