@@ -30,14 +30,14 @@ var regionCities = <?php echo $this->helper('directory')->getCityJson() ?>;
 var cityAreas = <?php echo $this->helper('directory')->getAreaJson() ?>;
 
 $j(function() {
-	var selectCountry = $j('select[name="country_id"]');
+	var selectCountry = $j('select[name="shipping[country_id]"]');
 	if(!(selectCountry.length)){selectCountry = $j('#country_id');}
-	var selectRegion = $j('select[name="region_id"]');
-	var inputRegion = $j('input[name="region"]');
-	var selectCity = $j('select[name="city_id"]');
-	var inputCity = $j('input[name="city"]');
-	var selectArea = $j('select[name="area_id"]');
-	var inputArea = $j('input[name="area"]');
+	var selectRegion = $j('select[name="shipping[region_id]"]');
+	var inputRegion = $j('input[name="shipping[region]"]');
+	var selectCity = $j('select[name="shipping[city_id]"]');
+	var inputCity = $j('input[name="shipping[city]"]');
+	var selectArea = $j('select[name="shipping[area_id]"]');
+	var inputArea = $j('input[name="shipping[area]"]');
 
 	selectCountry.change(function() {
 		var countryId = selectCountry.val();
@@ -96,6 +96,7 @@ $j(function() {
        </li>
     <?php endif ?>
        <li id="shipping-new-address-form"<?php if ($this->customerHasAddresses()): ?> style="display:none;"<?php endif ?>>
+           <input id="country_id" name="shipping[country_id]" id="shipping:country_id" type="hidden" value="<?php echo $this->getCountryId();?>" />
            <fieldset>
                <input type="hidden" name="shipping[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="shipping:address_id" />
                <ul>
@@ -103,22 +104,28 @@ $j(function() {
 
                    <li class="fields"><span class="label-like"><?php echo $this->__('Live in areas of') ?><span class="required">*</span></span>
                        <div class="input-box">
-                           <select name="region_id" validata="required:true"></select>			
-                           <input name="region" type="hidden" value="<?php echo $this->getAddress()->getRegion(); ?>" />
-                           <select name="city_id"></select>
-                           <input name="city" type="hidden" value="<?php echo $this->getAddress()->getCity(); ?>" />
-                           <select name="area_id"></select>
-                           <input name="area" type="hidden" value="<?php echo $this->getAddress()->getArea(); ?>" />
+                           <select name="shipping[region_id]" id="shipping:region_id" validata="required:true"></select>			
+                           <input name="shipping[region]" id="shipping:region" type="hidden" value="<?php echo $this->getAddress()->getRegion(); ?>" />
+                           <select name="shipping[city_id]" id="shipping:city_id"></select>
+                           <input name="shipping[city]" id="shipping:city" type="hidden" value="<?php echo $this->getAddress()->getCity(); ?>" />
+                           <select name="shipping[area_id]" id="shipping:area_id"></select>
+                           <input name="shipping[area]" id="shipping:area" type="hidden" value="<?php echo $this->getAddress()->getArea(); ?>" />
                            <span class="prompt-msg"></span>
                        </div>
                    </li>
                    <li class="fields"><span class="label-like"><?php echo $this->__('Address'); ?><span class="required">*</span></span>
                        <div class="input-box">
-                           <textarea cols="60" rows="3" id="street" name="street" class="address input-text" validata="required:true"><?php $street = $this->getAddress()->getStreetFull();
+                           <textarea cols="60" rows="3" id="shipping:street" name="shipping[street]" class="address input-text" validata="required:true"><?php $street = $this->getAddress()->getStreetFull();
                                 if (is_array($street)) {
                                     $street = implode('-', $street);
                                 } echo $this->htmlEscape($street); ?></textarea>
                            <span class="prompt-msg" message="<?php echo $this->__('Please enter your delivery address'); ?>"></span>
+                       </div>
+                   </li>
+                   <li class="fields"><span class="label-like"><?php echo $this->__('Mobile') ?>:</span>
+                       <div class="input-box">
+                           <input id="shipping:mobile" validata="required:true,number:11" class="input-text mobile" name="shipping[mobile]" title="<?php echo $this->__('Mobile') ?>" type="text" value="<?php echo $this->htmlEscape($this->getAddress()->getMobile() ? $this->getAddress()->getMobile() : $this->getCustomer()->getMobile()) ?>" />
+                           <span class="prompt-msg" message="<?php echo $this->__('Please enter your contact Mobile'); ?>"></span>
                        </div>
                    </li>
                    <li class="fields">
