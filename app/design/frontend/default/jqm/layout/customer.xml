@@ -98,6 +98,25 @@ Layout for customer login page
             <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml"/>
         </reference>
     </customer_account_login>
+    
+    <customer_account_mobilelogin translate="label">
+        <label>Customer Account Login Form</label>
+        <!-- Mage_Customer -->
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="page_header">
+            <action method="setTitle">
+                <title>Login or Create an Account</title>
+            </action>
+        </reference>
+
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="customer/form_mobilelogin" name="customer_form_mobilelogin" template="customer/form/mobilelogin.phtml" as="" before="" />
+        </reference>
+    </customer_account_mobilelogin>
 
 <!--
 Layout for customer log out page
@@ -151,6 +170,42 @@ New customer registration
             </block>
         </reference>
     </customer_account_create>
+    
+    <customer_account_requirecode translate="label">
+        <label>Customer Account Registration Form</label>
+        <!-- Mage_Customer -->
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="customer/form_requirecode" name="customer_form_requirecode" template="customer/form/requirecode.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    <label>Form Fields Before</label>
+                </block>
+            </block>
+        </reference>
+        <update handle="customer_form_template_handle"/>
+    </customer_account_requirecode>
+    
+    <customer_account_mobileregister translate="label">
+        <label>Customer Account Registration Form</label>
+        <!-- Mage_Customer -->
+        <remove name="right"/>
+        <remove name="left"/>
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <reference name="content">
+            <block type="customer/form_mobileregister" name="customer_form_mobileregister" template="customer/form/mobileregister.phtml">
+                <block type="page/html_wrapper" name="customer.form.register.fields.before" as="form_fields_before" translate="label">
+                    <label>Form Fields Before</label>
+                </block>
+            </block>
+        </reference>
+        <update handle="customer_form_template_handle"/>
+    </customer_account_mobileregister>
 
     <customer_account_forgotpassword translate="label">
         <label>Customer Forgot Password Form</label>

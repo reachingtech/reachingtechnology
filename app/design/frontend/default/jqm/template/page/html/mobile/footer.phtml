@@ -7,7 +7,7 @@
 			<?php if(Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
 				<li><a href="<?php echo $this->getUrl('customer/account/logout')?>" rel="external" data-ajax="false" <?php if($this->helper('core/url')->getCurrentUrl() == $this->getUrl('customer/account/logout')) : ?>class="ui-btn-active"<?php endif?> data-icon="gear">Logout</a></li>
 			<?php else :?>
-				<li><a href="<?php echo $this->getUrl('customer/account/login')?>" rel="external" data-ajax="false" <?php if($this->helper('core/url')->getCurrentUrl() == $this->getUrl('customer/account/login')) : ?>class="ui-btn-active"<?php endif?> data-icon="gear">Login</a></li>
+				<li><a href="<?php echo $this->getUrl('customer/account/mobilelogin')?>" rel="external" data-ajax="false" <?php if($this->helper('core/url')->getCurrentUrl() == $this->getUrl('customer/account/login')) : ?>class="ui-btn-active"<?php endif?> data-icon="gear">Login</a></li>
 			<?php endif; ?>
 		</ul>
 	</div><!-- /navbar -->

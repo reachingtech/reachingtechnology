@@ -32,6 +32,67 @@
  */
 ?>
 <?php if($this->getTitle()): ?>
+<script type="text/javascript">
+var countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?>;
+var regionCities = <?php echo $this->helper('directory')->getCityJson() ?>;
+var cityAreas = <?php echo $this->helper('directory')->getAreaJson() ?>;
+
+jQuery(function() {
+	var selectCountry = jQuery('select[name="country_id"]');
+	if(!(selectCountry.length)){selectCountry = jQuery('#country_id');}
+	var selectRegion = jQuery('select[name="region_id"]');
+	var inputRegion = jQuery('input[name="region"]');
+	var selectCity = jQuery('select[name="city_id"]');
+	var inputCity = jQuery('input[name="city"]');
+	var selectArea = jQuery('select[name="area_id"]');
+	var inputArea = jQuery('input[name="area"]');
+
+	selectCountry.change(function() {
+		var countryId = selectCountry.val();
+		selectRegion.empty();
+		if(countryRegions[countryId]){
+			jQuery.each(countryRegions[countryId], function(key, item) {
+				selectRegion.append('<option value="'+key+'">'+item.name+'</option>');
+			});
+		}
+		selectRegion.trigger('change');
+	});
+
+	selectRegion.change(function() {
+		inputRegion.val(jQuery(this).find('option[value="'+jQuery(this).val()+'"]').text());
+		var regionId = selectRegion.val();
+		selectCity.empty();
+		if(regionCities[regionId]){
+			jQuery.each(regionCities[regionId], function(key, item) {
+				selectCity.append('<option value="'+key+'">'+item.name+'</option>');
+			});
+		}
+		selectCity.trigger('change');
+	});
+
+	selectCity.change(function() {
+		inputCity.val(jQuery(this).find('option[value="'+jQuery(this).val()+'"]').text());
+		var cityId = selectCity.val();
+		selectArea.empty();
+		if(cityAreas[cityId]){
+			jQuery.each(cityAreas[cityId], function(key, item) {
+				selectArea.append('<option value="'+key+'">'+item.name+'</option>');
+			});
+		}
+		selectArea.trigger('change');
+	});
+
+	selectArea.change(function() {
+		inputArea.val(jQuery(this).find('option[value="'+jQuery(this).val()+'"]').text());
+	});
+
+	//selectCountry.val("<?php echo $this->getCountryId();?>").trigger('change');
+        selectCountry.val("<?php echo $this->__('CN') ?>").trigger('change');
+	selectRegion.val("<?php echo $this->getAddress()->getRegionId();?>").trigger('change');
+	selectCity.val("<?php echo $this->getAddress()->getCityId();?>").trigger('change');
+	selectArea.val("<?php echo $this->getAddress()->getAreaId();?>").trigger('change');
+});
+</script>
 <div class="page-title" data-role="header">  
     <a href="/" data-icon="back" data-iconpos="notext" data-rel="back">Back</a>
     <h1><?php echo $this->getTitle() ?></h1>
