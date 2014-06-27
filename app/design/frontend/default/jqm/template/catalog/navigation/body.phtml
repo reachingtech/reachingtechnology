@@ -1,0 +1,124 @@
+<?php
+/**
+ * Magento
+ *
+ * NOTICE OF LICENSE
+ *
+ * This source file is subject to the Academic Free License (AFL 3.0)
+ * that is bundled with this package in the file LICENSE_AFL.txt.
+ * It is also available through the world-wide-web at this URL:
+ * http://opensource.org/licenses/afl-3.0.php
+ * If you did not receive a copy of the license and are unable to
+ * obtain it through the world-wide-web, please send an email
+ * to license@magentocommerce.com so we can send you a copy immediately.
+ *
+ * DISCLAIMER
+ *
+ * Do not edit or add to this file if you wish to upgrade Magento to newer
+ * versions in the future. If you wish to customize Magento for your
+ * needs please refer to http://www.magentocommerce.com for more information.
+ *
+ * @category    design
+ * @package     base_default
+ * @copyright   Copyright (c) 2010 Magento Inc. (http://www.magentocommerce.com)
+ * @license     http://opensource.org/licenses/afl-3.0.php  Academic Free License (AFL 3.0)
+ */
+?>
+<?php
+/**
+ * Top menu for store
+ *
+ * @see Mage_Catalog_Block_Navigation
+ */
+?>
+<?php
+/**
+ * $this->renderCategoriesMenuHtml() supports optional arguments:
+ * int Level number for list item class to start from
+ * string Extra class of outermost list items
+ * string If specified wraps children list in div with this class
+ */
+?>
+<?php
+    $categories = $this->getStoreCategories();
+    $categoryName = "Select a category from below:";
+    $keepDigging = true;
+    $menuItems = '';
+    while ($keepDigging) {
+        $_count = is_array($categories)?count($categories):$categories->count();
+        if ($_count == 0) {
+            $keepDigging = false;
+            break;
+        }
+        $nextLevel = false;
+        foreach ($categories as $category) {
+            if ($category->getIsActive() && $this->isCategoryActive($category)) {
+                $categoryName = $category->getName() . ' - Select a subcategory';
+                if (Mage::helper('catalog/category_flat')->isEnabled()) {
+                    $children = (array)$category->getChildrenNodes();
+                    $childrenCount = count($children);
+                } else {
+                    $children = $category->getChildren();
+                    $childrenCount = $children->count();
+                }
+                $hasChildren = ($children && $childrenCount);
+
+                $hasActiveChildren = false;
+                foreach ($children as $child) {
+                    if ($child->getIsActive()) {
+                        $hasActiveChildren = true;
+                        if (Mage::helper('catalog/category_flat')->isEnabled()) {
+                            $nextLevel = (array)$category->getChildrenNodes();
+                        } else {
+                            $nextLevel = $category->getChildren();
+                        }
+                        break;
+                    }
+                }
+
+                if ($hasActiveChildren) {
+                    break;
+                }
+            }
+        }
+        if ($nextLevel) {
+            $categories = $nextLevel;
+            continue;
+        }
+
+        $currentCategoryName = Mage::registry('current_category');
+        if ($currentCategoryName) $currentCategoryName = $currentCategoryName->getName();
+        else $currentCategoryName = 'nonecat';
+        
+        $keepDigging = false;
+        $activeChildren = array();
+        foreach ($categories as $category) {
+            if ($category->getIsActive()) {
+                $html = array();
+				if($currentCategoryName == $category->getName()) {
+                $html[] = '<li class="active">';
+				} else {
+				$html[] = '<li>';
+				}
+				
+                if ($category->getName() != $currentCategoryName) {
+                    $html[] = '<a href="' . $this->getCategoryUrl($category) . '">';
+                } else {
+                    $html[] = '<a href="#">';
+                }
+                $html[] = '<span>' . $this->escapeHtml($category->getName()) . '</span>';
+                $html[] = '</a>';
+                $html[] = '</li>';
+
+                $menuItems .= implode("\n", $html);
+            }
+        }
+    }
+?>
+<?php if($menuItems): ?>
+<div class="nav-container">
+    <ul id="nav" data-role="listview" data-theme="d">
+        <?php echo $menuItems ?>
+    </ul>
+</div>
+<?php endif ?>

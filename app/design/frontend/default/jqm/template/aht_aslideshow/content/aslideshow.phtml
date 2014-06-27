@@ -1,0 +1,108 @@
+<div class="main-slide">
+<?php $collection = $this->_getCollection(); ?>
+<?php $_helper = $this->helper('catalog/output'); ?>
+<?php if (count($collection) > 0) : ?>
+<?php foreach ($collection as $item) : ?>
+    <!--if slideshow type is SLIDESHOW_IMAGE-->
+    <?php
+        $_imageWidth = $item->getImageWidth();
+        $_imageHeight = $item->getImageHeight();
+    ?>
+    <?php if($item->getSlideshowFor() == 'SLIDESHOW_IMAGE'): ?>
+	    <?php $_imageList = $item->getImageList(); ?>
+        <?php if (is_array($_imageList) and sizeof($_imageList) > 0) : ?>
+            <ul class="aviaslider" style="height: <?php echo $item->getImageHeight(); ?>px;" id="frontpage-slider-<?php echo $item->getId(); ?>">
+            <?php foreach ($_imageList as &$_item) : ?>
+                <li><a href="<?php echo $_item['label']; ?>" title="" ><img style="height: <?php echo $item->getImageHeight(); ?>px;" src="<?php echo $this->helper('aslideshow/image')->init($_item['file'])->resize($_imageWidth,$_imageHeight); ?>" alt="<?php echo $_item['caption']; ?>" /></a></li>
+            <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+    
+    <!--if slideshow type is SLIDESHOW_PRODUCT-->
+    <?php elseif($item->getSlideshowFor() == 'SLIDESHOW_PRODUCT'): ?>
+        <?php
+            $_productImageWidth = $item->getProductImageWidth();
+            $_productImageHeight = $item->getProductImageHeight();
+        ?>
+	    <?php $_productIds = $item->getProductList(); ?>
+        <?php if (is_array($_productIds) and sizeof($_productIds) > 0) : ?>
+            <ul class="aviaslider aviaslider-product" style="width: <?php echo $_imageWidth ?>px; height: <?php echo $_imageHeight?>px;" id="frontpage-slider-<?php echo $item->getId(); ?>">
+            <?php foreach ($_productIds as &$_item) : ?>
+                <?php $_product = Mage::getModel('catalog/product')->load($_item['product_id']); ?>
+                <li>
+                    <a href="<?php echo $_product->getProductUrl() ?>" title="" >
+                        <?php
+                            $_productNameStripped = $this->stripTags($_product->getName(), null, true);
+                        ?>
+                        <img src="<?php echo $this->helper('catalog/image')->init($_product, 'small_image')->resize($_productImageWidth,$_productImageHeight); ?>" alt="<?php echo $_productNameStripped; ?>" />
+                        <?php if($item->getShowTitle()): ?>                   
+                            <h1 class="product-name"><?php echo $_helper->productAttribute($_product, $_product->getName() , 'name'); ?></h1>
+                        <?php endif; ?>
+                        <?php if($item->getShowPrice()): ?>
+                            <?php echo $this->getPriceHtml($_product, true) ?>
+                        <?php endif; ?>
+                        <?php if($item->getShowDescription() == 'description'): ?>
+                            <div class="desc std">
+                            <?php echo $this->helper('core/string')->truncate($_helper->productAttribute($_product, $_product->getDescription(), 'description'), 100); ?>
+                        </div>
+                        <?php elseif($item->getShowDescription() == 'short_description'): ?>
+                            <div class="desc std">
+                            <?php echo $this->helper('core/string')->truncate($_helper->productAttribute($_product, $_product->getShortDescription(), 'short_description'), 100); ?>
+                        </div>
+                        <?php else: ?>
+                        <?php endif; ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+    <!--if slideshow type is SLIDESHOW_STATIC_BLOCK-->
+    <?php else: ?>
+        <?php $_staticblocks = $item->getStaticblockList(); ?>
+        <?php if (is_array($_staticblocks) and sizeof($_staticblocks) > 0) : ?>
+        <?php
+            $staticImageWidth = $item->getStaticblockImageWidth();
+            $staticImageHeight =  $item->getStaticblockImageHeight();
+
+            $strStyle = "<style type='text/css'>";
+            $strStyle .= ".aviaslider-static li a img { width: ".$staticImageWidth."px; height: ".$staticImageHeight."px; }";
+            $strStyle .= "</style>";
+            echo $strStyle;
+?>
+            <ul class="aviaslider aviaslider-static" style="width: <?php echo $_imageWidth ?>px; height: <?php echo $_imageHeight?>px;" id="frontpage-slider-<?php echo $item->getId(); ?>">
+            <?php foreach ($_staticblocks as &$_item) : ?>
+                <li>
+                    <a href="#" title="">
+                        <?php echo $this->getLayout()->createBlock('cms/block')->setBlockId($_item['staticblock_identifier'])->toHtml(); ?>
+                    </a>
+                </li>
+            <?php endforeach; ?>
+            </ul>
+        <?php endif; ?>
+    <?php endif; ?>
+    <script type="text/javascript">
+        jQuery(document).ready(function(){
+            jQuery('#frontpage-slider-<?php echo $item->getId(); ?>').aviaSlider({
+				    // wich element inside the container should serve as slide
+			    animationSpeed: <?php echo $item->getAnimationSpeed() ?>,		// animation duration
+			    autorotation: <?php if($item->getAutoRotation() == 1): ?>true<?php else: ?>false<?php endif; ?>,			// autorotation true or false?
+			    autorotationSpeed: <?php echo $item->getAutoRotationSpeed(); ?>,		// duration between autorotation switch in Seconds
+			    //appendControlls: '',		// element to apply controlls to
+			    slideControlls: '<?php echo $item->getSlideControlls(); ?>',	// controlls, yes or no?
+			    //blockSize: {height: <?php if($item->getBlocksizeHeight() == 'full'): ?>'full'<?php else: ?><?php echo $item->getBlocksizeHeight(); ?><?php endif; ?>, width: <?php if($item->getBlocksizeWidth() == 'full'): ?>'full'<?php else: ?><?php echo $item->getBlocksizeWidth(); ?><?php endif; ?>},
+			    betweenBlockDelay: <?php if(!is_null($item->getBetweenBlockDelay())): ?><?php echo $item->getBetweenBlockDelay(); ?><?php else: ?>30<?php endif; ?>,
+			    display: '<?php echo $item->getDisplay(); ?>',
+			    switchMovement: true, //<?php echo $item->getSwitchMovement(); ?>,
+			    showText: <?php if($item->getSlideshowFor() == 'SLIDESHOW_IMAGE'): ?><?php if($item->getShowText()==1): ?>true<?php else: ?>false<?php endif; ?><?php else: ?>false<?php endif; ?>,
+			    transition: '<?php echo $item->getTransition() ?>',			//slide, fade or drop	
+			    backgroundOpacity: <?php echo $item->getBackgroundOpacity(); ?>,		// opacity for background
+			    transitionOrder: ['diagonaltop', 'diagonalbottom','topleft', 'bottomright', 'random']
+            });
+        });
+
+    </script>
+<?php endforeach; ?>
+
+<div style="clear:both;"></div>
+<?php endif; ?>
+</div>

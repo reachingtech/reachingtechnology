@@ -1,0 +1,5 @@
+<?php if($this->getNoText()) : ?>   
+    <a href="<?php echo Mage::getBaseUrl() . $this->getLink()?>" data-iconpos="notext" data-icon="<?php echo $this->getIcon()?>"><?php echo $this->getLabel()?></a>
+<?php else: ?>
+    <a href="<?php echo Mage::getBaseUrl() . $this->getLink()?>" data-icon="<?php echo $this->getIcon()?>"><?php echo $this->getLabel()?></a> 
+<?php endif; ?>

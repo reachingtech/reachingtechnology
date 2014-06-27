@@ -1,0 +1,28 @@
+/************************************************************************
+-) Slider: only the following lines are necceassary for slider styling,
+   rest of the css file styles the demo page
+*************************************************************************/
+.aviaslider{ clear: both; height:100%; width:100%; overflow: hidden; position: relative; /*background: #fff url(../../images/aslideshow/preload.gif) center center no-repeat;*/}
+.aviaslider li, .aviaslider .featured{ display: block; width:100%; height:100%; position: absolute; top:0; left:0; z-index: 1; }
+.js_active .aviaslider li, .js_active .aviaslider .featured{ display:none; }
+.aviaslider img, .aviaslider a img, .aviaslider a{ border:none; text-decoration: none; width:100% !important; }
+.slidecontrolls{ margin:20px auto 0 auto; position: relative; float:left; min-width: 108px;}
+.slidecontrolls a{ height:20px; width:18px; display:block; cursor: pointer; background: transparent url(../../images/aslideshow/controlls.gif) center bottom no-repeat; float:left; outline: none; }
+.slidecontrolls a:hover, .slidecontrolls .active_item{ background: transparent url(../../images/aslideshow/controlls.gif) center top no-repeat; }
+.feature_excerpt{ width:100%; position: absolute; display: block; bottom: 0; left:0; z-index: 2; padding:14px 15px; font-size: 11.5px; line-height:1.5em; cursor: pointer; background: #000; color: #fff; }
+.feature_excerpt strong{ display: block; font-size: 15px; padding-bottom: 3px; }
+.kBlock { background-color: #fefefe !important; background-repeat: no-repeat;}
+.aviaslider-product img { float: left; width:100%;}
+.aviaslider a div.desc { color: #2F2F2F}
+.aviaslider a h1.product-name { font-size: 20px;}
+.slidecontrollsNone { display: none;}
+.aviaslider-static li img { width:100%; }
+.aviaslider-static li p { margin: 0; }
+.aviaslider-static li h1,
+.aviaslider-static li h2,
+.aviaslider-static li h3,
+.aviaslider-static li h4,
+.aviaslider-static li h5,
+.aviaslider-static li h6 {}
+.kBlock {background: #ccc !important; opacity: 0.3 !important; width: 100% !important; height: 100% !important;}
+.main-slide {margin: 0 15px;}

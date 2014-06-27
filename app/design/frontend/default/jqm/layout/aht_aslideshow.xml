@@ -1,0 +1,82 @@
+<!--
+/**
+ * AHT_Aslideshow Extension
+ *
+ * @category    Local
+ * @package     AHT_Aslideshow
+ * @author      dungnv (dungnv@arrowhitech.com)
+ * @copyright   Copyright(c) 2011 Arrowhitech Inc. (http://www.arrowhitech.com)
+ *
+ */
+
+/**
+ *
+ * @category   Local
+ * @package    AHT_Aslideshow
+ * @author     dungnv <dungnv@arrowhitech.com>
+ */
+-->
+<layout version="0.1.0">
+    <default>
+        <reference name="head">
+            <action method="addCss"><stylesheet>css/aslideshow/styles.css</stylesheet></action>
+            <action method="addItem"><type>skin_js</type><script>js/aslideshow/jquery.js</script></action>
+            <action method="addItem"><type>skin_js</type><script>js/aslideshow/jquery.noconflict.js</script></action>
+            <action method="addItem"><type>skin_js</type><script>js/aslideshow/jquery.aviaSlider.js</script></action>
+        </reference>
+        <!--<reference name="left">
+            <block type="aslideshow/content_lefttop" name="aslideshow_left_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_rightbottom" name="aslideshow_left_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+        <reference name="right">
+            <block type="aslideshow/content_righttop" name="aslideshow_right_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_rightbottom" name="aslideshow_right_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+        <reference name="content">
+            <block type="aslideshow/content_contenttop" name="aslideshow_content_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_contentbottom" name="aslideshow_content_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>-->
+    </default>
+    <cms_page>
+        <reference name="left">
+            <block type="aslideshow/content_lefttop" name="aslideshow_left_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_rightbottom" name="aslideshow_left_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+        <reference name="right">
+            <block type="aslideshow/content_righttop" name="aslideshow_right_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_rightbottom" name="aslideshow_right_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+        <reference name="content">
+            <block type="aslideshow/content_contenttop" name="aslideshow_content_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_contentbottom" name="aslideshow_content_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+    </cms_page>
+    <catalog_category_default>
+        <reference name="left">
+            <block type="aslideshow/content_lefttop" name="aslideshow_left_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_rightbottom" name="aslideshow_left_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+        <reference name="right">
+            <block type="aslideshow/content_righttop" name="aslideshow_right_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_rightbottom" name="aslideshow_right_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+        <reference name="content">
+            <block type="aslideshow/content_contenttop" name="aslideshow_content_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_contentbottom" name="aslideshow_content_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+    </catalog_category_default>
+    <catalog_category_layered>
+        <reference name="left">
+            <block type="aslideshow/content_lefttop" name="aslideshow_left_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_rightbottom" name="aslideshow_left_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+        <reference name="right">
+            <block type="aslideshow/content_righttop" name="aslideshow_right_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_rightbottom" name="aslideshow_right_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+        <reference name="content">
+            <block type="aslideshow/content_contenttop" name="aslideshow_content_top" template="aht_aslideshow/content/aslideshow.phtml" before="-"/>
+            <block type="aslideshow/content_contentbottom" name="aslideshow_content_bottom" template="aht_aslideshow/content/aslideshow.phtml" after="-"/>
+        </reference>
+    </catalog_category_layered>
+</layout>

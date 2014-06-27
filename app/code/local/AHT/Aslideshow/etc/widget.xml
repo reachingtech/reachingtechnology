@@ -1,0 +1,55 @@
+<?xml version="1.0"?>
+<!--
+/** AHT_Aslideshow Extension
+ *
+ * @category    Local
+ * @package     AHT_Aslideshow
+ * @author      dungnv (dungnv@arrowhitech.com)
+ * @copyright   Copyright(c) 2011 Arrowhitech Inc. (http://www.arrowhitech.com)
+ *
+ */
+
+/**
+ *
+ * @category   Local
+ * @package    AHT_Aslideshow
+ * @author     dungnv <dungnv@arrowhitech.com>
+ */
+-->
+<widgets>
+    <aslideshow type="aslideshow/widget_slideshow" translate="name description" module="aslideshow">
+        <name>Aslideshow</name>
+        <description>List of Slideshows</description>
+        <is_email_compatible>1</is_email_compatible>
+        <parameters>
+            <template>
+                <required>1</required>
+                <visible>1</visible>
+                <label>Template</label>
+                <type>select</type>
+                <value>aht_aslideshow/widget/aslideshow.phtml</value>
+                <values>
+                    <default translate="label">
+                        <value>aht_aslideshow/widget/aslideshow.phtml</value>
+                        <label>Aslideshow</label>
+                    </default>
+                </values>
+            </template>
+            <aslideshow_id type="complex" translate="label">
+                <visible>1</visible>
+                <required>1</required>
+                <label>Slideshow</label>
+                <type>label</type>
+                <helper_block>
+                    <type>aslideshow/adminhtml_slideshow_widget_chooser</type>
+                    <data>
+                        <button translate="open">
+                            <open>Select Slideshow...</open>
+                        </button>
+                    </data>
+                </helper_block>
+                <sort_order>10</sort_order>
+            </aslideshow_id>
+        </parameters>
+    </aslideshow>
+</widgets>
