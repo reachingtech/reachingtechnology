@@ -43,7 +43,7 @@
     <div class="col-1 addresses-primary">
         <h2><?php echo $this->__('Default Addresses') ?></h2>
         <ol>
-        <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): ?>
+        <!--<?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultBilling()): ?>
             <li class="item ui-body ui-body-b">
                 <h3><?php echo $this->__('Default Billing Address') ?></h3>
                 <address>
@@ -56,7 +56,7 @@
                 <h3><?php echo $this->__('Default Billing Address') ?></h3>
                 <?php echo $this->__('You have no default billing address in your address book.') ?>
             </li>
-        <?php endif ?>
+        <?php endif ?>-->
 
         <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
             <li class="item ui-body ui-body-b">

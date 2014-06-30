@@ -110,7 +110,7 @@ jQuery(function() {
             <li class="fields">
                 <?php echo $this->getNameBlockHtml() ?>
             </li>
-            <li class="wide">
+            <!--<li class="wide">
 				<div data-role="fieldcontain">
 					<label for="company"><?php echo $this->__('Company') ?></label>
                     <input type="text" name="company" id="company" title="<?php echo $this->__('Company') ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getCompany()) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('company') ?>" />
@@ -124,11 +124,13 @@ jQuery(function() {
                         <input type="text" name="telephone" value="<?php echo $this->escapeHtml($this->getAddress()->getTelephone()) ?>" title="<?php echo $this->__('Telephone') ?>" class="input-text  <?php echo $this->helper('customer/address')->getAttributeValidationClass('telephone') ?>" id="telephone" />
                     </div>
                 </div>
+            </li>-->
+            <li class="fields">
                 <div class="field">
 					<div data-role="fieldcontain">
-						<label for="fax"><?php echo $this->__('Fax') ?></label>
+						<label for="mobile" class="required"><em>*</em><?php echo $this->__('Mobile') ?></label>
                     
-                        <input type="text" name="fax" id="fax" title="<?php echo $this->__('Fax') ?>" value="<?php echo $this->escapeHtml($this->getAddress()->getFax()) ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('fax') ?>" />
+                        <input type="text" name="mobile" value="<?php echo $this->htmlEscape($this->getAddress()->getMobile() ? $this->getAddress()->getMobile() : $this->getCustomer()->getMobile()) ?>" title="<?php echo $this->__('Mobile') ?>" class="input-text  <?php echo $this->helper('customer/address')->getAttributeValidationClass('mobile') ?>" id="mobile" />
                     </div>
                 </div>
             </li>
@@ -137,23 +139,6 @@ jQuery(function() {
     <div class="fieldset">
         <h2 class="legend"><?php echo $this->__('Address') ?></h2>
         <ul class="form-list">
-        <?php $_streetValidationClass = $this->helper('customer/address')->getAttributeValidationClass('street'); ?>
-            <li class="wide">
-				<div data-role="fieldcontain">
-					<label for="street_1" class="required"><em>*</em><?php echo $this->__('Street Address') ?></label>
-                
-                    <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet(1)) ?>" title="<?php echo $this->__('Street Address') ?>" id="street_1" class="input-text <?php echo $_streetValidationClass ?>" />
-                </div>
-            </li>
-        <?php $_streetValidationClass = trim(str_replace('required-entry', '', $_streetValidationClass)); ?>
-        <?php for ($_i = 2, $_n = $this->helper('customer/address')->getStreetLines(); $_i <= $_n; $_i++): ?>
-            <li class="wide">
-				<div data-role="fieldcontain">
-					<label for="street_1" class="required">&nbsp;</label>
-                    <input type="text" name="street[]" value="<?php echo $this->escapeHtml($this->getAddress()->getStreet($_i)) ?>" title="<?php echo $this->__('Street Address %s', $_i) ?>" id="street_<?php echo $_i ?>" class="input-text <?php echo $_streetValidationClass ?>" />
-                </div>
-            </li>
-        <?php endfor; ?>
             <?php if ($this->helper('customer/address')->isVatAttributeVisible()) : ?>
             <li class="wide">
 				<div data-role="fieldcontain">
@@ -163,58 +148,42 @@ jQuery(function() {
                 </div>
             </li>
             <?php endif; ?>
+            <?php if ($this->getCountryMore()):?>
+            <li class="fields"><span class="label-like"><?php echo $this->__('Country');?><span class="required">*</span></span>
+            <div class="input-box"><?php echo $this->getCountryHtmlSelect();?></div> </li>
+            <?php else:?>
+            <input id="country_id" name="country_id" type="hidden" value="<?php echo $this->getCountryId();?>" />
+            <?php endif;?>
+
             <li class="fields">
-                <div class="field">
-					<div data-role="fieldcontain">
-						<label for="city" class="required"><em>*</em><?php echo $this->__('City') ?></label>
-                    
-                        <input type="text" name="city" value="<?php echo $this->escapeHtml($this->getAddress()->getCity()) ?>"  title="<?php echo $this->__('City') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('city') ?>" id="city" />
-                    </div>
-                </div>
-                <div class="field">
-					<div data-role="fieldcontain">
-						<label for="region_id" class="required"><em>*</em><?php echo $this->__('State/Province') ?></label>
-                    
-                        <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" class="validate-select" style="display:none;">
-                           <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
-                        </select>
-                        <script type="text/javascript">
-                        //<![CDATA[
-                            $('region_id').setAttribute('defaultValue',  "<?php echo $this->getAddress()->getRegionId() ?>");
-                        //]]>
-                        </script>
-					</div>
-					<div data-role="fieldcontain">
-						<label for="region_id" class="required">&nbsp;</label>
-                        <input type="text" id="region" name="region" value="<?php echo $this->escapeHtml($this->getAddress()->getRegion()) ?>"  title="<?php echo $this->__('State/Province') ?>" class="input-text <?php echo $this->helper('customer/address')->getAttributeValidationClass('region') ?>" />
-                    </div>
-                </div>
+                    <div class="input-box">
+                        <div class="field">
+                            <div data-role="fieldcontain">
+                                <select name="region_id" validata="required:true"></select>			
+                                <input name="region" type="hidden" value="<?php echo $this->getAddress()->getRegion();?>" />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div data-role="fieldcontain">
+                                <select name="city_id" class="validate-select"></select>
+                                <input name="city" type="hidden" value="<?php echo $this->getAddress()->getCity();?>" />
+                            </div>
+                        </div>
+                        <div class="field">
+                            <div data-role="fieldcontain">
+                            <select name="area_id" class="validate-select"></select>
+                            <input name="area" type="hidden" value="<?php echo $this->getAddress()->getArea();?>" />
+                            </div>
+                        </div>
+                            <span class="prompt-msg"></span>
+                      </div>
             </li>
-            <li class="fields">
-                <div class="field">
-					<div data-role="fieldcontain">
-						<label for="zip" class="required"><em>*</em><?php echo $this->__('Zip/Postal Code') ?></label>
-                    
-                        <input type="text" name="postcode" value="<?php echo $this->escapeHtml($this->getAddress()->getPostcode()) ?>" title="<?php echo $this->__('Zip/Postal Code') ?>" id="zip" class="input-text validate-zip-international <?php echo $this->helper('customer/address')->getAttributeValidationClass('postcode') ?>" />
-                    </div>
-                </div>
-                <div class="field">
-					<div data-role="fieldcontain">
-						<label for="country" class="required"><em>*</em><?php echo $this->__('Country') ?></label>
-                    
-                        <?php echo $this->getCountryHtmlSelect() ?>
-                    </div>
-                </div>
-            </li>
-            <li<?php if($this->canSetAsDefaultBilling()) echo ' class="control"' ?>>
-                <?php if($this->isDefaultBilling()): ?>
-                    <strong><?php echo $this->__('Default Billing Address') ?></strong>
-                <?php elseif($this->canSetAsDefaultBilling()): ?>
-                    <input type="checkbox" id="primary_billing" name="default_billing" value="1" title="<?php echo $this->__('Use as My Default Billing Address') ?>" class="checkbox" /><label for="primary_billing"><?php echo $this->__('Use as my default billing address') ?></label>
-                <?php else: ?>
-                    <input type="hidden" name="default_billing" value="1" />
-                <?php endif; ?>
-            </li>
+            <li class="fields"><span class="label-like"><?php echo $this->__('Address');?><span class="required">*</span></span>
+		<div data-role="fieldcontain">
+		  <textarea cols="60" rows="3" id="street" name="street" class="address input-text" validata="required:true"><?php $street = $this->getAddress()->getStreetFull(); if (is_array($street)){$street = implode('-', $street);} echo $this->htmlEscape($street); ?></textarea>
+		  <span class="prompt-msg" message="<?php echo $this->__('Please enter your delivery address');?>"></span>
+		</div>
+	  </li>
             <li<?php if($this->canSetAsDefaultShipping()) echo ' class="control"' ?>>
                 <?php if($this->isDefaultShipping()): ?>
                     <strong><?php echo $this->__('Default Shipping Address') ?></strong>
@@ -232,10 +201,4 @@ jQuery(function() {
         <button type="submit" title="<?php echo $this->__('Save Address') ?>" class="button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
     </div>
 </form>
-<script type="text/javascript">
-//<![CDATA[
-    var dataForm = new VarienForm('form-validate', true);
-    new RegionUpdater('country', 'region', 'region_id', <?php echo $this->helper('directory')->getRegionJson() ?>, undefined, 'zip');
-//]]>
-</script>
 </div>
