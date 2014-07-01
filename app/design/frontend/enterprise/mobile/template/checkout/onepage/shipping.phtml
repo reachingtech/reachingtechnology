@@ -30,8 +30,8 @@ var regionCities = <?php echo $this->helper('directory')->getCityJson() ?>;
 var cityAreas = <?php echo $this->helper('directory')->getAreaJson() ?>;
 
 $j(function() {
-	var selectCountry = $j('select[name="shipping[country_id]"]');
-	if(!(selectCountry.length)){selectCountry = $j('#country_id');}
+	var selectCountry = $j('input[name="shipping[country_id]"]');
+	if(!(selectCountry.length)){selectCountry = $j('#shipping\\:country_id');}
 	var selectRegion = $j('select[name="shipping[region_id]"]');
 	var inputRegion = $j('input[name="shipping[region]"]');
 	var selectCity = $j('select[name="shipping[city_id]"]');
@@ -96,7 +96,7 @@ $j(function() {
        </li>
     <?php endif ?>
        <li id="shipping-new-address-form"<?php if ($this->customerHasAddresses()): ?> style="display:none;"<?php endif ?>>
-           <input id="country_id" name="shipping[country_id]" id="shipping:country_id" type="hidden" value="<?php echo $this->getCountryId();?>" />
+           <input name="shipping[country_id]" id="shipping:country_id" type="hidden" value="<?php echo $this->getCountryId();?>" />
            <fieldset>
                <input type="hidden" name="shipping[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="shipping:address_id" />
                <ul>

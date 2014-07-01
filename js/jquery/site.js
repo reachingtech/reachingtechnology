@@ -13,7 +13,7 @@ jQuery(document).ready(function(){
         if (jQuery('#opc-login').length) {
             setTimeout(gotoSection,500,'login');
         } else {
-            setTimeout(gotoSection,500,'billing');
+            setTimeout(gotoSection,500,'shipping');
         }
         jQuery('a.ui-collapsible-heading-toggle').click(function(){
             jQuery('a.ui-collapsible-heading-toggle')[0].scrollIntoView( true );
@@ -39,8 +39,8 @@ jQuery(document).ready(function(){
         // shipping
         if (!countryRegions[jQuery('#shipping\\:country_id').val()]) {
             setTimeout(function(){
-                jQuery('#shipping\\:region_id').parents('div.ui-select').hide();
-                jQuery('label[for=shipping:region_id] em').hide();
+                //jQuery('#shipping\\:region_id').parents('div.ui-select').hide();
+                //jQuery('label[for=shipping:region_id] em').hide();
             }, 100);
         } else {
             jQuery('label[for=shipping:region_id] em').show();
