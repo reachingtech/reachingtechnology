@@ -40,8 +40,8 @@
             </li>
             <li>
 				<div data-role="fieldcontain">
-					<label for="email" class="required"><em>*</em><?php echo $this->__('Email Address') ?></label>
-					<input type="text" name="email" id="email" value="<?php echo $this->htmlEscape($this->getCustomer()->getEmail()) ?>" title="<?php echo $this->__('Email Address') ?>" class="input-text required-entry validate-email" />
+					<label for="username" class="required"><?php echo $this->__('Username') ?></label>
+                                        <input type="text" name="username" id="username" value="<?php echo $this->htmlEscape($this->getCustomer()->getUsername()) ?>" title="<?php echo $this->__('Username') ?>" disabled="disabled" class="input-text required-entry" />
                 </div>
             </li>
         <?php $_dob = $this->getLayout()->createBlock('customer/widget_dob') ?>
