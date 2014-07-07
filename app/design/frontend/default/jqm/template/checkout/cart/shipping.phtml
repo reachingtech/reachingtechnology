@@ -45,7 +45,7 @@
                 <li>
                     <div data-role="fieldcontain">
 						<label for="region_id"<?php if ($this->isStateProvinceRequired()) echo ' class="required"' ?>><?php if ($this->isStateProvinceRequired()) echo '<em>*</em>' ?><?php echo $this->__('State/Province') ?></label>
-                        <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" style="display:none;"<?php echo ($this->isStateProvinceRequired() ? ' class="validate-select"' : '') ?>>
+                        <select id="region_id" name="region_id" title="<?php echo $this->__('State/Province') ?>" <?php echo ($this->isStateProvinceRequired() ? ' class="validate-select"' : '') ?>>
                             <option value=""><?php echo $this->__('Please select region, state or province') ?></option>
                         </select>
 					</div>

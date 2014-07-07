@@ -7,7 +7,15 @@ jQuery(document).bind("mobileinit", function(){
     jQuery.mobile.defaultTransition = 'none';
     //jQuery.mobile.ajaxEnabled = false;
     jQuery.mobile.page.prototype.options.addBackBtn = true;
+    jQuery.mobile.selectmenu.prototype.options.nativeMenu = false;
 });
+
+jQuery(document).on("pageinit", "#page", function(){
+    var region = jQuery('#region_id');
+    if(region.selectmenu)
+        region.selectmenu('refresh',true);
+});
+
 jQuery(document).ready(function(){
     if (jQuery('#checkoutSteps').length) {
         if (jQuery('#opc-login').length) {
@@ -18,42 +26,7 @@ jQuery(document).ready(function(){
         jQuery('a.ui-collapsible-heading-toggle').click(function(){
             jQuery('a.ui-collapsible-heading-toggle')[0].scrollIntoView( true );
         });
-        // billing
-        if (!countryRegions[jQuery('#billing\\:country_id').val()]) {
-            setTimeout(function(){
-                jQuery('#billing\\:region_id').parents('div.ui-select').hide();
-                jQuery('label[for=billing:region_id] em').hide();
-            }, 100);
-        } else {
-            jQuery('label[for=billing:region_id] em').show();
-        }
-        jQuery('#billing\\:country_id').change(function(){
-            if (countryRegions[this.value]) {
-                jQuery('#billing\\:region_id').parents('div.ui-select').show();
-                jQuery('label[for=billing:region_id] em').show();
-            } else {
-                jQuery('#billing\\:region_id').parents('div.ui-select').hide();
-                jQuery('label[for=billing:region_id] em').hide();
-            }
-        });
-        // shipping
-        if (!countryRegions[jQuery('#shipping\\:country_id').val()]) {
-            setTimeout(function(){
-                //jQuery('#shipping\\:region_id').parents('div.ui-select').hide();
-                //jQuery('label[for=shipping:region_id] em').hide();
-            }, 100);
-        } else {
-            jQuery('label[for=shipping:region_id] em').show();
-        }
-        jQuery('#shipping\\:country_id').change(function(){
-            if (countryRegions[this.value]) {
-                jQuery('#shipping\\:region_id').parents('div.ui-select').show();
-                jQuery('label[for=shipping:region_id] em').show();
-            } else {
-                jQuery('#shipping\\:region_id').parents('div.ui-select').hide();
-                jQuery('label[for=shipping:region_id] em').hide();
-            }
-        });
+        
         jQuery('#opc-payment input[type=radio]').live('change', function() {
             var method = jQuery(this).val();
             if (method) {
@@ -63,6 +36,7 @@ jQuery(document).ready(function(){
         });
     }
 });
+
 function setCookie(c_name,value,exdays)
 {
     var exdate=new Date();

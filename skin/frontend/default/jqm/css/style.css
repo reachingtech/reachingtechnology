@@ -6,7 +6,7 @@ ul {list-style: none;}
 .header-container { margin-bottom: 20px; padding: 10px; }
 .nav-container { margin: 20px 0; }
 #products-list {padding-bottom: 20px;}
-.page-footer {position: fixed !important; bottom:0;z-index:999999; left:0;}
+.page-footer {position: fixed !important; bottom:0;z-index:999999; left:0; width:100%}
 .footer-container {float: left; text-align: center; padding-bottom: 80px; padding-top: 20px; width: 100%; }
 .toolbar-bottom { float: left; width: 100%; padding-bottom: 15px; }
 .product-view {padding: 10px;}

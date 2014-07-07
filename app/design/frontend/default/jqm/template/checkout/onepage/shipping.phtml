@@ -25,121 +25,127 @@
  */
 ?>
 <script type="text/javascript">
-var countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?>;
-var regionCities = <?php echo $this->helper('directory')->getCityJson() ?>;
-var cityAreas = <?php echo $this->helper('directory')->getAreaJson() ?>;
+    var countryRegions = <?php echo $this->helper('directory')->getRegionJson() ?>;
+    var regionCities = <?php echo $this->helper('directory')->getCityJson() ?>;
+    var cityAreas = <?php echo $this->helper('directory')->getAreaJson() ?>;
 
-jQuery(function() {
-	var selectCountry = jQuery('input[name="shipping[country_id]"]');
-	if(!(selectCountry.length)){selectCountry = jQuery('#shipping\\:country_id');}
-	var selectRegion = jQuery('select[name="shipping[region_id]"]');
-	var inputRegion = jQuery('input[name="shipping[region]"]');
-	var selectCity = jQuery('select[name="shipping[city_id]"]');
-	var inputCity = jQuery('input[name="shipping[city]"]');
-	var selectArea = jQuery('select[name="shipping[area_id]"]');
-	var inputArea = jQuery('input[name="shipping[area]"]');
+    jQuery(function() {
+        var selectCountry = jQuery('input[name="shipping[country_id]"]');
+        if (!(selectCountry.length)) {
+            selectCountry = jQuery('#country_id');
+        }
+        var selectRegion = jQuery('select[name="shipping[region_id]"]');
+        var inputRegion = jQuery('input[name="shipping[region]"]');
+        var selectCity = jQuery('select[name="shipping[city_id]"]');
+        var inputCity = jQuery('input[name="shipping[city]"]');
+        var selectArea = jQuery('select[name="shipping[area_id]"]');
+        var inputArea = jQuery('input[name="shipping[area]"]');
 
-	selectCountry.change(function() {
-		var countryId = selectCountry.val();
-		selectRegion.empty();
-		if(countryRegions[countryId]){
-			jQuery.each(countryRegions[countryId], function(key, item) {
-                                selectRegion.append('<option value="'+key+'">'+item.name+'</option>');
-			});
-		}
-                selectRegion.trigger('change');
-	});
+        selectCountry.change(function() {
+            var countryId = selectCountry.val();
+            selectRegion.empty();
+            if (countryRegions[countryId]) {
+                selectRegion.append('<option value="0" selected="selected">Please Select Region</option>');
+                jQuery.each(countryRegions[countryId], function(key, item) {
+                    selectRegion.append('<option value="' + key + '">' + item.name + '</option>');
+                });
+            }
+            selectRegion.trigger('change');
+        });
 
-	selectRegion.change(function() {
-		inputRegion.val(jQuery(this).find('option[value="'+jQuery(this).val()+'"]').text());
-		var regionId = selectRegion.val();
-		selectCity.empty();
-		if(regionCities[regionId]){
-			jQuery.each(regionCities[regionId], function(key, item) {
-				selectCity.append('<option value="'+key+'">'+item.name+'</option>');
-			});
-		}
-		selectCity.trigger('change');
-	});
+        selectRegion.change(function() {
+            inputRegion.val(jQuery(this).find('option[value="' + jQuery(this).val() + '"]').text());
+            var regionId = selectRegion.val();
+            selectCity.empty();
+            if (regionCities[regionId]) {
+                selectCity.append('<option value="0" selected="selected">Please Select City</option>');
+                jQuery.each(regionCities[regionId], function(key, item) {
+                    selectCity.append('<option value="' + key + '">' + item.name + '</option>');
+                });
+            }
+            selectCity.trigger('change');
+        });
 
-	selectCity.change(function() {
-		inputCity.val(jQuery(this).find('option[value="'+jQuery(this).val()+'"]').text());
-		var cityId = selectCity.val();
-		selectArea.empty();
-		if(cityAreas[cityId]){
-			jQuery.each(cityAreas[cityId], function(key, item) {
-				selectArea.append('<option value="'+key+'">'+item.name+'</option>');
-			});
-		}
-		selectArea.trigger('change');
-	});
+        selectCity.change(function() {
+            inputCity.val(jQuery(this).find('option[value="' + jQuery(this).val() + '"]').text());
+            var cityId = selectCity.val();
+            selectArea.empty();
+            if (cityAreas[cityId]) {
+                selectArea.append('<option value="0" selected="selected">Please Select Area</option>');
+                jQuery.each(cityAreas[cityId], function(key, item) {
+                    selectArea.append('<option value="' + key + '">' + item.name + '</option>');
+                });
+            }
+            selectArea.trigger('change');
+        });
 
-	selectArea.change(function() {
-		inputArea.val(jQuery(this).find('option[value="'+jQuery(this).val()+'"]').text());
-	});
+        selectArea.change(function() {
+            inputArea.val(jQuery(this).find('option[value="' + jQuery(this).val() + '"]').text());
+        });
 
-	//selectCountry.val("<?php echo $this->getCountryId();?>").trigger('change');
+        //selectCountry.val("<?php echo $this->getCountryId(); ?>").trigger('change');
         selectCountry.val("<?php echo $this->__('CN') ?>").trigger('change');
-	selectRegion.val("<?php echo $this->getAddress()->getRegionId();?>").trigger('change');
-	selectCity.val("<?php echo $this->getAddress()->getCityId();?>").trigger('change');
-	selectArea.val("<?php echo $this->getAddress()->getAreaId();?>").trigger('change');
-        selectRegion.show();
-        selectRegion[0].selectedIndex = 1;
-        selectRegion.val(1);
-});
+        //selectRegion.val("1").trigger('change');
+        //selectCity.val("<?php echo $this->getAddress()->getCityId(); ?>").trigger('change');
+        //selectArea.val("<?php echo $this->getAddress()->getAreaId(); ?>").trigger('change');
+
+
+    });
 </script>
+
 <form action="" id="co-shipping-form">
-    <input name="shipping[country_id]" id="shipping:country_id" type="hidden" value="<?php echo $this->getCountryId(); ?>" />
+    <input name="shipping[country_id]" id="country_id" type="hidden" value="<?php echo $this->getCountryId(); ?>" />
     <ul class="form-list" data-role="listview">
-<?php if ($this->customerHasAddresses()): ?>
+        <?php if ($this->customerHasAddresses()): ?>
             <li class="wide">
                 <div data-role="fieldcontain">   
                     <label for="shipping-address-select"><?php echo $this->__('Select a shipping address from your address book or enter a new address.') ?></label>          
-            <?php echo $this->getAddressesHtmlSelect('shipping') ?>
+                    <?php echo $this->getAddressesHtmlSelect('shipping') ?>
                 </div>
             </li>
-<?php endif ?>
+        <?php endif ?>
         <li id="shipping-new-address-form"<?php if ($this->customerHasAddresses()): ?> style="display:none;"<?php endif ?>>
             <fieldset>
                 <input type="hidden" name="shipping[address_id]" value="<?php echo $this->getAddress()->getId() ?>" id="shipping:address_id" />
                 <ul>
                     <li class="fields"><?php echo $this->getLayout()->createBlock('customer/widget_name')->setObject($this->getAddress())->setFieldIdFormat('shipping:%s')->setFieldNameFormat('shipping[%s]')->setFieldParams('onchange="shipping.setSameAsBilling(false)"')->toHtml() ?></li>
-                    <li class="fields"><span class="label-like"><?php echo $this->__('Live in areas of') ?><span class="required">*</span></span>
-                        <div class="input-box">
-                            <div data-role="fieldcontain">
-                                <label for="shipping:region_id" class="required"><em>*</em><?php echo $this->__('Region') ?></label>
-                                <select name="shipping[region_id]" id="shipping:region_id"></select>			
-                                <input name="shipping[region]" id="shipping:region" type="hidden" value="<?php echo $this->getAddress()->getRegion(); ?>" />
+                    <li class="fields">
+                            <div class="field">
+                                <div data-role="fieldcontain"><span class="label-like"><?php echo $this->__('Region'); ?><span class="required">*</span></span>
+                                    <select name="shipping[region_id]" id="region_id"></select>			
+                                    <input name="shipping[region]" id="shipping:region" type="hidden" value="<?php echo $this->getAddress()->getRegion(); ?>" />
+                                </div>
                             </div>
-                            <div data-role="fieldcontain">
-                                <label for="shipping:city_id" class="required"><em>*</em><?php echo $this->__('City') ?></label>
-                                <select name="shipping[city_id]" id="shipping:city_id"></select>
-                                <input name="shipping[city]" id="shipping:city" type="hidden" value="<?php echo $this->getAddress()->getCity(); ?>" />
+                            <div class="field"><span class="label-like"><?php echo $this->__('City'); ?><span class="required">*</span></span>
+                                <div data-role="fieldcontain">
+                                    <select name="shipping[city_id]" id="city_id"></select>
+                                    <input name="shipping[city]" id="shipping:city" type="hidden" value="<?php echo $this->getAddress()->getCity(); ?>" />
+                                </div>
                             </div>
-                            <div data-role="fieldcontain">
-                                <label for="shipping:area_id" class="required"><em>*</em><?php echo $this->__('Area') ?></label>
-                                <select name="shipping[area_id]" id="shipping:area_id"></select>
-                                <input name="shipping[area]" id="shipping:area" type="hidden" value="<?php echo $this->getAddress()->getArea(); ?>" />
+                            <div class="field"><span class="label-like"><?php echo $this->__('Area'); ?><span class="required">*</span></span>
+                                <div data-role="fieldcontain">
+                                    <select name="shipping[area_id]" id="area_id"></select>
+                                    <input name="shipping[area]" id="shipping:area" type="hidden" value="<?php echo $this->getAddress()->getArea(); ?>" />
+                                </div>
                             </div>
                             <span class="prompt-msg"></span>
-                        </div>
                     </li>
-                    
+
                     <li class="fields"><span class="label-like"><?php echo $this->__('Address'); ?><span class="required">*</span></span>
-                       <div class="input-box">
-                           <textarea cols="60" rows="3" id="shipping:street" name="shipping[street]" class="address input-text" validata="required:true"><?php $street = $this->getAddress()->getStreetFull();
+                        <div class="input-box">
+                            <textarea cols="60" rows="3" id="shipping:street" name="shipping[street]" class="address input-text" validata="required:true"><?php
+                                $street = $this->getAddress()->getStreetFull();
                                 if (is_array($street)) {
                                     $street = implode('-', $street);
-                                } echo $this->htmlEscape($street); ?></textarea>
-                           <span class="prompt-msg" message="<?php echo $this->__('Please enter your delivery address'); ?>"></span>
-                       </div>
-                   </li>
+                                } echo $this->htmlEscape($street);
+                                ?></textarea>
+                            <span class="prompt-msg" message="<?php echo $this->__('Please enter your delivery address'); ?>"></span>
+                        </div>
+                    </li>
 
                     <li class="fields">
-                        <div class="field">
+                        <div class="field"><span class="label-like"><?php echo $this->__('Mobile'); ?><span class="required">*</span></span>
                             <div data-role="fieldcontain">   
-                                <label for="shipping:mobile" class="required"><em>*</em><?php echo $this->__('Mobile') ?></label>
-
                                 <input type="text" name="shipping[mobile]" value="<?php echo $this->htmlEscape($this->getAddress()->getMobile()) ?>" title="<?php echo $this->__('Mobile') ?>" class="input-text required-entry" id="shipping:mobile" onchange="shipping.setSameAsBilling(false);" />
                             </div>
                         </div>

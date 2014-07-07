@@ -35,14 +35,19 @@ Default layout, loads most of the pages
         <block type="page/html" name="root" output="toHtml" template="page/1column.phtml">
             <block type="page/html_head" name="head" as="head">
                 
-                <action method="addJs"><script>jquery/jquery-1.6.2.min.js</script></action>
-                <action method="addJs"><script>jquery/jquery.mobile-1.0.1.min.js</script></action>
+                <action method="addJs"><script>jquery/jquery-1.11.1.js</script></action>
+                <action method="addJs"><script>jquery/jquery-migrate-1.2.1.min.js</script></action>
+                <action method="addJs"><script>jquery/jquery.mobile-1.4.3.js</script></action>
+                <action method="addJs"><script>jquery/jquery-noconflict.js</script></action>
+                <!--<action method="addJs"><script>jquery/jquery-1.6.2.min.js</script></action>
+                <action method="addJs"><script>jquery/jquery.mobile-1.0.1.min.js</script></action>-->
                 <action method="addJs"><script>jquery/site.js</script></action>               
 				<action method="addJs"><script>mage/cookies.js</script></action>
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
 				<action method="addCss"><stylesheet>css/style.css</stylesheet></action>
-				<action method="addCss"><stylesheet>css/jquery.mobile-1.0.1.min.css</stylesheet></action>
+				<action method="addCss"><stylesheet>css/jquery.mobile-1.4.3.css</stylesheet></action>
+                                <!--<action method="addCss"><stylesheet>css/jquery.mobile-1.0.1.min.css</stylesheet></action>-->
             </block>
 
             <block type="core/text_list" name="after_body_start" as="after_body_start" translate="label">
