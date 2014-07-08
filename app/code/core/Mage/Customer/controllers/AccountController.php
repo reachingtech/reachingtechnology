@@ -465,7 +465,7 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
             return;
         }
         
-        /* send password to mobile phone */
+        //todo: generate new password and send it by short message
         $password = '111111';
         
         $session->setRegmobile($regmobile);
@@ -988,6 +988,43 @@ class Mage_Customer_AccountController extends Mage_Core_Controller_Front_Action
         }
     }
 
+    public function mobileforgotPasswordPostAction()
+    {
+        $regmobile = (string) $this->getRequest()->getPost('regmobile');
+        if ($regmobile) {
+            if ($regmobile.length != 11) {
+                $this->_getSession()->addError($this->__('Invalid mobile phone number.'));
+                $this->_redirect('*/*/forgotpassword');
+                return;
+            }
+
+            /** @var $customer Mage_Customer_Model_Customer */
+            $customer = $this->_getModel('customer/customer')
+                ->setWebsiteId(Mage::app()->getStore()->getWebsiteId())
+                ->loadByRegmobile($regmobile);
+
+            if ($customer->getId()) {
+                try {
+                    //todo: generate new password and send it by short message
+                } catch (Exception $exception) {
+                    $this->_getSession()->addError($exception->getMessage());
+                    $this->_redirect('*/*/forgotpassword');
+                    return;
+                }
+            }
+            $this->_getSession()
+                ->addSuccess( $this->_getHelper('customer')
+                ->__('If there is an account associated with %s you will receive a message with your new password.',
+                    $this->_getHelper('customer')->escapeHtml($regmobile)));
+            $this->_redirect('*/*/');
+            return;
+        } else {
+            $this->_getSession()->addError($this->__('Please enter your registered mobile.'));
+            $this->_redirect('*/*/forgotpassword');
+            return;
+        }
+    }
+    
     /**
      * Display reset forgotten password form
      *
