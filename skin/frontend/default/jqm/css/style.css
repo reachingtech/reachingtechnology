@@ -84,3 +84,6 @@ ul#checkoutSteps .active .step {padding: 0 15px;}
 }
 .product-name-cart {width: 50%; overflow: hidden;}
 #product-attribute-specs-table td, #product-attribute-specs-table th {font-size: 100%;}
+.ui-listview > li > a.ui-icon-delete {
+    display:inline;
+}

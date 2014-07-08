@@ -45,8 +45,8 @@ Default layout, loads most of the pages
 				<action method="addJs"><script>mage/cookies.js</script></action>
 
                 <block type="page/js_cookie" name="js_cookies" template="page/js/cookie.phtml"/>
-				<action method="addCss"><stylesheet>css/style.css</stylesheet></action>
 				<action method="addCss"><stylesheet>css/jquery.mobile-1.4.3.css</stylesheet></action>
+                                <action method="addCss"><stylesheet>css/style.css</stylesheet></action>
                                 <!--<action method="addCss"><stylesheet>css/jquery.mobile-1.0.1.min.css</stylesheet></action>-->
             </block>
 

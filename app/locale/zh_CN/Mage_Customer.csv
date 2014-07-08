@@ -473,3 +473,10 @@
 "n/a","不可用"
 "or","或"
 "register","注册"
+"Mobile","手机号码"
+"Registered Mobile Phone","注册手机号码"
+"Create an account","创建新账户"
+"Input Your Mobile Phone","请输入手机号码"
+"Get Password","获取短信密码"
+"There is already an account with this mobile phone number. If you are sure that it is your mobile phone number, <a href=""%s"">click here</a> to login. If you forgot your password,<a href=""%s"">click here</a> to get your password","已有帐户使用该手机号码。如果您确认这是您自己的手机号码，请 <a href=""%s"">点击这里</a>登录。如果您忘记密码，请 <a href=""%s"">点击这里</a> 获取密码。"
+
