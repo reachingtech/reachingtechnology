@@ -92,17 +92,17 @@
 
     });
 </script>
-
 <form action="" id="co-shipping-form">
     <input name="shipping[country_id]" id="country_id" type="hidden" value="<?php echo $this->getCountryId(); ?>" />
     <ul class="form-list" data-role="listview">
         <?php if ($this->customerHasAddresses()): ?>
+            <?php if($_address = $this->getCustomer()->getDefaultShippingAddress()): ?>
             <li class="wide">
-                <div data-role="fieldcontain">   
-                    <label for="shipping-address-select"><?php echo $this->__('Select a shipping address from your address book or enter a new address.') ?></label>          
-                    <?php echo $this->getAddressesHtmlSelect('shipping') ?>
-                </div>
+                    <input type="text" name="shipping_address_id" id="shipping_address_id" value="<?php echo $_address->getId(); ?>" style="display:none">
+                    <a href="#shipping_address_list" id="selected_address"><?php echo $_address->format('html'); ?></a>
+                    <!--<a data-role="button" data-theme="c" data-inline="true" href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span> <a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');"><?php echo $this->__('Delete Address') ?></a>-->
             </li>
+            <?php endif ?>
         <?php endif ?>
         <li id="shipping-new-address-form"<?php if ($this->customerHasAddresses()): ?> style="display:none;"<?php endif ?>>
             <fieldset>
@@ -173,6 +173,11 @@
         </span>
     </div>
 </form>
+<script type="text/javascript">
+//<![CDATA[
+    jQuery("#page").after('<?php echo $this->getShippingAddressSubPageHTML() ?>');
+//]]>
+</script>
 <script type="text/javascript">
 //<![CDATA[
     var shipping = new Shipping('co-shipping-form', '<?php echo $this->getUrl('checkout/onepage/getAddress') ?>address/', '<?php echo $this->getUrl('checkout/onepage/saveShipping') ?>',

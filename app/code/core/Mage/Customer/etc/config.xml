@@ -343,6 +343,10 @@
                         <title>HTML</title>
                         <htmlEscape>true</htmlEscape>
                     </html>
+                    <jqueryhtml translate="title" module="customer">
+                        <title>HTML</title>
+                        <htmlEscape>true</htmlEscape>
+                    </jqueryhtml>
                     <pdf translate="title" module="customer">
                         <title>PDF</title>
                     </pdf>
@@ -560,11 +564,11 @@ T: {{var telephone}}
                     Address: {{var region}}, {{var city}} {{var area}} {{var street}}, 
                     Mobile: {{var mobile}}
                 </oneline>
-                <html><![CDATA[{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}<br/>
-{{depend company}}{{var company}}<br />{{/depend}}
-{{if region}}{{var region}}, {{/if}}{{if city}}{{var city}}  {{/if}}<br/>
+                <html><![CDATA[{{depend prefix}}{{var prefix}} {{/depend}}{{var lastname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var firstname}}{{depend suffix}} {{var suffix}}{{/depend}}<br/>
+{{if region}}{{var region}}, {{/if}}{{if city}}{{var city}}, {{/if}}{{if area}}{{var area}}  {{/if}}<br/>
 {{if street}}{{var street}}<br />{{/if}}
-{{depend mobile}}T: {{var mobile}}{{/depend}}]]></html>
+{{depend mobile}}手机号码: {{var mobile}}{{/depend}}]]></html>
+                <jqueryhtml><![CDATA[{{depend prefix}}{{var prefix}} {{/depend}}{{var lastname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var firstname}}{{depend suffix}} {{var suffix}}{{/depend}}<br/>{{if region}}{{var region}}, {{/if}}{{if city}}{{var city}}, {{/if}}{{if area}}{{var area}}  {{/if}}<br/>{{if street}}{{var street}}<br />{{/if}}{{depend mobile}}手机号码: {{var mobile}}{{/depend}}]]></jqueryhtml>
                 <pdf><![CDATA[{{depend prefix}}{{var prefix}} {{/depend}}{{var firstname}} {{depend middlename}}{{var middlename}} {{/depend}}{{var lastname}}{{depend suffix}} {{var suffix}}{{/depend}}|
 {{depend company}}{{var company}}|{{/depend}}
 {{if street1}}{{var street1}}
@@ -575,7 +579,7 @@ T: {{var telephone}}
 {{if city}}{{var city}},|{{/if}}
 {{if region}}{{var region}}, {{/if}}{{if postcode}}{{var postcode}}{{/if}}|
 {{var country}}|
-{{depend telephone}}T: {{var telephone}}{{/depend}}|
+{{depend telephone}}手机号码: {{var telephone}}{{/depend}}|
 {{depend fax}}<br/>F: {{var fax}}{{/depend}}|
 {{depend vat_id}}<br/>VAT: {{var vat_id}}{{/depend}}|]]></pdf>
                 <js_template><![CDATA[#{prefix} #{firstname} #{middlename} #{lastname} #{suffix}<br/>#{company}<br/>#{street0}<br/>#{street1}<br/>#{street2}<br/>#{street3}<br/>#{city}, #{region}, #{postcode}<br/>#{country_id}<br/>T: #{telephone}<br/>F: #{fax}<br/>VAT: #{vat_id}]]></js_template>

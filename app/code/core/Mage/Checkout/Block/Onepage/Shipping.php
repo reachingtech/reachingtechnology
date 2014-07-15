@@ -92,4 +92,39 @@ class Mage_Checkout_Block_Onepage_Shipping extends Mage_Checkout_Block_Onepage_A
     {
         return !$this->getQuote()->isVirtual();
     }
+    
+    public function getAddAddressUrl()
+    {
+        return $this->getUrl('customer/address/new', array('_secure'=>true));
+    }
+    
+    public function getShippingAddressSubPageHTML()
+    {
+        $html = '<div data-role="page" id="shipping_address_list">'.'<div class="page-title" data-role="header">';
+        $html.='<a href="/" data-icon="back" data-iconpos="notext" data-rel="back">'.$this->__('Back').'</a>';
+        $html.='<h1>'.$this->__('Address Book').'</h1>';
+        $html.='<a href="'.$this->getAddAddressUrl().'">'.$this->__('New Address').'</a>';
+        
+        $html.='<ul class="form-list" data-role="listview">';
+        if($_pAddsses = $this->getCustomer()->getAddresses()){
+            foreach($_pAddsses as $_address){
+                $html.='<li class="wide">';
+                //$html.='<input type="text" name="shipping_address_id" id="shipping_address_id" value="'.$_address->getId().'" style="display:none"></input>';
+                $html.='<a href="#page" onclick="jQuery(\\\'#selected_address\\\').html(jQuery(this).html());jQuery(\\\'#shipping_address_id\\\').val(jQuery(this).attr(\\\'id\\\'));" id="'.$_address->getId().'">'.$_address->format("jqueryhtml").'</a>';
+                //$html.='<a href="#page">'.'hello <br/>hi<br/>'.'</a>';
+                $html.='</li>';
+            }
+        }
+        $html.='</ul>';
+        //$html.='<script type="text/javascript">function returnFromAddressList(){jQuery("#selected_address").val(jQuery(this).val()); jQuery("#shipping_address_id").val(jQuery(this).attr("id"));}</script>';
+        $html.='</div>';
+        
+        return $html;
+    }
+    
+    public function switchDefaultShipping($address){
+        $oldDefaultAddress = $this->getCustomer()->getDefaultShippingAddress();
+        $oldDefaultAddress->setIsDefaultShipping(FALSE);
+        $address->setIsDefaultShipping(TRUE);
+    }
 }

@@ -51,6 +51,7 @@ jQuery(function() {
 		var countryId = selectCountry.val();
 		selectRegion.empty();
 		if(countryRegions[countryId]){
+                        selectRegion.append('<option value="0" selected="selected">Please Select Region</option>');
 			jQuery.each(countryRegions[countryId], function(key, item) {
 				selectRegion.append('<option value="'+key+'">'+item.name+'</option>');
 			});
@@ -63,6 +64,7 @@ jQuery(function() {
 		var regionId = selectRegion.val();
 		selectCity.empty();
 		if(regionCities[regionId]){
+                    selectCity.append('<option value="0" selected="selected">Please Select City</option>');
 			jQuery.each(regionCities[regionId], function(key, item) {
 				selectCity.append('<option value="'+key+'">'+item.name+'</option>');
 			});
@@ -75,6 +77,7 @@ jQuery(function() {
 		var cityId = selectCity.val();
 		selectArea.empty();
 		if(cityAreas[cityId]){
+                    selectArea.append('<option value="0" selected="selected">Please Select Area</option>');
 			jQuery.each(cityAreas[cityId], function(key, item) {
 				selectArea.append('<option value="'+key+'">'+item.name+'</option>');
 			});
