@@ -87,3 +87,4 @@ ul#checkoutSteps .active .step {padding: 0 15px;}
 .ui-listview > li > a.ui-icon-delete {
     display:inline;
 }
+button.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height: 100%; -webkit-appearance: none; cursor: pointer; background: #fff; background: rgba(255,255,255,0); filter: Alpha(Opacity=0); opacity: .1; font-size: 1px; border: none; text-indent: -9999px; }
