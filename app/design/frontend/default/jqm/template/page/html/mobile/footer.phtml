@@ -3,7 +3,9 @@
 		<ul>                       
 			<li><a href="<?php echo $this->getUrl('checkout/cart/index')?>" <?php if($this->helper('core/url')->getCurrentUrl() == $this->getUrl('checkout/cart/index')) : ?>class="ui-btn-active"<?php endif?> data-icon="grid">Cart (<?php echo Mage::helper('checkout/cart')->getItemsCount(); ?>)</a></li>
 			<li><a href="<?php echo $this->getUrl('customer/account/index')?>" rel="external" data-ajax="false" <?php if(in_array($this->helper('core/url')->getCurrentUrl(),array($this->getUrl('customer/account/index')))) : ?>class="ui-btn-active"<?php endif?> data-icon="star">Account</a></li>
-			<li><a href="<?php echo $this->getUrl('checkout/onepage')?>" rel="external" data-ajax="false" <?php if($this->helper('core/url')->getCurrentUrl() == $this->getUrl('checkout/onepage')) : ?>class="ui-btn-active"<?php endif?> data-icon="arrow-r">Checkout</a></li>
+			<!--<li><a href="<?php echo $this->getUrl('checkout/onepage')?>" rel="external" data-ajax="false" <?php if($this->helper('core/url')->getCurrentUrl() == $this->getUrl('checkout/onepage')) : ?>class="ui-btn-active"<?php endif?> data-icon="arrow-r">Checkout</a></li>-->
+                        <li><a href="<?php echo Mage::getBaseUrl() . $this->getLink()?>" rel="external" data-ajax="false" data-icon="home">Home</a></li>
+                        <li><a href="<?php echo $this->getUrl('wishlist/index')?>" rel="external" data-ajax="false" <?php if(in_array($this->helper('core/url')->getCurrentUrl(),array($this->getUrl('wishlist/index')))) : ?>class="ui-btn-active"<?php endif?> data-icon="heart">Wishlist</a></li>
 			<?php if(Mage::getSingleton('customer/session')->isLoggedIn()) : ?>
 				<li><a href="<?php echo $this->getUrl('customer/account/logout')?>" rel="external" data-ajax="false" <?php if($this->helper('core/url')->getCurrentUrl() == $this->getUrl('customer/account/logout')) : ?>class="ui-btn-active"<?php endif?> data-icon="gear">Logout</a></li>
 			<?php else :?>
