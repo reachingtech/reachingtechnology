@@ -26,14 +26,48 @@
 ?>
 <form id="search_mini_form" role="search" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
     <div class="form-search">
-        <input data-type="search" id="search" type="text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>" class="input-text" />
+        <input data-type="search" id="search" type="text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>" class="input-text" onfocus="stripSearchQuery()" onkeypress="testFind(event);"/>
         <!--button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button-->
         <div id="search_autocomplete" class="search-autocomplete"></div>
         <script type="text/javascript">
-        //<![CDATA[
+            //<![CDATA[
             var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search product...') ?>');
             //searchForm.initAutocomplete('<?php echo $this->helper('catalogsearch')->getSuggestUrl() ?>', 'search_autocomplete');
-        //]]>
+
+            function stripSearchQuery() {
+                var el = document.getElementById("search");
+
+                el.value = el.value.replace(/\r|\n|\t?/gi, "");
+                el.innerHTML = el.value.replace(/\r|\n|\t?/gi, "");
+
+                return true;
+            }
+            function startSearchQuery() {
+                var el = document.getElementById("search");
+
+                el.value = el.value.replace(/\r|\n|\t?/gi, "");
+                el.innerHTML = el.value.replace(/\r|\n|\t?/gi, "");
+                document.getElementById("search_mini_form").submit();
+                return true;
+            }
+            function testFind(event) {
+                var myKeyCode = event.keyCode;
+                var el = document.getElementById("search");
+                var val = el.value.replace(/\r|\n|\t?/gi, "");
+
+                if (myKeyCode !== 13) {
+                    return true;
+                }
+
+                el.value = val;
+                el.innerHTML = val;
+                el.blur();
+
+                document.getElementById("search_mini_form").submit();
+
+                return true;
+            }
+            //]]>
         </script>
     </div>
 </form>

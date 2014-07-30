@@ -16,17 +16,17 @@ jQuery(document).on("pageinit", "#page", function(){
         region.selectmenu('refresh',true);
 });
 
-jQuery(document).ready(function(){
+jQuery(document).ready(function() {
     if (jQuery('#checkoutSteps').length) {
         if (jQuery('#opc-login').length) {
-            setTimeout(gotoSection,500,'login');
+            setTimeout(gotoSection, 500, 'login');
         } else {
-            setTimeout(gotoSection,500,'shipping');
+            setTimeout(gotoSection, 500, 'shipping');
         }
-        jQuery('a.ui-collapsible-heading-toggle').click(function(){
-            jQuery('a.ui-collapsible-heading-toggle')[0].scrollIntoView( true );
+        jQuery('a.ui-collapsible-heading-toggle').click(function() {
+            jQuery('a.ui-collapsible-heading-toggle')[0].scrollIntoView(true);
         });
-        
+
         jQuery('#opc-payment input[type=radio]').live('change', function() {
             var method = jQuery(this).val();
             if (method) {
@@ -35,6 +35,33 @@ jQuery(document).ready(function(){
             }
         });
     }
+
+    if(jQuery('.ui-input-search:after') != undefined){
+        jQuery('.ui-input-search:after').click(function(){
+            document.getElementById("search_mini_form").submit();
+        });
+    }
+ /*   if (jQuery('#minus').length) {
+        jQuery('#minus').click(function() {
+            jQuery('#qty').val(parseInt(jQuery('#qty').val()) - 1);
+            if (parseInt(jQuery('#qty').val()) == 1) {
+                jQuery('#minus').attr('disabled', true);
+            }
+            if (parseInt(jQuery('#qty').val()) == 0) {
+                alert("商品数量不能为0");
+                jQuery('#qty').val(parseInt(jQuery('#qty').val()) + 1);
+            }
+        });
+    }
+
+    if (jQuery('#plus').length) {
+        jQuery('#plus').click(function() {
+            jQuery('#qty').val(parseInt(jQuery('#qty').val()) + 1);
+            if (parseInt(jQuery('#qty').val()) > 1) {
+                jQuery('#minus').attr('disabled', false);
+            }
+        });
+    }*/
 });
 
 function setCookie(c_name,value,exdays)
@@ -95,6 +122,28 @@ function gotoSection(section) {
 }
 function switchImage(link){
     jQuery("#image").attr("src",link);
+}
+
+function cart_number(txt_id, type)
+{
+    var qty = jQuery(txt_id);
+    if (type == '+') {
+        qty.val(parseInt(qty.val()) + 1);
+        if (parseInt(qty.val()) > 1) {
+            jQuery('#minus').attr('disabled', false);
+        }
+    }
+
+    if (type == '-') {
+        qty.val(parseInt(qty.val()) - 1);
+        if (parseInt(qty.val()) == 1) {
+            jQuery('#minus').attr('disabled', true);
+        }
+        if (parseInt(qty.val()) == 0) {
+            alert("商品数量不能为0");
+            qty.val(parseInt(qty.val()) + 1);
+        }
+    }
 }
 /*  Prototype JavaScript framework, version 1.6.0.3
  *  (c) 2005-2008 Sam Stephenson

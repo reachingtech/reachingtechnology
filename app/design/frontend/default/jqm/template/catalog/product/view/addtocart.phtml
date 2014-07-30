@@ -29,8 +29,12 @@
 <?php if($_product->isSaleable()): ?>
     <div class="add-to-cart">
         <?php if(!$_product->isGrouped()): ?>
-        <label for="qty"><?php echo $this->__('Qty:') ?></label>
-        <input type="text" name="qty" id="qty" maxlength="12" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+        <div>
+            <label for="qty" class="qty" style="display: inline" ><?php echo $this->__('Qty:') ?></label>
+            <input data-role = 'none' type="button" onclick="cart_number('#qty','-');" style="display: inline" id="minus" value = "-" class="button qty" />
+            <input data-role = 'none' type="text" name="qty" style="display: inline" id="qty" maxlength="5" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
+            <input data-role = 'none' type="button" onclick="cart_number('#qty','+');" style="display: inline" id="plus" value = "+" class="button qty" />
+        </div>
         <?php endif; ?>
         <button type="button" title="<?php echo $buttonTitle ?>" class="button btn-cart" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
         <?php echo $this->getChildHtml('', true, true) ?>
