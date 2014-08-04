@@ -29,7 +29,8 @@ $_item = $this->getItem();
 $isVisibleProduct = $_item->getProduct()->isVisibleInSiteVisibility();
 $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage_Catalog_Model_Product_Attribute_Source_Msrp_Type::TYPE_BEFORE_ORDER_CONFIRM);
 ?>
-<li class="item">
+<li class="item ui-grid-b">
+        <div class="ui-block-a">
 	<a href="<?php echo $this->getProductUrl() ?>" title="<?php echo $this->getProductName() ?>" class="product-image">
 		<img src="<?php echo $this->getProductThumbnail()->resize(78); ?>" width="78" height="78" alt="<?php echo $this->htmlEscape($this->getProductName()) ?>" />   
         <h3 class="product-name">
@@ -54,10 +55,13 @@ $canApplyMsrp = Mage::helper('catalog')->canApplyMsrp($_item->getProduct(), Mage
 				</span>
 		<?php endif ?>
 	</a>
-	<a href="">
-		<div class="a-center cart-qty">
-			<input type="text" name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
-		</div>  
-	</a>
-	<a data-icon="delete" href="<?php echo $this->getDeleteUrl()?>">Remove</a>
+        </div>
+    
+	<div class="a-center cart-qty ui-block-b">
+		<input type="text" name="cart[<?php echo $_item->getId() ?>][qty]" value="<?php echo $this->getQty() ?>" size="4" title="<?php echo $this->__('Qty') ?>" class="input-text qty" maxlength="12" />
+	</div>
+        <div class="ui-block-c">
+	<a id="delete_icon" class="ui-btn-icon-notext ui-icon-delete ui-btn ui-btn-corner-all" href="<?php echo $this->getDeleteUrl()?>">No text</a>
+        </div>
+        
 </li>

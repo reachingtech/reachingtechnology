@@ -30,7 +30,7 @@
 
 <ul class="add-to-links">
 <?php if ($this->helper('wishlist')->isAllow()) : ?>
-    <li><a data-role="button" data-theme="c" data-inline="true" href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist"><?php echo $this->__('Add to Wishlist') ?></a></li>
+    <li><a data-role="button" data-theme="c"  href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href); return false;" class="link-wishlist ui-btn-inline"><?php echo $this->__('Add to Wishlist') ?></a></li>
 <?php endif; ?>
 <?php
     $_compareUrl = $this->helper('catalog/product_compare')->getAddUrl($_product);

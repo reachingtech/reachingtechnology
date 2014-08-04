@@ -25,10 +25,11 @@
  */
 ?>
 <div class="col2-set">
+    <div class="col-1 ui-body ui-body-a" >
     <div class="box">
         <div class="box-title">
-            <h2><?php echo $this->__('Address Book') ?></h2>
-            <a data-inline="true" data-theme="c" data-role="button" href="<?php echo $this->getAddressBookUrl() ?>"><?php echo $this->__('Manage Addresses') ?></a>
+            <h3><?php echo $this->__('Address Book') ?></h3>
+            <a data-inline="true" data-theme="c" data-role="button" class="interesting-button" href="<?php echo $this->getAddressBookUrl() ?>"><?php echo $this->__('Manage Addresses') ?></a>
         </div>
         <div class="box-content ui-grid-a">
             <!--<div class="col-1 ui-block-a">
@@ -45,10 +46,11 @@
 					<h4><?php echo $this->__('Default Shipping Address') ?></h4>
 					<address>
 						<?php echo $this->getPrimaryShippingAddressHtml() ?><br />
-						<a data-inline="true" data-theme="c" data-role="button" href="<?php echo $this->getPrimaryShippingAddressEditUrl() ?>"><?php echo $this->__('Edit Address') ?></a>
+						<a data-inline="true" data-theme="c" data-role="button" class="interesting-button" href="<?php echo $this->getPrimaryShippingAddressEditUrl() ?>"><?php echo $this->__('Edit Address') ?></a>
 					</address>
 				</div>
             </div>
         </div>
     </div>
+        </div>
 </div>

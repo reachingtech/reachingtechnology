@@ -35,9 +35,6 @@
     <h1><?php echo $this->__('Address Book') ?></h1>
 </div>
 <div class="main-content-padding">
-<div class="page-title title-buttons">
-    <button type="button" title="<?php echo $this->__('Add New Address') ?>" class="button" onclick="window.location='<?php echo $this->getAddAddressUrl() ?>';"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
-</div>
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <div class="col2-set addresses-list">
     <div class="col-1 addresses-primary">
@@ -59,12 +56,12 @@
         <?php endif ?>-->
 
         <?php if($_pAddsses = Mage::getSingleton('customer/session')->getCustomer()->getDefaultShipping()): ?>
-            <li class="item ui-body ui-body-b">
+            <li class="item ui-body ui-body-c">
                 <h3><?php echo $this->__('Default Shipping Address') ?></h3>
                 <address>
                     <?php echo $this->getAddressHtml(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>
                 </address>
-                <p><a data-role="button" data-theme="c" data-inline="true" href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Change Shipping Address') ?></a></p>
+                <p><a data-role="button" data-theme="c" data-inline="true" class="interesting-button" href="<?php echo $this->getAddressEditUrl(Mage::getSingleton('customer/session')->getCustomer()->getAddressById($_pAddsses)) ?>"><?php echo $this->__('Edit Address') ?></a></p>
             </li>
         <?php else: ?>
             <li class="item empty ui-body ui-body-b">
@@ -76,14 +73,14 @@
     </div>
     <div class="col-2 addresses-additional">
         <h2><?php echo $this->__('Additional Address Entries') ?></h2>
-        <ol>
+        <ul>
         <?php if($_pAddsses = $this->getAdditionalAddresses()): ?>
             <?php foreach($_pAddsses as $_address): ?>
-            <li class="item">
+            <li class="item ui-body">
                 <address>
                     <?php echo $this->getAddressHtml($_address) ?>
                 </address>
-                <p><a data-role="button" data-theme="c" data-inline="true" href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span> <a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');"><?php echo $this->__('Delete Address') ?></a></p>
+                <p><a data-role="button" data-theme="c" data-inline="true" class="interesting-button" href="<?php echo $this->getUrl('customer/address/edit', array('id'=>$_address->getId())) ?>"><?php echo $this->__('Edit Address') ?></a> <span class="separator">|</span> <a href="#" class="link-remove" onclick="return deleteAddress('<?php echo $_address->getId() ?>');"><?php echo $this->__('Delete Address') ?></a></p>
             </li>
             <?php endforeach; ?>
         <?php else: ?>
@@ -91,11 +88,12 @@
                 <p><?php echo $this->__('You have no additional address entries in your address book.') ?></p>
             </li>
         <?php endif ?>
-        </ol>
+        </ul>
     </div>
 </div>
-<div class="buttons-set">
-    <p class="back-link"><a data-icon="back" data-role="button" data-theme="c" data-inline="true" href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><?php echo $this->__('Back') ?></a></p>
+
+<div class="page-title title-buttons">
+    <button type="button" title="<?php echo $this->__('Add New Address') ?>" class="button interesting-button" onclick="window.location='<?php echo $this->getAddAddressUrl() ?>';"><span><span><?php echo $this->__('Add New Address') ?></span></span></button>
 </div>
 <script type="text/javascript">
 //<![CDATA[

@@ -6125,8 +6125,8 @@ Varien.searchForm.prototype = {
         this.emptyText = emptyText;
 
         Event.observe(this.form,  'submit', this.submit.bind(this));
-        Event.observe(this.field, 'focus', this.focus.bind(this));
-        Event.observe(this.field, 'blur', this.blur.bind(this));
+        //Event.observe(this.field, 'focus', this.focus.bind(this));
+        //Event.observe(this.field, 'blur', this.blur.bind(this));
         this.blur();
     },
 

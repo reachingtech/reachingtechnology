@@ -25,13 +25,23 @@
  */
 ?>
 <form id="search_mini_form" role="search" action="<?php echo $this->helper('catalogsearch')->getResultUrl() ?>" method="get">
-    <div class="form-search">
-        <input data-type="search" id="search" type="text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>" class="input-text" onfocus="stripSearchQuery()" onkeypress="testFind(event);"/>
-        <!--button type="submit" title="<?php echo $this->__('Search') ?>" class="button"><span><span><?php echo $this->__('Search') ?></span></span></button-->
+    <div class="form-search" >
+<div class="inline-form">        
+  <div class="wrapper">
+    <div class="content">
+        <input id="search" type="text" name="<?php echo $this->helper('catalogsearch')->getQueryParamName() ?>" value="<?php echo $this->helper('catalogsearch')->getEscapedQueryText() ?>" placeholder="<?php echo $this->__('Search product...') ?>" class="input-text" onkeypress="testFind(event);"/>
+    </div>
+  </div>
+
+  <div class="right">
+    <a href="#" onclick="startSearchQuery();" class="ui-btn ui-icon-search ui-btn-icon-notext ui-corner-all">No text</a>
+  </div>
+   <div class="footer"></div>     
+</div>        
         <div id="search_autocomplete" class="search-autocomplete"></div>
         <script type="text/javascript">
             //<![CDATA[
-            var searchForm = new Varien.searchForm('search_mini_form', 'search', '<?php echo $this->__('Search product...') ?>');
+            var searchForm = new Varien.searchForm('search_mini_form', 'search', '');
             //searchForm.initAutocomplete('<?php echo $this->helper('catalogsearch')->getSuggestUrl() ?>', 'search_autocomplete');
 
             function stripSearchQuery() {

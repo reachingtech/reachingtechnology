@@ -103,7 +103,7 @@ class Mage_Checkout_Block_Onepage_Shipping extends Mage_Checkout_Block_Onepage_A
         $html = '<div data-role="page" id="shipping_address_list">'.'<div class="page-title" data-role="header">';
         $html.='<a href="/" data-icon="back" data-iconpos="notext" data-rel="back">'.$this->__('Back').'</a>';
         $html.='<h1>'.$this->__('Address Book').'</h1>';
-        $html.='<a href="'.$this->getAddAddressUrl().'">'.$this->__('New Address').'</a>';
+        $html.='<a class="interesting-button" href="'.$this->getAddAddressUrl().'">'.$this->__('New Address').'</a>';
         
         $html.='<ul class="form-list" data-role="listview">';
         if($_pAddsses = $this->getCustomer()->getAddresses()){

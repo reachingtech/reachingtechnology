@@ -53,12 +53,12 @@
 				<div class="ui-body">
 					<fieldset class="ui-grid-a">
 						<?php if($this->getContinueShoppingUrl()): ?>
-						<div class="ui-block-a">
-							<button type="button" data-icon="back" data-theme="d" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue" onclick="window.location='<?php echo $this->getUrl('');//$this->getContinueShoppingUrl() ?>'"><?php echo $this->__('Continue Shopping') ?></button>
+                                            <div class="ui-block-a" style="padding-right:1em">
+							<button type="button" data-icon="back" data-theme="d" title="<?php echo $this->__('Continue Shopping') ?>" class="button btn-continue interesting-button" onclick="window.location='<?php echo $this->getUrl('');//$this->getContinueShoppingUrl() ?>'"><?php echo $this->__('Continue Shopping') ?></button>
 						</div>
 						<?php endif; ?>
-						<div class="ui-block-b">
-							<button type="submit" data-theme="d" title="<?php echo $this->__('Update Shopping Cart') ?>" class="button btn-update"><?php echo $this->__('Update Shopping Cart') ?></button>
+						<div class="ui-block-b" style="padding-left:1em">
+							<button type="submit" data-theme="d" title="<?php echo $this->__('Update Shopping Cart') ?>" class="button btn-update interesting-button"><?php echo $this->__('Update Shopping Cart') ?></button>
 						</div>
 					</fieldset>
 				</div>

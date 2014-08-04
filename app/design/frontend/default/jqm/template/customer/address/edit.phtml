@@ -125,7 +125,7 @@ jQuery(function() {
 <div class="main-content-padding">
 <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="form-validate">
-    <div class="fieldset">
+    <div class="fieldset edit-address">
     <?php echo $this->getBlockHtml('formkey')?>
     <p class="required"><?php echo $this->__('* Required Fields') ?></p>
     <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
@@ -161,7 +161,7 @@ jQuery(function() {
             </li>
         </ul>
     </div>
-    <div class="fieldset">
+    <div class="fieldset edit-address">
         <h2 class="legend"><?php echo $this->__('Address') ?></h2>
         <ul class="form-list">
             <?php if ($this->helper('customer/address')->isVatAttributeVisible()) : ?>
