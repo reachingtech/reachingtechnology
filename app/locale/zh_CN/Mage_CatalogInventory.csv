@@ -42,7 +42,7 @@
 "Stock Status","库存状态"
 "The maximum quantity allowed for purchase is %s.","允许购买的最大数量为 %s。"
 "The minimum quantity allowed for purchase is %s.","允许购买的最小数量为 %s。"
-"The requested quantity for ""%s"" is not available.","""%s"" 所要购买的数量不可用。"
+"The requested quantity for ""%s"" is not available.","""%s"" 库存不足。"
 "The stock item for Product in option is not valid.","产品的库存选项无效。"
 "The stock item for Product is not valid.","产品的库存项无效。"
 "This product is available for purchase in increments of %s only.","该产品只能以 %s 的增量采购。"
