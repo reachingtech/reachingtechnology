@@ -51,10 +51,17 @@ jQuery(function() {
 		var countryId = selectCountry.val();
 		selectRegion.empty();
 		if(countryRegions[countryId]){
-                        selectRegion.append('<option value="0" selected="selected">Please Select Region</option>');
+                        //selectRegion.append('<option value="0" selected="selected">请选择省份...</option>');
+                        var firstRegion;
 			jQuery.each(countryRegions[countryId], function(key, item) {
-				selectRegion.append('<option value="'+key+'">'+item.name+'</option>');
+				if(key == 1){
+                                    firstRegion = item.name;
+                                    selectRegion.append('<option selected = "selected" value="'+key+'">'+item.name+'</option>');
+                                }else{
+                                    selectRegion.append('<option value="'+key+'">'+item.name+'</option>');
+                                }
 			});
+                        selectRegion.parent().children('span').text(firstRegion);
 		}
 		selectRegion.trigger('change');
 	});
@@ -64,10 +71,17 @@ jQuery(function() {
 		var regionId = selectRegion.val();
 		selectCity.empty();
 		if(regionCities[regionId]){
-                    selectCity.append('<option value="0" selected="selected">Please Select City</option>');
+                    //selectCity.append('<option value="0" selected="selected">请选择城市...</option>');
+                    var firstCity;
 			jQuery.each(regionCities[regionId], function(key, item) {
+                            if(key == 1){
+                                    firstCity = item.name;
+                                    selectCity.append('<option selected = "selected" value="'+key+'">'+item.name+'</option>');
+                                }else{
 				selectCity.append('<option value="'+key+'">'+item.name+'</option>');
+                            }
 			});
+                        selectCity.parent().children('span').text(firstCity);
 		}
 		selectCity.trigger('change');
 	});
@@ -77,10 +91,17 @@ jQuery(function() {
 		var cityId = selectCity.val();
 		selectArea.empty();
 		if(cityAreas[cityId]){
-                    selectArea.append('<option value="0" selected="selected">Please Select Area</option>');
+                    //selectArea.append('<option value="0" selected="selected">请选择地区...</option>');
+                    var firstArea;
 			jQuery.each(cityAreas[cityId], function(key, item) {
+                            if(key == 1){
+                                    firstArea = item.name;
+                                    selectArea.append('<option selected = "selected" value="'+key+'">'+item.name+'</option>');
+                                }else{
 				selectArea.append('<option value="'+key+'">'+item.name+'</option>');
+                            }
 			});
+                        selectArea.parent().children('span').text(firstArea);
 		}
 		selectArea.trigger('change');
 	});
@@ -106,6 +127,7 @@ jQuery(function() {
 <form action="<?php echo $this->getSaveUrl() ?>" method="post" id="form-validate">
     <div class="fieldset">
     <?php echo $this->getBlockHtml('formkey')?>
+    <p class="required"><?php echo $this->__('* Required Fields') ?></p>
     <input type="hidden" name="success_url" value="<?php echo $this->getSuccessUrl() ?>" />
     <input type="hidden" name="error_url" value="<?php echo $this->getErrorUrl() ?>" />
         <h2 class="legend"><?php echo $this->__('Contact Information') ?></h2>
@@ -199,9 +221,8 @@ jQuery(function() {
         </ul>
     </div>
     <div class="buttons-set">
-        <p class="required"><?php echo $this->__('* Required Fields') ?></p>
-        <p class="back-link"><a data-icon="back" data-role="button" data-theme="c" data-inline="true" href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><?php echo $this->__('Back') ?></a></p>
-        <button type="submit" title="<?php echo $this->__('Save Address') ?>" class="button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
+        <!--<p class="back-link"><a data-icon="back" data-role="button" data-theme="c" data-inline="true" href="<?php echo $this->escapeUrl($this->getBackUrl()) ?>"><?php echo $this->__('Back') ?></a></p>-->
+        <button type="submit" title="<?php echo $this->__('Save Address') ?>" class="button interesting-button"><span><span><?php echo $this->__('Save Address') ?></span></span></button>
     </div>
 </form>
 </div>
