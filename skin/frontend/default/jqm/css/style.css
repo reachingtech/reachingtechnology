@@ -1,4 +1,5 @@
 body {background: none repeat scroll 0 0 #DDDDDD;}
+body * {font-weight: lighter !important;}
 p { display: block; margin: 1em 0; }
 h1, h2, h3, h4 { margin: 0.86em 0; }
 ul {list-style: none;}
@@ -69,6 +70,9 @@ ul#checkoutSteps .active .step {padding: 0 15px;}
 .cart-qty {position: absolute; right: 160px; top: 10%; bottom: 10%; z-index: 99999}
 .item #delete_icon {position: absolute; right: 0; top: 10%; bottom: 10%; width: 40px; z-index: 99998; background-color:none; border: none;}
 */
+/*product view*/
+#qty_wrapper .ui-btn {line-height: 0.5; padding-left: 0.1; padding-right: 0.1; display: inline-block}
+
 .item #delete_icon {position: absolute; }
 li.item .ui-block-b {width: 10%;}
 li.item .ui-block-c {width: 5%; margin-left: auto; margin-right: auto;}
@@ -106,8 +110,26 @@ button.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height:
 .dashboard .col2-set .col-1 h3 {color: black;}
 .dashboard .col2-set .col-1 p {color: black;}*/
 
+/* page footer */
 .ui-navbar .ui-block-a {background-color: #f0fbe7; color: black;}
 .ui-navbar .ui-link {background-color: #f0fbe7;}
+.product-view-page-footer .ui-grid-a {text-align: center; background-color: #f0fbe7}
+.product-view-page-footer .ui-block-a, .product-view-page-footer .ui-block-b {display: inline-block}
+.product-view-page-footer .ui-grid-a .ui-btn {
+	font-size: 16px;
+	margin: .5em 0;
+	padding: .7em 1em;
+        position: relative;
+	text-align: center;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	white-space: nowrap;
+	cursor: pointer;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	user-select: none;
+}
 
 /*Search bar*/
 .inline-form .wrapper {
@@ -134,16 +156,20 @@ button.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height:
   clear: left;
 }
 
+/* product qty widget */
+#qty_wrapper {text-align: center !important;}
+#qty_wrapper .ui-block-b, #qty_wrapper .ui-block-d {height: 50px;vertical-align: middle !important; display: inline-block !important; width: 50px;}
 
-#qty_wrapper .ui-block-b, #qty_wrapper .ui-block-d {width: 50px; height: 40px; margin-top: 5px; margin-bottom: 5px}
-#qty_wrapper .ui-block-c {width: 5em; margin-top: 5px; margin-bottom: 5px}
-#qty_wrapper .ui-block-a {width: auto; margin-top: 5px; margin-bottom: 5px}
+#qty_wrapper .ui-block-c {height: 50px;vertical-align: middle !important; display: inline-block !important; width: 5em; }
+#qty_wrapper .ui-block-a {height: 50px;line-height: 50px; vertical-align: middle !important; display: inline-block !important; width: auto; }
+
 
 /*Cart*/
 .cart-collaterals ul, .edit-account ul, .edit-address ul {-webkit-padding-end: 16px; -webkit-padding-start: 16px;}
 
 .main-slide ul {-webkit-padding-end: 0px; -webkit-padding-start: 0px;}
 
+/* general buttons */
 .important-button {
     background-color: #be0007 !important;
     color: #ffefe3 !important;
@@ -159,5 +185,7 @@ button.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height:
 
 .addresses-list li{background: #e9e9e9;}
 
+/* for all icons */
 .ui-icon-back {background-color: #59a636 !important;}
-.ui-icon-grid:after, .ui-icon-star:after, .ui-icon-home:after, .ui-icon-heart:after, .ui-icon-gear:after {background-color: #ec5b67 !important;}
+.ui-icon-grid:after, .ui-icon-star:after, .ui-icon-home:after, .ui-icon-heart:after, .ui-icon-gear:after, .ui-icon-search:after {background-color: #ec5b67 !important;}
+
