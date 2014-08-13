@@ -40,7 +40,7 @@
     <?php echo $this->getChildHtml('form_before') ?>
     <form action="<?php echo $this->getUrl('checkout/cart/updatePost') ?>" method="post">
             <?php echo $this->getBlockHtml('formkey'); ?>        
-            <ul data-role="listview" style="margin-top:10px">
+            <ul class="list" style="margin-top:10px">
                 <li class="list-divider" data-theme="c"><?php echo $this->__('Products in cart')?></li>
                 <?php foreach($this->getItems() as $_item): ?>
                     <?php echo $this->getItemHtml($_item) ?>

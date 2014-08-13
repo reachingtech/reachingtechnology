@@ -36,25 +36,30 @@
                 <input data-role = 'none' type="text" name="qty" style="display: inline" id="qty" maxlength="5" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" class="input-text qty" />
                 <input data-role = 'none' type="button" onclick="cart_number('#qty','+');" style="display: inline" id="plus" value = "+" class="button qty" />
             </div>-->
+            <!--<div id="cart_item_qty_box">
+                <div id="cart_item_qty_right_part"></div>
+                <input data-role='none' name="qty" id="cart_item_qty" type="number" min_qty="1" value="1">
+                <div id="cart_item_qty_left_part"></div>
+            </div>-->
             <div id="qty_wrapper" class="ui-grid-c">
                 <div class="ui-block-a">
-                    <label for="qty" class="qty" style="display: inline" ><?php echo $this->__('Qty:') ?></label>
+                    <label for="qty" class="qty" ><?php echo $this->__('Qty:') ?></label>
                 </div>
                 <div class="ui-block-b">
-                    <input type="button" onclick="cart_number('#qty', '-');" style="display: inline" id="minus" value = "-" />
+                    <input type="button" onclick="cart_number('#qty', '-');" id="minus" value = "-" />
                 </div>
                 <div class="ui-block-c">
                     <input type="text" name="qty" id="qty" maxlength="5" value="<?php echo $this->getProductDefaultQty() * 1 ?>" title="<?php echo $this->__('Qty') ?>" />
                 </div>
                 <div class="ui-block-d">
-                    <input type="button" onclick="cart_number('#qty', '+');" style="display: inline" id="plus" value = "+" />
+                    <input type="button" onclick="cart_number('#qty', '+');" id="plus" value = "+" />
                 </div>
             </div>
         <?php endif; ?>
-        <button title="<?php echo $buttonTitle ?>" class="ui-btn ui-corner-all ui-btn-inline" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
+        <button title="<?php echo $buttonTitle ?>" class="ui-btn ui-corner-all ui-btn-inline important-button" onclick="productAddToCartForm.submit(this)"><span><span><?php echo $buttonTitle ?></span></span></button>
         <?php if ($this->helper('wishlist')->isAllow()) : ?>
             <a href="<?php echo $_wishlistSubmitUrl ?>" onclick="productAddToCartForm.submitLight(this, this.href);
-                    return false;" class="ui-btn ui-corner-all ui-btn-inline"><?php echo $this->__('Add to Wishlist') ?></a>
+                    return false;" class="ui-btn ui-corner-all ui-btn-inline interesting-button"><?php echo $this->__('Add to Wishlist') ?></a>
     <?php endif; ?>
 
     </div>

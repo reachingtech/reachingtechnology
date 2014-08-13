@@ -66,18 +66,29 @@ ul#checkoutSteps .active .step {padding: 0 15px;}
 .ratings-table td { line-height:1.15; padding:3px 0; }
 .ratings-table th { font-weight:bold; padding-right:8px; }
 
-/*.item .product-image {width: 100%}
-.cart-qty {position: absolute; right: 160px; top: 10%; bottom: 10%; z-index: 99999}
-.item #delete_icon {position: absolute; right: 0; top: 10%; bottom: 10%; width: 40px; z-index: 99998; background-color:none; border: none;}
-*/
-/*product view*/
-#qty_wrapper .ui-btn {line-height: 0.5; padding-left: 0.1; padding-right: 0.1; display: inline-block}
 
-.item #delete_icon {position: absolute; }
-li.item .ui-block-b {width: 10%;}
-li.item .ui-block-c {width: 5%; margin-left: auto; margin-right: auto;}
-li.item .ui-block-a {width: 85%; }
-li.item .ui-block-a img, li.item .ui-block-a h3, li.item .ui-block-a span {display: inline;}
+/*.item #delete_icon {position: absolute; }*/
+#product-in-cart .ui-block-b {width: 10%; height: 100%}
+#product-in-cart .ui-block-c {width: 5%; margin-left: auto; margin-right: auto; height: 100%}
+#product-in-cart .ui-block-a {width: 85%; height: 100%}
+#product-in-cart .ui-block-a img, #product-in-cart .ui-block-a h3, #product-in-cart .ui-block-a span {display: inline-block; vertical-align: middle;}
+#product-in-cart .ui-block-b .ui-input-text, #product-in-cart .ui-block-c a {vertical-align: middle; display: inline-block}
+
+/* jd cart css */
+.row{position:relative;}
+.row:after{display:block;content:"";width:10px;height:10px;position:absolute;top:50%;border-width:4px 4px 0 0;right:0;margin-top:-10px;margin-right:10px;-webkit-transform:rotate(45deg);}
+.goods-info{overflow:hidden;position:relative;}
+.cart-checkbox{display:block;border:1px solid #a7a7a7;-webkit-border-radius:12px;width:20px;height:20px;position:absolute;top:40px;left:10px;margin-top:-10px;}
+.cart-checkbox.checked{background:#c52023;border-color:#c52023;}
+.cart-checkbox.checked:after{display:block;margin-left:3px;margin-top:5px;content:"";width:11px;height:4px;border:solid #fff;border-width:2px 2px 0 0;-webkit-transform:rotate(135deg);}
+.list .photo{display:block;width:82px;height:82px;margin:0 10px 0 40px;float:left;display:block;}
+.list .pay-info{margin-top:10px;}
+.list .price{color:#e64547;}
+.list .row .amount{width:50px;height:24px;margin-right:20px;}
+.list .row .amount:before{display:block;content:"x";color:#9f9f9f;}
+.list .del{display:inline-block;width:15px;height:20px;background:url(images/del.png) no-repeat;background-size:100% 100%;}
+ul.list {-webkit-padding-end: 0px; -webkit-padding-start: 0px;}
+.list li{overflow:hidden;padding:16px 10px;border-bottom:1px solid #c8c7cc;}
 
 .nav-container .active {
 	border: 1px solid 		#145072 /*{b-bup-border}*/ !important;
@@ -105,11 +116,6 @@ button.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height:
 
 .page .page-title {background-color: #f0fbe7;}
 
-
-/*.dashboard .col2-set .col-1 {background-color: #DDDDDD; color: #DDDDDD; border-color: #DDDDDD}
-.dashboard .col2-set .col-1 h3 {color: black;}
-.dashboard .col2-set .col-1 p {color: black;}*/
-
 /* page footer */
 .ui-navbar .ui-block-a {background-color: #f0fbe7; color: black;}
 .ui-navbar .ui-link {background-color: #f0fbe7;}
@@ -117,18 +123,8 @@ button.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height:
 .product-view-page-footer .ui-block-a, .product-view-page-footer .ui-block-b {display: inline-block}
 .product-view-page-footer .ui-grid-a .ui-btn {
 	font-size: 16px;
-	margin: .5em 0;
 	padding: .7em 1em;
-        position: relative;
 	text-align: center;
-	text-overflow: ellipsis;
-	overflow: hidden;
-	white-space: nowrap;
-	cursor: pointer;
-	-webkit-user-select: none;
-	-moz-user-select: none;
-	-ms-user-select: none;
-	user-select: none;
 }
 
 /*Search bar*/
@@ -157,6 +153,7 @@ button.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height:
 }
 
 /* product qty widget */
+#qty_wrapper .ui-btn {line-height: 0.5; padding-left: 0.1; padding-right: 0.1; display: inline-block}
 #qty_wrapper {text-align: center !important;}
 #qty_wrapper .ui-block-b, #qty_wrapper .ui-block-d {height: 50px;vertical-align: middle !important; display: inline-block !important; width: 50px;}
 
