@@ -30,11 +30,17 @@ $product = $item->getProduct();
 ?>
 <h3 class="product-name"><a href="<?php echo $this->getProductUrl($item) ?>" title="<?php echo $this->escapeHtml($product->getName()) ?>"><?php echo $this->escapeHtml($product->getName()) ?></a></h3>
 <div class="description std"><div class="inner"><?php echo substr($this->escapeHtml($this->stripTags($product->getShortDescription())),0,150);?>...</div></div>
-<textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" onfocus="focusComment(this)" onblur="focusComment(this)" title="<?php echo $this->__('Comment') ?>"><?php echo ($this->escapeHtml($item->getDescription())) ?></textarea>
+<!--<textarea name="description[<?php echo $item->getWishlistItemId() ?>]" rows="3" cols="5" onfocus="focusComment(this)" onblur="focusComment(this)" title="<?php echo $this->__('Comment') ?>"><?php echo ($this->escapeHtml($item->getDescription())) ?></textarea>
 <?php if($this->getSortedChildren()): ?>
     <div class="item-manage">
     <?php foreach($this->getSortedChildren() as $childName):?>
         <?php echo $this->getChildHtml($childName, false);?>
     <?php endforeach;?>
     </div>
+<?php endif; ?>-->
+<div>
+<?php echo $this->getPriceHtml($product);?>
+<?php if ($item->canHaveQty() && $item->getProduct()->isVisibleInSiteVisibility()): ?>
+    <input data-role="none" type="text" class="input-text qty validate-not-negative-number" name="qty[<?php echo $item->getId() ?>]" value="<?php echo $this->getAddToCartQty($item) * 1 ?>" />
 <?php endif; ?>
+</div>

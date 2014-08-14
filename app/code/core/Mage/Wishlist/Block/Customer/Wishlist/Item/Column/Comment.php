@@ -51,4 +51,10 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Comment
         }
         ";
     }
+    
+    public function getAddToCartQty(Mage_Wishlist_Model_Item $item)
+    {
+        $qty = $item->getQty();
+        return $qty ? $qty : 1;
+    }
 }

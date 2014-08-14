@@ -63,4 +63,10 @@ class Mage_Checkout_Block_Onepage extends Mage_Checkout_Block_Onepage_Abstract
     {
         return $this->isCustomerLoggedIn() ? 'shipping' : 'login';
     }
+    
+    public function getBackUrl()
+    {
+        $url = $this->getUrl('checkout/cart/');
+        return $url;
+    }
 }

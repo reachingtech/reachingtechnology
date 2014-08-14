@@ -66,7 +66,7 @@ ul#checkoutSteps .active .step {padding: 0 15px;}
 .ratings-table td { line-height:1.15; padding:3px 0; }
 .ratings-table th { font-weight:bold; padding-right:8px; }
 
-
+/* Cart */
 /*.item #delete_icon {position: absolute; }*/
 #product-in-cart .ui-block-b {width: 10%; height: 100%}
 #product-in-cart .ui-block-c {width: 5%; margin-left: auto; margin-right: auto; height: 100%}
@@ -86,7 +86,7 @@ ul#checkoutSteps .active .step {padding: 0 15px;}
 .list .price{color:#e64547;}
 .list .row .amount{width:50px;height:24px;margin-right:20px;}
 .list .row .amount:before{display:block;content:"x";color:#9f9f9f;}
-.list .del{display:inline-block;width:15px;height:20px;background:url(images/del.png) no-repeat;background-size:100% 100%;}
+.list .del{display:inline-block;width:15px;height:20px;background:url(images/del.png) no-repeat;background-size:100% 100%; margin-right: 5px; float:right}
 ul.list {-webkit-padding-end: 0px; -webkit-padding-start: 0px;}
 .list li{overflow:hidden;padding:16px 10px;border-bottom:1px solid #c8c7cc;}
 
@@ -186,3 +186,6 @@ button.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height:
 .ui-icon-back {background-color: #59a636 !important;}
 .ui-icon-grid:after, .ui-icon-star:after, .ui-icon-home:after, .ui-icon-heart:after, .ui-icon-gear:after, .ui-icon-search:after {background-color: #ec5b67 !important;}
 
+/*wishlist*/
+.cart-cell .del{display:inline-block;width:15px;height:20px;background:url(images/del.png) no-repeat;background-size:100% 100%; margin-right: 5px; float:right}
+.cart-cell .qty {width:50px;height:24px;margin-right:20px;}

@@ -66,6 +66,9 @@ class Mage_Wishlist_Block_Customer_Wishlist_Item_Column_Cart extends Mage_Wishli
                 }
                 setLocation(url);
             }
+            function confirmRemoveWishlistItem() {
+            return confirm('" . $this->__('Are you sure you want to remove this product from your wishlist?') . "');
+        }
         ";
 
         $js .= parent::getJs();

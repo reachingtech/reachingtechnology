@@ -30,13 +30,10 @@ $item = $this->getItem();
 $product = $item->getProduct();
 ?>
 <div class="cart-cell">
-<?php echo $this->getPriceHtml($product);?>
 <div class="add-to-cart-alt">
-<?php if ($item->canHaveQty() && $item->getProduct()->isVisibleInSiteVisibility()): ?>
-    <input type="text" class="input-text qty validate-not-negative-number" name="qty[<?php echo $item->getId() ?>]" value="<?php echo $this->getAddToCartQty($item) * 1 ?>" />
-<?php endif; ?>
+
 <?php if ($product->isSaleable()): ?>
-    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="addWItemToCart(<?php echo $item->getId()?>);" class="button btn-cart"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
+    <button type="button" title="<?php echo $this->__('Add to Cart') ?>" onclick="addWItemToCart(<?php echo $item->getId()?>);" class="button btn-cart interesting-button"><span><span><?php echo $this->__('Add to Cart') ?></span></span></button>
 <?php else: ?>
     <?php if ($product->getIsSalable()): ?>
         <p class="availability in-stock"><span><?php echo $this->__('In stock') ?></span></p>
@@ -48,9 +45,7 @@ $product = $item->getProduct();
 <?php foreach($this->getSortedChildren() as $childName):?>
     <?php echo $this->getChildHtml($childName, false);?>
 <?php endforeach;?>
-<?php if ($product->isVisibleInSiteVisibility()): ?>
-    <p><a data-role="button" data-theme="b" class="link-edit" href="<?php echo $this->getItemConfigureUrl($item) ?>"><?php echo $this->__('Edit') ?></a></p>
-<?php endif ?>
-<a data-role="button" data-icon="delete" href="<?php echo $this->getItemRemoveUrl($this->getItem()); ?>" onclick="return confirmRemoveWishlistItem();" title="<?php echo $this->__('Remove Item') ?>" class="btn-remove btn-remove2"><?php echo $this->__('Remove item');?></a>
+<!--<a data-role="button" data-icon="delete" href="<?php echo $this->getItemRemoveUrl($this->getItem()); ?>" onclick="return confirmRemoveWishlistItem();" title="<?php echo $this->__('Remove Item') ?>" class="btn-remove btn-remove2 important-button"><?php echo $this->__('Remove item');?></a>-->
+<a data-role="none" class="del" href="<?php echo $this->getItemRemoveUrl($this->getItem()); ?>" onclick="return confirmRemoveWishlistItem();"></a>
 
 </div>
