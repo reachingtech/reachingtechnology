@@ -44,7 +44,7 @@
             <?php echo $this->getChildHtml('content'); ?>
 			<?php echo $this->getChildHtml('product_list') ?>
 			<?php echo $this->getChildHtml('footer')?>
-			<?php echo $this->getChildHtml('page_footer')?>
+			<?php if($this->getUrl('') == $this->getUrl('*/*/*', array('_current'=>true, '_use_rewrite'=>true))) echo $this->getChildHtml('page_footer')?>
         </div>		
     </body>
 </html>

@@ -26,9 +26,11 @@
 /* @var $this Mage_Wishlist_Block_Share_Wishlist */
 ?>
 <div class="page-title" data-role="header">  
-    <a href="/" data-icon="back" data-iconpos="notext" data-rel="back">Back</a>
+    <a href="javascript:pageBack();" data-role="none" class="page-title-back"><span>Back</span></a>
     <h1><?php echo $this->htmlEscape($this->getHeader()) ?></h1>
+    <a data-role="none" href="#" id="navbar_key" class="navbar_key"><span>navkey</span></a>
 </div>
+<?php echo $this->getLayout()->createBlock('core/template', '', array('template' => 'page/html/mobile/headernavbar.phtml'))->toHtml(); ?>
 <div class="my-wishlist">
     <?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
     <?php if ($this->hasWishlistItems()): ?>

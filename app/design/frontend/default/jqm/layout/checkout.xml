@@ -61,6 +61,7 @@ Default layout, loads most of the pages
         <remove name="right"/>
         <remove name="left"/>
         <remove name="page_header"/>
+        
         <!-- Mage_Checkout -->
         <reference name="root">
             <action method="setTemplate"><template>page/1column.phtml</template></action>
@@ -309,7 +310,6 @@ One page checkout main layout
         <remove name="left"/>
         <remove name="page_header"/>
         <remove name="header"/>
-        
         
         <reference name="head">
             <action method="addJs"><script>prototype/prototype.js</script></action>

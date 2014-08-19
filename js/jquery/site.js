@@ -41,6 +41,12 @@ jQuery(document).ready(function() {
             document.getElementById("search_mini_form").submit();
         });
     }
+    if(jQuery('#navbar_key') != undefined && jQuery('#header-nav-bar') != undefined) {
+        jQuery('#navbar_key').click(function(){
+            jQuery('#header-nav-bar').css({'-webkit-transform-origin': '0px 0px', 'opacity': '1', '-webkit-transform': 'scale(1, 1)'});
+            jQuery('#header-nav-bar').toggle();
+        });
+    }
  /*   if (jQuery('#minus').length) {
         jQuery('#minus').click(function() {
             jQuery('#qty').val(parseInt(jQuery('#qty').val()) - 1);
