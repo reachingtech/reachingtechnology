@@ -34,7 +34,7 @@
 <div class="page-title" data-role="header">  
     <a href="javascript:pageBack();" data-role="none" class="page-title-back"><span>Back</span></a>
     <h1><?php echo $this->__('Login or Create an Account') ?></h1>
-    <a data-role="none" href="#" id="navbar_key" class="navbar_key"><span>navkey</span></a>
+    <a data-role="none" href="javascript:toggleNavBar()" id="navbar_key" class="navbar_key"><span>navkey</span></a>
 </div>
 <?php echo $this->getLayout()->createBlock('core/template', '', array('template' => 'page/html/mobile/headernavbar.phtml'))->toHtml(); ?>
 <div class="account-login">

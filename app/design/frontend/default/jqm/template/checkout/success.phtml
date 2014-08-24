@@ -27,7 +27,7 @@
 <div class="main-content-padding">
     <div class="page-title" style="position: relative">
 		<h1><?php echo $this->__('Your order has been received.') ?></h1>
-                <a data-role="none" href="#" id="navbar_key" class="navbar_key"><span>navkey</span></a>
+                <a data-role="none" href="javascript:toggleNavBar()" id="navbar_key" class="navbar_key"><span>navkey</span></a>
 	</div>
         <?php echo $this->getLayout()->createBlock('core/template', '', array('template' => 'page/html/mobile/headernavbar.phtml'))->toHtml(); ?>
 	<?php echo $this->getMessagesBlock()->getGroupedHtml() ?>
