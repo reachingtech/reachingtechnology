@@ -205,3 +205,17 @@ button.ui-btn-hidden { position: absolute; top: 0; left: 0; width: 100%; height:
 .header-nav-bar .navbar-tbl-cell .icon4{width:22px;background-position:-85px -25px}
 .navbar_key {position:absolute;top:6px;right:12px;width:37px;height:30px;}
 .navbar_key span {display:inline-block;width:21px;height:21px;margin:5px 0 0 13px;background:url(images/navbar_icon.png) -125px -24px no-repeat;background-size:180px 180px;text-indent:-9999px;}
+
+/*homepage table layout*/
+.ad-h2{font-size:1.14em;color:#333;text-align:center;border-top:1px solid #e5e5e5;background:#f1f1f5;padding:1.42em 0 .5em}
+.ad2-big-img{padding:10px;text-align:center}
+.tbl-type{display:table;width:100%}
+.tbl-cell{display:table-cell;vertical-align:top;text-align:center}
+.main img{vertical-align:top}
+.half-img{width:100%;height:auto!important;overflow:hidden}
+.full-img{width:100%;height:auto!important}
+ad1 a,.ad2 a{display:block;text-align:center}
+.ad-border{border-bottom:1px solid #e5e5e5}
+.ad-border2{border-bottom:2px solid #fff}
+.ad1-left{border-left:1px solid #e5e5e5}
+.ad1-right{border-right:1px solid #e5e5e5}

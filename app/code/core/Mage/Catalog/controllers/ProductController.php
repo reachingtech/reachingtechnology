@@ -162,6 +162,23 @@ class Mage_Catalog_ProductController extends Mage_Core_Controller_Front_Action
     }
 
     /**
+     * View product list action
+     */
+    public function listAction()
+    {
+        if (!$this->_initProduct()) {
+            if (isset($_GET['store']) && !$this->getResponse()->isRedirect()) {
+                $this->_redirect('');
+            } elseif (!$this->getResponse()->isRedirect()) {
+                $this->_forward('noRoute');
+            }
+            return;
+        }
+        $this->loadLayout();
+        $this->renderLayout();
+    }
+    
+    /**
      * Display product image action
      *
      * @deprecated

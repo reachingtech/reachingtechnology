@@ -34,9 +34,16 @@
 <?php
     $_productCollection=$this->getLoadedProductCollection();
     $_helper = $this->helper('catalog/output');
+    $_subCategoryCount = 0;
+    $_currentCategoryId = $this->getLayer()->getCurrentCategory()->getId();
+    if ($_currentCategoryId) {
+        $category = Mage::getModel('catalog/category')->load($_currentCategoryId);
+        $_subCategoryCount = $category->getChildrenCategories()->count();
+    }
 ?>
-<?php if(!$_productCollection->count()): ?>
+<?php if(!$_productCollection->count() && !$_subCategoryCount): ?>
 	<p class="note-msg"><?php echo $this->__('There are no products matching the selection.') ?></p>
+<?php elseif(!$_productCollection->count()): ?>
 <?php else: ?>
     
     <?php // List mode ?>

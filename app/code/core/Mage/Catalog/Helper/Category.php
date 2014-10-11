@@ -120,9 +120,9 @@ class Mage_Catalog_Helper_Category extends Mage_Core_Helper_Abstract
         if (!$category->getIsActive()) {
             return false;
         }
-        if (!$category->isInRootCategoryList()) {
+        /*if (!$category->isInRootCategoryList()) {
             return false;
-        }
+        }*/
 
         return true;
     }
