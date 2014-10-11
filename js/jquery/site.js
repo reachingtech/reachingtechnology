@@ -15,13 +15,11 @@ jQuery(document).on("pageinit", "#page", function(){
     if(region.selectmenu)
         region.selectmenu('refresh',true);
     
- /*   if(jQuery('#navbar_key') != undefined && jQuery('#header-nav-bar') != undefined) {
-        jQuery('#navbar_key').unbind("click");
-        jQuery('#navbar_key').click(function(){
-            jQuery('#header-nav-bar').css({'-webkit-transform-origin': '0px 0px', 'opacity': '1', '-webkit-transform': 'scale(1, 1)'});
-            jQuery('#header-nav-bar').toggle();
-        });
-    }*/
+    if(jQuery('#header-nav-bar') != undefined) {
+        
+        jQuery('#header-nav-bar').css({'display':'none'});
+
+    }
 });
 
 jQuery(document).ready(function() {

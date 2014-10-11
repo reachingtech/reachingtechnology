@@ -4,7 +4,7 @@
             <span class="icon"><?php echo $this->__("Home") ?></span>
             <p style="color:#6e6e6e;"><?php echo $this->__("Home") ?></p>
         </a>
-        <a href="" class="navbar-tbl-cell">
+        <a href="<?php echo $this->getUrl('catalog/category/view/id/'.Mage::app()->getStore()->getRootCategoryId());?>" class="navbar-tbl-cell">
             <span class="icon2"><?php echo $this->__("Category") ?></span>
             <p style="color:#6e6e6e;"><?php echo $this->__("Category") ?></p>
         </a>
