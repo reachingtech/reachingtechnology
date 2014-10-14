@@ -3,11 +3,12 @@ function roundNumber(num, dec) {
 	var result = Math.round(num*Math.pow(10,dec))/Math.pow(10,dec);
 	return result;
 }
-jQuery(document).bind("mobileinit", function(){
+jQuery(document).on("mobileinit", "#page", function(){
     jQuery.mobile.defaultTransition = 'none';
     //jQuery.mobile.ajaxEnabled = false;
     jQuery.mobile.page.prototype.options.addBackBtn = true;
     jQuery.mobile.selectmenu.prototype.options.nativeMenu = false;
+    
 });
 
 jQuery(document).on("pageinit", "#page", function(){
@@ -15,14 +16,6 @@ jQuery(document).on("pageinit", "#page", function(){
     if(region.selectmenu)
         region.selectmenu('refresh',true);
     
-    if(jQuery('#header-nav-bar') != undefined) {
-        
-        jQuery('#header-nav-bar').css({'display':'none'});
-
-    }
-});
-
-jQuery(document).ready(function() {
     if (jQuery('#checkoutSteps').length) {
         if (jQuery('#opc-login').length) {
             setTimeout(gotoSection, 500, 'login');
@@ -47,41 +40,19 @@ jQuery(document).ready(function() {
             document.getElementById("search_mini_form").submit();
         });
     }
- /*   if(jQuery('#navbar_key') != undefined && jQuery('#header-nav-bar') != undefined) {
-        jQuery('#navbar_key').click(function(){
-            jQuery('#header-nav-bar').css({'-webkit-transform-origin': '0px 0px', 'opacity': '1', '-webkit-transform': 'scale(1, 1)'});
-            jQuery('#header-nav-bar').toggle();
-        });
-    }
-    if (jQuery('#minus').length) {
-        jQuery('#minus').click(function() {
-            jQuery('#qty').val(parseInt(jQuery('#qty').val()) - 1);
-            if (parseInt(jQuery('#qty').val()) == 1) {
-                jQuery('#minus').attr('disabled', true);
-            }
-            if (parseInt(jQuery('#qty').val()) == 0) {
-                alert("商品数量不能为0");
-                jQuery('#qty').val(parseInt(jQuery('#qty').val()) + 1);
-            }
-        });
-    }
+    
+});
 
-    if (jQuery('#plus').length) {
-        jQuery('#plus').click(function() {
-            jQuery('#qty').val(parseInt(jQuery('#qty').val()) + 1);
-            if (parseInt(jQuery('#qty').val()) > 1) {
-                jQuery('#minus').attr('disabled', false);
-            }
-        });
-    }*/
+jQuery(document).ready(function() {
+    
 });
 
 function toggleNavBar()
 {
     if(jQuery('#header-nav-bar') )
     {
-        jQuery('#header-nav-bar').css({'-webkit-transform-origin': '0px 0px', 'opacity': '1', '-webkit-transform': 'scale(1, 1)'});
-        jQuery('#header-nav-bar').toggle();
+        jQuery('.header-nav-bar').css({'-webkit-transform-origin': '0px 0px', 'opacity': '1', '-webkit-transform': 'scale(1, 1)'});
+        jQuery('.header-nav-bar').toggle();
     }
 }
 
