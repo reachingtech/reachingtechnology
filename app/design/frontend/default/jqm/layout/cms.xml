@@ -42,7 +42,9 @@ Default layout, loads most of the pages
     </default>
 
     <cms_index_index>        
-        <reference name="content">            
+        <reference name="content">  
+            <block type="catalog/product_table" name="home.catalog.product.table" alias="product_table" template="catalog/product/table.phtml">
+            </block>
 <!--           <block type="catalog/navigation" name="catalog.topnav" template="catalog/navigation/body.phtml"/>-->
 <!--            <block type="catalog/product_list" name="product_list" template="catalog/product/list.phtml">
                 <action method="setCategoryId"><category_id>2</category_id></action>

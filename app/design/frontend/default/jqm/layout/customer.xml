@@ -95,7 +95,7 @@ Layout for customer login page
             <action method="setTemplate"><template>page/1column.phtml</template></action>
         </reference>
         <reference name="content">
-            <block type="customer/form_login" name="customer_form_login" template="customer/form/login.phtml"/>
+            <block type="customer/form_mobilelogin" name="customer_form_mobilelogin" template="customer/form/mobilelogin.phtml" as="" before="" />
         </reference>
     </customer_account_login>
     
@@ -317,6 +317,29 @@ Customer account home dashboard layout
         </reference>
         <remove name="header"/>
         <reference name="my.account.wrapper">
+            <!--<block type="customer/account_view" name="customer_account_view" template="customer/account/view.phtml"></block>-->
+            <block type="customer/account_dashboard" name="customer_account_dashboard" template="customer/account/dashboard.phtml">
+                <block type="customer/account_dashboard_hello" name="customer_account_dashboard_hello" as="hello" template="customer/account/dashboard/hello.phtml"/>
+                <block type="core/template" name="customer_account_dashboard_top" as="top" />
+                <block type="customer/account_dashboard_info" name="customer_account_dashboard_info" as="info" template="customer/account/dashboard/info.phtml"/>
+                <block type="customer/account_dashboard_newsletter" name="customer_account_dashboard_newsletter" as="newsletter" template="customer/account/dashboard/newsletter.phtml"/>
+                <block type="customer/account_dashboard_address" name="customer_account_dashboard_address" as="address" template="customer/account/dashboard/address.phtml"/>
+            </block>
+            
+        </reference>
+        
+    </customer_account_index>
+    
+    <customer_account_dashboard_index translate="label">
+        <label>Customer My Account Dashboard</label>
+        <update handle="customer_account"/>
+        <!-- Mage_Customer -->
+        
+        <reference name="root">
+            <action method="setTemplate"><template>page/1column.phtml</template></action>
+        </reference>
+        <remove name="header"/>
+        <reference name="my.account.wrapper">
             <block type="customer/account_dashboard" name="customer_account_dashboard" template="customer/account/dashboard.phtml">
                 <block type="customer/account_dashboard_hello" name="customer_account_dashboard_hello" as="hello" template="customer/account/dashboard/hello.phtml"/>
                 <block type="core/template" name="customer_account_dashboard_top" as="top" />
@@ -326,7 +349,7 @@ Customer account home dashboard layout
             </block>
         </reference>
         
-    </customer_account_index>
+    </customer_account_dashboard_index>
 
 <!--
 Customer account address book
